@@ -70,6 +70,7 @@ julia
 
 RUN julia -e 'Pkg.add("IJulia")'
 
+
 # JAVA
 ARG JAVA_MAJOR_VERSION=8
 ARG JAVA_UPDATE_VERSION=92
