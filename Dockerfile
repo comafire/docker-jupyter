@@ -112,3 +112,6 @@ VOLUME /root/volume
 
 EXPOSE 8888
 
+COPY jupyter_notebook_config.py /root/.jupyter/
+COPY run_jupyter.sh /root/
+CMD cd $HOME && cd volume && sh /root/run_jupyter.sh
