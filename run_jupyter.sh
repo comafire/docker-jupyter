@@ -1,5 +1,4 @@
 #!/bin/sh
-export JUPYTER_PASSWORD="notebook"
 jupyter nbextension enable toggle_all_line_numbers/main
 jupyter nbextension enable codefolding/main
 jupyter nbextension enable help_panel/help_panel
