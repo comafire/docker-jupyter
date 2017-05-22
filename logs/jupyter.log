@@ -1,19 +1,7 @@
-[W 08:48:36.786 NotebookApp] server_extensions is deprecated, use nbserver_extensions
-[I 08:48:36.793 NotebookApp] Writing notebook server cookie secret to /root/.local/share/jupyter/runtime/notebook_cookie_secret
-[I 08:48:36.859 NotebookApp] [jupyter_nbextensions_configurator] enabled 0.2.4
-[I 08:48:36.863 NotebookApp] Serving notebooks from local directory: /root/volume
-[I 08:48:36.864 NotebookApp] 0 active kernels 
-[I 08:48:36.865 NotebookApp] The Jupyter Notebook is running at: http://0.0.0.0:8888/
-[I 08:48:36.865 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
-[W 08:48:45.098 NotebookApp] 401 POST /login?next=%2Ftree%3F (172.17.0.1) 2.48ms referer=http://localhost:7777/login?next=%2Ftree%3F
-[I 08:48:49.033 NotebookApp] 302 POST /login?next=%2Ftree%3F (172.17.0.1) 3.39ms
-[I 08:48:53.494 NotebookApp] interrupted
-jupyter config..
-{'NotebookApp': {'ip': '0.0.0.0', 'open_browser': False, 'notebook_dir': '/root/volume', 'password': 'sha1:ae375443c15e:f3f25a748e45cf713b38ea3672cd8c4f1bcbc2bb', 'port': 8888}}
-jupyter config..
-{'NotebookApp': {'ip': '0.0.0.0', 'open_browser': False, 'notebook_dir': '/root/volume', 'port': 8888}}
-Serving notebooks from local directory: /root/volume
-0 active kernels 
-The Jupyter Notebook is running at: http://0.0.0.0:8888/
-Shutdown this notebook server (y/[n])? [C 08:48:53.742 NotebookApp] received signal 2, stopping
-[I 08:48:53.744 NotebookApp] Shutting down kernels
+[W 03:17:58.461 NotebookApp] server_extensions is deprecated, use nbserver_extensions
+[I 03:17:58.466 NotebookApp] Writing notebook server cookie secret to /root/.local/share/jupyter/runtime/notebook_cookie_secret
+[I 03:17:58.505 NotebookApp] [jupyter_nbextensions_configurator] enabled 0.2.4
+[I 03:17:58.508 NotebookApp] Serving notebooks from local directory: /root/volume
+[I 03:17:58.509 NotebookApp] 0 active kernels 
+[I 03:17:58.509 NotebookApp] The Jupyter Notebook is running at: http://0.0.0.0:8888/
+[I 03:17:58.510 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).

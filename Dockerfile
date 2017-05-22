@@ -17,7 +17,8 @@ build-essential vim curl wget git cmake bzip2 sudo locales unzip net-tools \
 libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev llvm
 RUN apt-get update && apt-get install -y --no-install-recommends \
 software-properties-common libjpeg-dev libpng-dev ncurses-dev imagemagick \
-libgraphicsmagick1-dev libzmq-dev gfortran gnuplot gnuplot-x11 libsdl2-dev 
+libgraphicsmagick1-dev libzmq-dev gfortran gnuplot gnuplot-x11 libsdl2-dev \
+openssh-client
 
 # Python2
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -30,14 +31,18 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 libfreetype6-dev libxft-dev
 RUN pip install matplotlib pandas pandas-datareader quandl
 RUN pip install numpy scipy sklearn
-RUN pip install Flask fabric fabtools pytest pytest-flask
-RUN pip install docker
 
 # Python3
 RUN apt-get update && apt-get install -y --no-install-recommends \
 python3 python3-dev python3-pip python3-virtualenv python3-software-properties 
 RUN pip3 install --upgrade pip
 RUN pip3 install setuptools
+
+# Python3-Deps
+RUN apt-get update && apt-get install -y --no-install-recommends \
+libfreetype6-dev libxft-dev
+RUN pip3 install matplotlib pandas pandas-datareader quandl
+RUN pip3 install numpy scipy sklearn
 
 # Jupyter
 RUN pip3 install jupyter
@@ -49,12 +54,6 @@ RUN pip3 install yapf
 # Jupyter python2 kernel
 RUN python2 -m pip install ipykernel
 RUN python2 -m ipykernel install --user
-
-# Python3-Deps
-RUN apt-get update && apt-get install -y --no-install-recommends \
-libfreetype6-dev libxft-dev
-RUN pip3 install matplotlib pandas pandas-datareader quandl
-RUN pip3 install numpy scipy sklearn
 
 # Tensorflow
 RUN pip3 install --upgrade tensorflow
@@ -106,6 +105,11 @@ ENV PYTHONPATH $SPARK_HOME/python/lib/py4j-0.10.4-src.zip:$PYTHONPATH
 RUN apt-get update && apt-get install -y --no-install-recommends \
 scala
 RUN pip3 install py4j
+
+# Bundle app source
+COPY requirements.txt /root
+RUN pip install -r /root/requirements.txt
+RUN pip3 install -r /root/requirements.txt
 
 # Env
 VOLUME /root/volume
