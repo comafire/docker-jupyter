@@ -1,6 +1,6 @@
 #!/bin/sh
 
 IMAGE="comafire/docker-jupyter"
-TAG="dev"
+TAG="latest"
 
 docker build --tag $IMAGE:$TAG .
