@@ -20,6 +20,14 @@ software-properties-common libjpeg-dev libpng-dev ncurses-dev imagemagick \
 libgraphicsmagick1-dev libzmq-dev gfortran gnuplot gnuplot-x11 libsdl2-dev \
 openssh-client
 
+# Docker
+RUN apt-get update && apt-get install -y --no-install-recommends \
+apt-transport-https ca-certificates
+RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+RUN add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+RUN apt-get update && apt-get install -y --no-install-recommends \
+docker-ce
+
 # Python2
 RUN apt-get update && apt-get install -y --no-install-recommends \
 python python-dev python-pip python-virtualenv python-software-properties
