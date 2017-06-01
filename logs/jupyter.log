@@ -1,7 +1,23 @@
-[W 03:17:58.461 NotebookApp] server_extensions is deprecated, use nbserver_extensions
-[I 03:17:58.466 NotebookApp] Writing notebook server cookie secret to /root/.local/share/jupyter/runtime/notebook_cookie_secret
-[I 03:17:58.505 NotebookApp] [jupyter_nbextensions_configurator] enabled 0.2.4
-[I 03:17:58.508 NotebookApp] Serving notebooks from local directory: /root/volume
-[I 03:17:58.509 NotebookApp] 0 active kernels 
-[I 03:17:58.509 NotebookApp] The Jupyter Notebook is running at: http://0.0.0.0:8888/
-[I 03:17:58.510 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[W 17:07:17.228 NotebookApp] server_extensions is deprecated, use nbserver_extensions
+[I 17:07:17.231 NotebookApp] Writing notebook server cookie secret to /root/.local/share/jupyter/runtime/notebook_cookie_secret
+[I 17:07:17.261 NotebookApp] [jupyter_nbextensions_configurator] enabled 0.2.5
+[I 17:07:17.262 NotebookApp] Serving notebooks from local directory: /root/volume
+[I 17:07:17.262 NotebookApp] 0 active kernels 
+[I 17:07:17.262 NotebookApp] The Jupyter Notebook is running at: http://0.0.0.0:8888/
+[I 17:07:17.262 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[W 17:07:17.297 NotebookApp] Couldn't authenticate WebSocket connection
+[W 17:07:17.317 NotebookApp] 403 GET /api/kernels/4a19ee47-0147-4f9a-9420-e5653d24c7af/channels?session_id=E4F8A8F5D58F491283DBA8A10B93D341 (172.17.0.1) 20.81ms referer=None
+[W 17:07:21.326 NotebookApp] Couldn't authenticate WebSocket connection
+[W 17:07:21.330 NotebookApp] 403 GET /api/kernels/4a19ee47-0147-4f9a-9420-e5653d24c7af/channels?session_id=E4F8A8F5D58F491283DBA8A10B93D341 (172.17.0.1) 7.26ms referer=None
+[I 17:07:25.801 NotebookApp] 302 GET /api/sessions?_=1496336652303 (172.17.0.1) 3.30ms
+[I 17:07:25.806 NotebookApp] 302 GET /api/terminals?_=1496336652304 (172.17.0.1) 3.31ms
+[I 17:08:25.798 NotebookApp] 302 GET /api/sessions?_=1496336652305 (172.17.0.1) 0.61ms
+[I 17:08:25.799 NotebookApp] 302 GET /api/terminals?_=1496336652306 (172.17.0.1) 0.50ms
+[I 17:08:56.347 NotebookApp] 302 GET /tree? (172.17.0.1) 0.58ms
+[I 17:08:57.980 NotebookApp] 302 POST /login?next=%2Ftree%3F (172.17.0.1) 0.95ms
+[I 17:09:03.282 NotebookApp] Writing notebook-signing key to /root/.local/share/jupyter/notebook_secret
+[W 17:09:03.282 NotebookApp] Notebook tensorflow-gpu.ipynb is not trusted
+[I 17:09:03.355 NotebookApp] Kernel started: cda681f8-64a6-4b7e-b671-7a655dd84bea
+[W 17:09:03.426 NotebookApp] 404 GET /static/components/bootstrap/js/tooltip.js?v=20170601170717 (172.17.0.1) 2.13ms referer=http://localhost:7777/notebooks/tensorflow-gpu.ipynb
+[W 17:09:03.447 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20170601170717 (172.17.0.1) 1.23ms referer=http://localhost:7777/notebooks/tensorflow-gpu.ipynb
+[I 17:11:04.018 NotebookApp] Saving file at /tensorflow-gpu.ipynb

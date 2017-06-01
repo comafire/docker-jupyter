@@ -8,7 +8,9 @@ IMAGE="comafire/docker-jupyter"
 TAG="latest"
 
 docker rm -f $NAME
+
 #docker run -i -t --name $NAME -p $PORT:8888 -v $VOLUME:/root/volume -e JUPYTER_PASSWORD=$PASSWORD $IMAGE:$TAG
 docker run -i -t --name $NAME -d --restart=always -p $PORT:8888 -v $VOLUME:/root/volume -e JUPYTER_PASSWORD=$PASSWORD $IMAGE:$TAG
 
-
+docker exec -i -t $NAME pip install -r /root/volume/requirements.txt
+docker exec -i -t $NAME pip3 install -r /root/volume/requirements.txt

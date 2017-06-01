@@ -5,3 +5,4 @@ pytest-flask<=0.10
 pycrypto<=2.6
 docker
 airflow
+tensorflow

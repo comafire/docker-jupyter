@@ -18,7 +18,7 @@ libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev llvm
 RUN apt-get update && apt-get install -y --no-install-recommends \
 software-properties-common libjpeg-dev libpng-dev ncurses-dev imagemagick \
 libgraphicsmagick1-dev libzmq-dev gfortran gnuplot gnuplot-x11 libsdl2-dev \
-openssh-client
+apt-utils openssh-client
 
 # Docker
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -63,19 +63,13 @@ RUN pip3 install yapf
 RUN python2 -m pip install ipykernel
 RUN python2 -m ipykernel install --user
 
-# Tensorflow
-RUN pip3 install --upgrade tensorflow
+# Julia: disable until v0.x
+#RUN add-apt-repository ppa:staticfloat/juliareleases
+#RUN add-apt-repository ppa:staticfloat/julia-deps
+#RUN apt-get update && apt-get install -y --no-install-recommends \
+#julia
 
-# Keras
-RUN pip3 install --upgrade keras
-
-# Julia
-RUN add-apt-repository ppa:staticfloat/juliareleases
-RUN add-apt-repository ppa:staticfloat/julia-deps
-RUN apt-get update && apt-get install -y --no-install-recommends \
-julia
-
-RUN julia -e 'Pkg.add("IJulia")'
+#RUN julia -e 'Pkg.add("IJulia")'
 
 
 # JAVA http://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/server-jre-8u131-linux-x64.tar.gz
@@ -115,10 +109,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 scala
 RUN pip3 install py4j
 
-# Bundle app source
-COPY requirements.txt /root
-RUN pip install -r /root/requirements.txt
-RUN pip3 install -r /root/requirements.txt
+#COPY requirements.txt /root
+#RUN pip install -r /root/requirements.txt
+#RUN pip3 install -r /root/requirements.txt
 
 # Env
 VOLUME /root/volume
