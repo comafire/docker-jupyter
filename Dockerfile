@@ -109,10 +109,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 scala
 RUN pip3 install py4j
 
-#COPY requirements.txt /root
-#RUN pip install -r /root/requirements.txt
-#RUN pip3 install -r /root/requirements.txt
-
 # Env
 VOLUME /root/volume
 
