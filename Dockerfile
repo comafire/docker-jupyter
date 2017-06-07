@@ -14,11 +14,12 @@ apt-utils \
 # Common
 RUN apt-get update && apt-get install -y --no-install-recommends \
 build-essential vim curl wget git cmake bzip2 sudo locales unzip net-tools \
-libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev llvm
+libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev llvm \
+libfreetype6-dev libxft-dev
 RUN apt-get update && apt-get install -y --no-install-recommends \
 software-properties-common libjpeg-dev libpng-dev ncurses-dev imagemagick \
 libgraphicsmagick1-dev libzmq-dev gfortran gnuplot gnuplot-x11 libsdl2-dev \
-apt-utils openssh-client
+apt-utils openssh-client 
 
 # Docker
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -31,26 +32,14 @@ docker-ce
 # Python2
 RUN apt-get update && apt-get install -y --no-install-recommends \
 python python-dev python-pip python-virtualenv python-software-properties
-RUN pip install --upgrade pip
-RUN pip install setuptools
-
-# Python2-Deps
-RUN apt-get update && apt-get install -y --no-install-recommends \
-libfreetype6-dev libxft-dev
-RUN pip install matplotlib pandas pandas-datareader quandl
-RUN pip install numpy scipy sklearn
+RUN pip2 install --upgrade pip
+RUN pip2 install setuptools
 
 # Python3
 RUN apt-get update && apt-get install -y --no-install-recommends \
 python3 python3-dev python3-pip python3-virtualenv python3-software-properties 
 RUN pip3 install --upgrade pip
 RUN pip3 install setuptools
-
-# Python3-Deps
-RUN apt-get update && apt-get install -y --no-install-recommends \
-libfreetype6-dev libxft-dev
-RUN pip3 install matplotlib pandas pandas-datareader quandl
-RUN pip3 install numpy scipy sklearn
 
 # Jupyter
 RUN pip3 install jupyter

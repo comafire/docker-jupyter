@@ -1,6 +1,6 @@
 #!/bin/sh
 
-pip install -r /root/volume/requirements.txt >> ./logs/jupyter.log 2>&1
+pip2 install -r /root/volume/requirements.txt >> ./logs/jupyter.log 2>&1
 pip3 install -r /root/volume/requirements.txt >> ./logs/jupyter.log 2>&1 
 
 cp /root/volume/jupyter_notebook_config.py /root/.jupyter/ >> ./logs/jupyter.log 2>&1

@@ -306,3 +306,901 @@ jupyter config..
 [W 17:12:08.493 NotebookApp] 404 GET /static/components/bootstrap/js/tooltip.js?v=20170607171101 (172.17.0.1) 5.74ms referer=http://localhost:8888/notebooks/Untitled.ipynb
 [W 17:12:08.520 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20170607171101 (172.17.0.1) 1.24ms referer=http://localhost:8888/notebooks/Untitled.ipynb
 [I 17:14:08.473 NotebookApp] Saving file at /Untitled.ipynb
+Collecting Flask<=0.12 (from -r /root/volume/requirements.txt (line 1))
+  Downloading Flask-0.12-py2.py3-none-any.whl (82kB)
+Collecting fabric<=1.13 (from -r /root/volume/requirements.txt (line 2))
+  Downloading Fabric-1.13.0-py2-none-any.whl (92kB)
+Collecting pytest<=3.0 (from -r /root/volume/requirements.txt (line 3))
+  Downloading pytest-3.0.0-py2.py3-none-any.whl (168kB)
+Collecting pytest-flask<=0.10 (from -r /root/volume/requirements.txt (line 4))
+  Downloading pytest_flask-0.10.0-py2.py3-none-any.whl
+Collecting pycrypto<=2.6 (from -r /root/volume/requirements.txt (line 5))
+  Downloading pycrypto-2.6.tar.gz (443kB)
+Collecting docker (from -r /root/volume/requirements.txt (line 6))
+  Downloading docker-2.3.0-py2.py3-none-any.whl (108kB)
+Collecting airflow (from -r /root/volume/requirements.txt (line 7))
+  Downloading airflow-1.8.0.tar.gz (8.4MB)
+Collecting tensorflow (from -r /root/volume/requirements.txt (line 8))
+  Downloading tensorflow-1.1.0-cp27-cp27mu-manylinux1_x86_64.whl (31.0MB)
+Collecting itsdangerous>=0.21 (from Flask<=0.12->-r /root/volume/requirements.txt (line 1))
+  Downloading itsdangerous-0.24.tar.gz (46kB)
+Collecting click>=2.0 (from Flask<=0.12->-r /root/volume/requirements.txt (line 1))
+  Downloading click-6.7-py2.py3-none-any.whl (71kB)
+Collecting Werkzeug>=0.7 (from Flask<=0.12->-r /root/volume/requirements.txt (line 1))
+  Downloading Werkzeug-0.12.2-py2.py3-none-any.whl (312kB)
+Collecting Jinja2>=2.4 (from Flask<=0.12->-r /root/volume/requirements.txt (line 1))
+  Using cached Jinja2-2.9.6-py2.py3-none-any.whl
+Collecting paramiko<3.0,>=1.10 (from fabric<=1.13->-r /root/volume/requirements.txt (line 2))
+  Downloading paramiko-2.1.2-py2.py3-none-any.whl (172kB)
+Collecting py>=1.4.29 (from pytest<=3.0->-r /root/volume/requirements.txt (line 3))
+  Downloading py-1.4.34-py2.py3-none-any.whl (84kB)
+Collecting backports.ssl-match-hostname>=3.5; python_version < "3.5" (from docker->-r /root/volume/requirements.txt (line 6))
+  Downloading backports.ssl_match_hostname-3.5.0.1.tar.gz
+Requirement already satisfied: six>=1.4.0 in /usr/local/lib/python2.7/dist-packages (from docker->-r /root/volume/requirements.txt (line 6))
+Collecting websocket-client>=0.32.0 (from docker->-r /root/volume/requirements.txt (line 6))
+  Downloading websocket_client-0.40.0.tar.gz (196kB)
+Requirement already satisfied: ipaddress>=1.0.16; python_version < "3.3" in /usr/local/lib/python2.7/dist-packages (from docker->-r /root/volume/requirements.txt (line 6))
+Collecting docker-pycreds>=0.2.1 (from docker->-r /root/volume/requirements.txt (line 6))
+  Downloading docker_pycreds-0.2.1-py2.py3-none-any.whl
+Requirement already satisfied: requests!=2.11.0,!=2.12.2,>=2.5.2 in /usr/local/lib/python2.7/dist-packages (from docker->-r /root/volume/requirements.txt (line 6))
+Collecting alembic<0.9,>=0.8.3 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading alembic-0.8.10.tar.gz (976kB)
+Collecting croniter<0.4,>=0.3.8 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading croniter-0.3.17.tar.gz
+Collecting dill<0.3,>=0.2.2 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading dill-0.2.6.zip (83kB)
+Collecting flask-admin==1.4.1 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading Flask-Admin-1.4.1.tar.gz (922kB)
+Collecting flask-cache<0.14,>=0.13.1 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading Flask-Cache-0.13.1.tar.gz (45kB)
+Collecting flask-login==0.2.11 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading Flask-Login-0.2.11.tar.gz
+Collecting flask-swagger==0.2.13 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading flask-swagger-0.2.13.tar.gz
+Collecting flask-wtf==0.12 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading Flask_WTF-0.12-py2-none-any.whl
+Collecting funcsigs==1.0.0 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading funcsigs-1.0.0-py2.py3-none-any.whl
+Collecting future<0.16,>=0.15.0 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading future-0.15.2.tar.gz (1.6MB)
+Collecting gitpython>=2.0.2 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading GitPython-2.1.3-py2.py3-none-any.whl (442kB)
+Collecting gunicorn<19.4.0,>=19.3.0 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading gunicorn-19.3.0-py2.py3-none-any.whl (110kB)
+Collecting lxml<4.0,>=3.6.0 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading lxml-3.8.0-cp27-cp27mu-manylinux1_x86_64.whl (6.8MB)
+Collecting markdown<3.0,>=2.5.2 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading Markdown-2.6.8.tar.gz (307kB)
+Requirement already satisfied: pandas<1.0.0,>=0.17.1 in /usr/local/lib/python2.7/dist-packages (from airflow->-r /root/volume/requirements.txt (line 7))
+Collecting psutil<5.0.0,>=4.2.0 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading psutil-4.4.2.tar.gz (1.8MB)
+Requirement already satisfied: pygments<3.0,>=2.0.1 in /usr/local/lib/python2.7/dist-packages (from airflow->-r /root/volume/requirements.txt (line 7))
+Collecting python-daemon<2.2,>=2.1.1 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading python_daemon-2.1.2-py2.py3-none-any.whl
+Requirement already satisfied: python-dateutil<3,>=2.3 in /usr/local/lib/python2.7/dist-packages (from airflow->-r /root/volume/requirements.txt (line 7))
+Collecting python-nvd3==0.14.2 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading python-nvd3-0.14.2.tar.gz
+Collecting setproctitle<2,>=1.1.8 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading setproctitle-1.1.10.tar.gz
+Collecting sqlalchemy>=0.9.8 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading SQLAlchemy-1.1.10.tar.gz (5.2MB)
+Collecting tabulate<0.8.0,>=0.7.5 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading tabulate-0.7.7-py2.py3-none-any.whl
+Collecting thrift<0.10,>=0.9.2 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading thrift-0.9.3.tar.gz
+Collecting zope.deprecation<5.0,>=4.0 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading zope.deprecation-4.2.0-py2.py3-none-any.whl
+Collecting mock>=2.0.0 (from tensorflow->-r /root/volume/requirements.txt (line 8))
+  Downloading mock-2.0.0-py2.py3-none-any.whl (56kB)
+Requirement already satisfied: numpy>=1.11.0 in /usr/local/lib/python2.7/dist-packages (from tensorflow->-r /root/volume/requirements.txt (line 8))
+Collecting wheel (from tensorflow->-r /root/volume/requirements.txt (line 8))
+  Downloading wheel-0.29.0-py2.py3-none-any.whl (66kB)
+Collecting protobuf>=3.2.0 (from tensorflow->-r /root/volume/requirements.txt (line 8))
+  Downloading protobuf-3.3.0-cp27-cp27mu-manylinux1_x86_64.whl (5.7MB)
+Collecting MarkupSafe>=0.23 (from Jinja2>=2.4->Flask<=0.12->-r /root/volume/requirements.txt (line 1))
+  Using cached MarkupSafe-1.0.tar.gz
+Requirement already satisfied: pyasn1>=0.1.7 in /usr/local/lib/python2.7/dist-packages (from paramiko<3.0,>=1.10->fabric<=1.13->-r /root/volume/requirements.txt (line 2))
+Requirement already satisfied: cryptography>=1.1 in /usr/local/lib/python2.7/dist-packages (from paramiko<3.0,>=1.10->fabric<=1.13->-r /root/volume/requirements.txt (line 2))
+Requirement already satisfied: idna<2.6,>=2.5 in /usr/local/lib/python2.7/dist-packages (from requests!=2.11.0,!=2.12.2,>=2.5.2->docker->-r /root/volume/requirements.txt (line 6))
+Requirement already satisfied: urllib3<1.22,>=1.21.1 in /usr/local/lib/python2.7/dist-packages (from requests!=2.11.0,!=2.12.2,>=2.5.2->docker->-r /root/volume/requirements.txt (line 6))
+Requirement already satisfied: chardet<3.1.0,>=3.0.2 in /usr/local/lib/python2.7/dist-packages (from requests!=2.11.0,!=2.12.2,>=2.5.2->docker->-r /root/volume/requirements.txt (line 6))
+Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python2.7/dist-packages (from requests!=2.11.0,!=2.12.2,>=2.5.2->docker->-r /root/volume/requirements.txt (line 6))
+Collecting Mako (from alembic<0.9,>=0.8.3->airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading Mako-1.0.6.tar.gz (575kB)
+Collecting python-editor>=0.3 (from alembic<0.9,>=0.8.3->airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading python-editor-1.0.3.tar.gz
+Collecting wtforms (from flask-admin==1.4.1->airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading WTForms-2.1.zip (553kB)
+Collecting PyYAML>=3.0 (from flask-swagger==0.2.13->airflow->-r /root/volume/requirements.txt (line 7))
+  Using cached PyYAML-3.12.tar.gz
+Collecting ordereddict (from funcsigs==1.0.0->airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading ordereddict-1.1.tar.gz
+Collecting gitdb2>=2.0.0 (from gitpython>=2.0.2->airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading gitdb2-2.0.2-py2.py3-none-any.whl (63kB)
+Requirement already satisfied: pytz>=2011k in /usr/local/lib/python2.7/dist-packages (from pandas<1.0.0,>=0.17.1->airflow->-r /root/volume/requirements.txt (line 7))
+Collecting lockfile>=0.10 (from python-daemon<2.2,>=2.1.1->airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading lockfile-0.12.2-py2.py3-none-any.whl
+Collecting docutils (from python-daemon<2.2,>=2.1.1->airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading docutils-0.13.1-py2-none-any.whl (537kB)
+Requirement already satisfied: setuptools in /usr/local/lib/python2.7/dist-packages (from python-daemon<2.2,>=2.1.1->airflow->-r /root/volume/requirements.txt (line 7))
+Collecting python-slugify==1.1.4 (from python-nvd3==0.14.2->airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading python-slugify-1.1.4.tar.gz
+Collecting pbr>=0.11 (from mock>=2.0.0->tensorflow->-r /root/volume/requirements.txt (line 8))
+  Downloading pbr-3.0.1-py2.py3-none-any.whl (99kB)
+Requirement already satisfied: asn1crypto>=0.21.0 in /usr/local/lib/python2.7/dist-packages (from cryptography>=1.1->paramiko<3.0,>=1.10->fabric<=1.13->-r /root/volume/requirements.txt (line 2))
+Requirement already satisfied: enum34 in /usr/local/lib/python2.7/dist-packages (from cryptography>=1.1->paramiko<3.0,>=1.10->fabric<=1.13->-r /root/volume/requirements.txt (line 2))
+Requirement already satisfied: cffi>=1.7 in /usr/local/lib/python2.7/dist-packages (from cryptography>=1.1->paramiko<3.0,>=1.10->fabric<=1.13->-r /root/volume/requirements.txt (line 2))
+Collecting smmap2>=2.0.0 (from gitdb2>=2.0.0->gitpython>=2.0.2->airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading smmap2-2.0.2-py2.py3-none-any.whl
+Collecting Unidecode>=0.04.16 (from python-slugify==1.1.4->python-nvd3==0.14.2->airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading Unidecode-0.04.20-py2.py3-none-any.whl (228kB)
+Requirement already satisfied: pycparser in /usr/local/lib/python2.7/dist-packages (from cffi>=1.7->cryptography>=1.1->paramiko<3.0,>=1.10->fabric<=1.13->-r /root/volume/requirements.txt (line 2))
+Installing collected packages: itsdangerous, click, Werkzeug, MarkupSafe, Jinja2, Flask, paramiko, fabric, py, pytest, pytest-flask, pycrypto, backports.ssl-match-hostname, websocket-client, docker-pycreds, docker, sqlalchemy, Mako, python-editor, alembic, croniter, dill, wtforms, flask-admin, flask-cache, flask-login, PyYAML, flask-swagger, flask-wtf, ordereddict, funcsigs, future, smmap2, gitdb2, gitpython, gunicorn, lxml, markdown, psutil, lockfile, docutils, python-daemon, Unidecode, python-slugify, python-nvd3, setproctitle, tabulate, thrift, zope.deprecation, airflow, pbr, mock, wheel, protobuf, tensorflow
+  Running setup.py install for itsdangerous: started
+    Running setup.py install for itsdangerous: finished with status 'done'
+  Running setup.py install for MarkupSafe: started
+    Running setup.py install for MarkupSafe: finished with status 'done'
+  Running setup.py install for pycrypto: started
+    Running setup.py install for pycrypto: finished with status 'done'
+  Running setup.py install for backports.ssl-match-hostname: started
+    Running setup.py install for backports.ssl-match-hostname: finished with status 'done'
+  Running setup.py install for websocket-client: started
+    Running setup.py install for websocket-client: finished with status 'done'
+  Running setup.py install for sqlalchemy: started
+    Running setup.py install for sqlalchemy: finished with status 'done'
+  Running setup.py install for Mako: started
+    Running setup.py install for Mako: finished with status 'done'
+  Running setup.py install for python-editor: started
+    Running setup.py install for python-editor: finished with status 'done'
+  Running setup.py install for alembic: started
+    Running setup.py install for alembic: finished with status 'done'
+  Running setup.py install for croniter: started
+    Running setup.py install for croniter: finished with status 'done'
+  Running setup.py install for dill: started
+    Running setup.py install for dill: finished with status 'done'
+  Running setup.py install for wtforms: started
+    Running setup.py install for wtforms: finished with status 'done'
+  Running setup.py install for flask-admin: started
+    Running setup.py install for flask-admin: finished with status 'done'
+  Running setup.py install for flask-cache: started
+    Running setup.py install for flask-cache: finished with status 'done'
+  Running setup.py install for flask-login: started
+    Running setup.py install for flask-login: finished with status 'done'
+  Running setup.py install for PyYAML: started
+    Running setup.py install for PyYAML: finished with status 'done'
+  Running setup.py install for flask-swagger: started
+    Running setup.py install for flask-swagger: finished with status 'done'
+  Running setup.py install for ordereddict: started
+    Running setup.py install for ordereddict: finished with status 'done'
+  Running setup.py install for future: started
+    Running setup.py install for future: finished with status 'done'
+  Running setup.py install for markdown: started
+    Running setup.py install for markdown: finished with status 'done'
+  Running setup.py install for psutil: started
+    Running setup.py install for psutil: finished with status 'done'
+  Running setup.py install for python-slugify: started
+    Running setup.py install for python-slugify: finished with status 'done'
+  Running setup.py install for python-nvd3: started
+    Running setup.py install for python-nvd3: finished with status 'done'
+  Running setup.py install for setproctitle: started
+    Running setup.py install for setproctitle: finished with status 'done'
+  Running setup.py install for thrift: started
+    Running setup.py install for thrift: finished with status 'done'
+  Running setup.py install for airflow: started
+    Running setup.py install for airflow: finished with status 'done'
+Successfully installed Flask-0.12 Jinja2-2.9.6 Mako-1.0.6 MarkupSafe-1.0 PyYAML-3.12 Unidecode-0.4.20 Werkzeug-0.12.2 airflow-1.8.0 alembic-0.8.10 backports.ssl-match-hostname-3.5.0.1 click-6.7 croniter-0.3.17 dill-0.2.6 docker-2.3.0 docker-pycreds-0.2.1 docutils-0.13.1 fabric-1.13.0 flask-admin-1.4.1 flask-cache-0.13.1 flask-login-0.2.11 flask-swagger-0.2.13 flask-wtf-0.12 funcsigs-1.0.0 future-0.15.2 gitdb2-2.0.2 gitpython-2.1.3 gunicorn-19.3.0 itsdangerous-0.24 lockfile-0.12.2 lxml-3.8.0 markdown-2.6.8 mock-2.0.0 ordereddict-1.1 paramiko-2.1.2 pbr-3.0.1 protobuf-3.3.0 psutil-4.4.2 py-1.4.34 pycrypto-2.6 pytest-3.0.0 pytest-flask-0.10.0 python-daemon-2.1.2 python-editor-1.0.3 python-nvd3-0.14.2 python-slugify-1.1.4 setproctitle-1.1.10 smmap2-2.0.2 sqlalchemy-1.1.10 tabulate-0.7.7 tensorflow-1.1.0 thrift-0.9.3 websocket-client-0.40.0 wheel-0.29.0 wtforms-2.1 zope.deprecation-4.2.0
+Collecting Flask<=0.12 (from -r /root/volume/requirements.txt (line 1))
+  Using cached Flask-0.12-py2.py3-none-any.whl
+Collecting fabric<=1.13 (from -r /root/volume/requirements.txt (line 2))
+  Downloading Fabric-1.13.0.tar.gz (217kB)
+Collecting pytest<=3.0 (from -r /root/volume/requirements.txt (line 3))
+  Using cached pytest-3.0.0-py2.py3-none-any.whl
+Collecting pytest-flask<=0.10 (from -r /root/volume/requirements.txt (line 4))
+  Using cached pytest_flask-0.10.0-py2.py3-none-any.whl
+Collecting pycrypto<=2.6 (from -r /root/volume/requirements.txt (line 5))
+  Using cached pycrypto-2.6.tar.gz
+Collecting docker (from -r /root/volume/requirements.txt (line 6))
+  Using cached docker-2.3.0-py2.py3-none-any.whl
+Collecting airflow (from -r /root/volume/requirements.txt (line 7))
+  Using cached airflow-1.8.0.tar.gz
+Collecting tensorflow (from -r /root/volume/requirements.txt (line 8))
+  Downloading tensorflow-1.1.0-cp35-cp35m-manylinux1_x86_64.whl (31.0MB)
+Collecting Werkzeug>=0.7 (from Flask<=0.12->-r /root/volume/requirements.txt (line 1))
+  Using cached Werkzeug-0.12.2-py2.py3-none-any.whl
+Collecting click>=2.0 (from Flask<=0.12->-r /root/volume/requirements.txt (line 1))
+  Using cached click-6.7-py2.py3-none-any.whl
+Collecting itsdangerous>=0.21 (from Flask<=0.12->-r /root/volume/requirements.txt (line 1))
+  Using cached itsdangerous-0.24.tar.gz
+Requirement already satisfied: Jinja2>=2.4 in /usr/local/lib/python3.5/dist-packages (from Flask<=0.12->-r /root/volume/requirements.txt (line 1))
+Collecting paramiko<3.0,>=1.10 (from fabric<=1.13->-r /root/volume/requirements.txt (line 2))
+  Using cached paramiko-2.1.2-py2.py3-none-any.whl
+Collecting py>=1.4.29 (from pytest<=3.0->-r /root/volume/requirements.txt (line 3))
+  Using cached py-1.4.34-py2.py3-none-any.whl
+Collecting docker-pycreds>=0.2.1 (from docker->-r /root/volume/requirements.txt (line 6))
+  Using cached docker_pycreds-0.2.1-py2.py3-none-any.whl
+Requirement already satisfied: six>=1.4.0 in /usr/local/lib/python3.5/dist-packages (from docker->-r /root/volume/requirements.txt (line 6))
+Collecting websocket-client>=0.32.0 (from docker->-r /root/volume/requirements.txt (line 6))
+  Using cached websocket_client-0.40.0.tar.gz
+Requirement already satisfied: requests!=2.11.0,!=2.12.2,>=2.5.2 in /usr/local/lib/python3.5/dist-packages (from docker->-r /root/volume/requirements.txt (line 6))
+Collecting alembic<0.9,>=0.8.3 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Using cached alembic-0.8.10.tar.gz
+Collecting croniter<0.4,>=0.3.8 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Using cached croniter-0.3.17.tar.gz
+Collecting dill<0.3,>=0.2.2 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Using cached dill-0.2.6.zip
+Collecting flask-admin==1.4.1 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Using cached Flask-Admin-1.4.1.tar.gz
+Collecting flask-cache<0.14,>=0.13.1 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Using cached Flask-Cache-0.13.1.tar.gz
+Collecting flask-login==0.2.11 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Using cached Flask-Login-0.2.11.tar.gz
+Collecting flask-swagger==0.2.13 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Using cached flask-swagger-0.2.13.tar.gz
+Collecting flask-wtf==0.12 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading Flask-WTF-0.12.tar.gz (247kB)
+Collecting funcsigs==1.0.0 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Using cached funcsigs-1.0.0-py2.py3-none-any.whl
+Collecting future<0.16,>=0.15.0 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Using cached future-0.15.2.tar.gz
+Collecting gitpython>=2.0.2 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Using cached GitPython-2.1.3-py2.py3-none-any.whl
+Collecting gunicorn<19.4.0,>=19.3.0 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Using cached gunicorn-19.3.0-py2.py3-none-any.whl
+Collecting lxml<4.0,>=3.6.0 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading lxml-3.8.0-cp35-cp35m-manylinux1_x86_64.whl (7.2MB)
+Collecting markdown<3.0,>=2.5.2 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Using cached Markdown-2.6.8.tar.gz
+Requirement already satisfied: pandas<1.0.0,>=0.17.1 in /usr/local/lib/python3.5/dist-packages (from airflow->-r /root/volume/requirements.txt (line 7))
+Collecting psutil<5.0.0,>=4.2.0 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Using cached psutil-4.4.2.tar.gz
+Requirement already satisfied: pygments<3.0,>=2.0.1 in /usr/local/lib/python3.5/dist-packages (from airflow->-r /root/volume/requirements.txt (line 7))
+Collecting python-daemon<2.2,>=2.1.1 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Using cached python_daemon-2.1.2-py2.py3-none-any.whl
+Requirement already satisfied: python-dateutil<3,>=2.3 in /usr/local/lib/python3.5/dist-packages (from airflow->-r /root/volume/requirements.txt (line 7))
+Collecting python-nvd3==0.14.2 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Using cached python-nvd3-0.14.2.tar.gz
+Collecting setproctitle<2,>=1.1.8 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Using cached setproctitle-1.1.10.tar.gz
+Collecting sqlalchemy>=0.9.8 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Using cached SQLAlchemy-1.1.10.tar.gz
+Collecting tabulate<0.8.0,>=0.7.5 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Using cached tabulate-0.7.7-py2.py3-none-any.whl
+Collecting thrift<0.10,>=0.9.2 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Using cached thrift-0.9.3.tar.gz
+Collecting zope.deprecation<5.0,>=4.0 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Using cached zope.deprecation-4.2.0-py2.py3-none-any.whl
+Collecting wheel>=0.26 (from tensorflow->-r /root/volume/requirements.txt (line 8))
+  Using cached wheel-0.29.0-py2.py3-none-any.whl
+Requirement already satisfied: numpy>=1.11.0 in /usr/local/lib/python3.5/dist-packages (from tensorflow->-r /root/volume/requirements.txt (line 8))
+Collecting protobuf>=3.2.0 (from tensorflow->-r /root/volume/requirements.txt (line 8))
+  Downloading protobuf-3.3.0-cp35-cp35m-manylinux1_x86_64.whl (5.7MB)
+Requirement already satisfied: MarkupSafe>=0.23 in /usr/local/lib/python3.5/dist-packages (from Jinja2>=2.4->Flask<=0.12->-r /root/volume/requirements.txt (line 1))
+Requirement already satisfied: pyasn1>=0.1.7 in /usr/local/lib/python3.5/dist-packages (from paramiko<3.0,>=1.10->fabric<=1.13->-r /root/volume/requirements.txt (line 2))
+Requirement already satisfied: cryptography>=1.1 in /usr/local/lib/python3.5/dist-packages (from paramiko<3.0,>=1.10->fabric<=1.13->-r /root/volume/requirements.txt (line 2))
+Requirement already satisfied: chardet<3.1.0,>=3.0.2 in /usr/local/lib/python3.5/dist-packages (from requests!=2.11.0,!=2.12.2,>=2.5.2->docker->-r /root/volume/requirements.txt (line 6))
+Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.5/dist-packages (from requests!=2.11.0,!=2.12.2,>=2.5.2->docker->-r /root/volume/requirements.txt (line 6))
+Requirement already satisfied: idna<2.6,>=2.5 in /usr/local/lib/python3.5/dist-packages (from requests!=2.11.0,!=2.12.2,>=2.5.2->docker->-r /root/volume/requirements.txt (line 6))
+Requirement already satisfied: urllib3<1.22,>=1.21.1 in /usr/local/lib/python3.5/dist-packages (from requests!=2.11.0,!=2.12.2,>=2.5.2->docker->-r /root/volume/requirements.txt (line 6))
+Collecting Mako (from alembic<0.9,>=0.8.3->airflow->-r /root/volume/requirements.txt (line 7))
+  Using cached Mako-1.0.6.tar.gz
+Collecting python-editor>=0.3 (from alembic<0.9,>=0.8.3->airflow->-r /root/volume/requirements.txt (line 7))
+  Using cached python-editor-1.0.3.tar.gz
+Collecting wtforms (from flask-admin==1.4.1->airflow->-r /root/volume/requirements.txt (line 7))
+  Using cached WTForms-2.1.zip
+Requirement already satisfied: PyYAML>=3.0 in /usr/local/lib/python3.5/dist-packages (from flask-swagger==0.2.13->airflow->-r /root/volume/requirements.txt (line 7))
+Collecting ordereddict (from funcsigs==1.0.0->airflow->-r /root/volume/requirements.txt (line 7))
+  Using cached ordereddict-1.1.tar.gz
+Collecting gitdb2>=2.0.0 (from gitpython>=2.0.2->airflow->-r /root/volume/requirements.txt (line 7))
+  Using cached gitdb2-2.0.2-py2.py3-none-any.whl
+Requirement already satisfied: pytz>=2011k in /usr/local/lib/python3.5/dist-packages (from pandas<1.0.0,>=0.17.1->airflow->-r /root/volume/requirements.txt (line 7))
+Collecting lockfile>=0.10 (from python-daemon<2.2,>=2.1.1->airflow->-r /root/volume/requirements.txt (line 7))
+  Using cached lockfile-0.12.2-py2.py3-none-any.whl
+Collecting docutils (from python-daemon<2.2,>=2.1.1->airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading docutils-0.13.1-py3-none-any.whl (536kB)
+Requirement already satisfied: setuptools in /usr/local/lib/python3.5/dist-packages (from python-daemon<2.2,>=2.1.1->airflow->-r /root/volume/requirements.txt (line 7))
+Collecting python-slugify==1.1.4 (from python-nvd3==0.14.2->airflow->-r /root/volume/requirements.txt (line 7))
+  Using cached python-slugify-1.1.4.tar.gz
+Requirement already satisfied: asn1crypto>=0.21.0 in /usr/local/lib/python3.5/dist-packages (from cryptography>=1.1->paramiko<3.0,>=1.10->fabric<=1.13->-r /root/volume/requirements.txt (line 2))
+Requirement already satisfied: cffi>=1.7 in /usr/local/lib/python3.5/dist-packages (from cryptography>=1.1->paramiko<3.0,>=1.10->fabric<=1.13->-r /root/volume/requirements.txt (line 2))
+Collecting smmap2>=2.0.0 (from gitdb2>=2.0.0->gitpython>=2.0.2->airflow->-r /root/volume/requirements.txt (line 7))
+  Using cached smmap2-2.0.2-py2.py3-none-any.whl
+Collecting Unidecode>=0.04.16 (from python-slugify==1.1.4->python-nvd3==0.14.2->airflow->-r /root/volume/requirements.txt (line 7))
+  Using cached Unidecode-0.04.20-py2.py3-none-any.whl
+Requirement already satisfied: pycparser in /usr/local/lib/python3.5/dist-packages (from cffi>=1.7->cryptography>=1.1->paramiko<3.0,>=1.10->fabric<=1.13->-r /root/volume/requirements.txt (line 2))
+Installing collected packages: Werkzeug, click, itsdangerous, Flask, paramiko, fabric, py, pytest, pytest-flask, pycrypto, docker-pycreds, websocket-client, docker, sqlalchemy, Mako, python-editor, alembic, croniter, dill, wtforms, flask-admin, flask-cache, flask-login, flask-swagger, flask-wtf, ordereddict, funcsigs, future, smmap2, gitdb2, gitpython, gunicorn, lxml, markdown, psutil, lockfile, docutils, python-daemon, Unidecode, python-slugify, python-nvd3, setproctitle, tabulate, thrift, zope.deprecation, airflow, wheel, protobuf, tensorflow
+  Running setup.py install for itsdangerous: started
+    Running setup.py install for itsdangerous: finished with status 'done'
+  Running setup.py install for fabric: started
+    Running setup.py install for fabric: finished with status 'done'
+  Running setup.py install for pycrypto: started
+    Running setup.py install for pycrypto: finished with status 'done'
+  Running setup.py install for websocket-client: started
+    Running setup.py install for websocket-client: finished with status 'done'
+  Running setup.py install for sqlalchemy: started
+    Running setup.py install for sqlalchemy: finished with status 'done'
+  Running setup.py install for Mako: started
+    Running setup.py install for Mako: finished with status 'done'
+  Running setup.py install for python-editor: started
+    Running setup.py install for python-editor: finished with status 'done'
+  Running setup.py install for alembic: started
+    Running setup.py install for alembic: finished with status 'done'
+  Running setup.py install for croniter: started
+    Running setup.py install for croniter: finished with status 'done'
+  Running setup.py install for dill: started
+    Running setup.py install for dill: finished with status 'done'
+  Running setup.py install for wtforms: started
+    Running setup.py install for wtforms: finished with status 'done'
+  Running setup.py install for flask-admin: started
+    Running setup.py install for flask-admin: finished with status 'done'
+  Running setup.py install for flask-cache: started
+    Running setup.py install for flask-cache: finished with status 'done'
+  Running setup.py install for flask-login: started
+    Running setup.py install for flask-login: finished with status 'done'
+  Running setup.py install for flask-swagger: started
+    Running setup.py install for flask-swagger: finished with status 'done'
+  Running setup.py install for flask-wtf: started
+    Running setup.py install for flask-wtf: finished with status 'done'
+  Running setup.py install for ordereddict: started
+    Running setup.py install for ordereddict: finished with status 'done'
+  Running setup.py install for future: started
+    Running setup.py install for future: finished with status 'done'
+  Running setup.py install for markdown: started
+    Running setup.py install for markdown: finished with status 'done'
+  Found existing installation: psutil 5.2.2
+    Uninstalling psutil-5.2.2:
+      Successfully uninstalled psutil-5.2.2
+  Running setup.py install for psutil: started
+    Running setup.py install for psutil: finished with status 'done'
+  Running setup.py install for python-slugify: started
+    Running setup.py install for python-slugify: finished with status 'done'
+  Running setup.py install for python-nvd3: started
+    Running setup.py install for python-nvd3: finished with status 'done'
+  Running setup.py install for setproctitle: started
+    Running setup.py install for setproctitle: finished with status 'done'
+  Running setup.py install for thrift: started
+    Running setup.py install for thrift: finished with status 'done'
+  Running setup.py install for airflow: started
+    Running setup.py install for airflow: finished with status 'done'
+Successfully installed Flask-0.12 Mako-1.0.6 Unidecode-0.4.20 Werkzeug-0.12.2 airflow-1.8.0 alembic-0.8.10 click-6.7 croniter-0.3.17 dill-0.2.6 docker-2.3.0 docker-pycreds-0.2.1 docutils-0.13.1 fabric-1.13.0 flask-admin-1.4.1 flask-cache-0.13.1 flask-login-0.2.11 flask-swagger-0.2.13 flask-wtf-0.12 funcsigs-1.0.0 future-0.15.2 gitdb2-2.0.2 gitpython-2.1.3 gunicorn-19.3.0 itsdangerous-0.24 lockfile-0.12.2 lxml-3.8.0 markdown-2.6.8 ordereddict-1.1 paramiko-2.1.2 protobuf-3.3.0 psutil-4.4.2 py-1.4.34 pycrypto-2.6 pytest-3.0.0 pytest-flask-0.10.0 python-daemon-2.1.2 python-editor-1.0.3 python-nvd3-0.14.2 python-slugify-1.1.4 setproctitle-1.1.10 smmap2-2.0.2 sqlalchemy-1.1.10 tabulate-0.7.7 tensorflow-1.1.0 thrift-0.9.3 websocket-client-0.40.0 wheel-0.29.0 wtforms-2.1 zope.deprecation-4.2.0
+Enabling notebook extension toggle_all_line_numbers/main...
+      - Validating: [32mOK[0m
+jupyter config..
+{'NotebookApp': {'port': 8888, 'open_browser': False, 'password': 'sha1:8a2d343bf294:c903d68ad33f906773789c75539223228a91429f', 'ip': '0.0.0.0', 'notebook_dir': '/root/volume'}}
+jupyter config..
+{'NotebookApp': {'port': 8888, 'open_browser': False, 'ip': '0.0.0.0', 'notebook_dir': '/root/volume'}}
+Enabling notebook extension codefolding/main...
+      - Validating: [32mOK[0m
+jupyter config..
+{'NotebookApp': {'open_browser': False, 'ip': '0.0.0.0', 'notebook_dir': '/root/volume', 'port': 8888, 'password': 'sha1:a27eb983baaf:669bb4e5def3f915224b65939718fa37167277e8'}}
+jupyter config..
+{'NotebookApp': {'open_browser': False, 'ip': '0.0.0.0', 'notebook_dir': '/root/volume', 'port': 8888}}
+Enabling notebook extension help_panel/help_panel...
+      - Validating: [32mOK[0m
+jupyter config..
+{'NotebookApp': {'password': 'sha1:45350c06fbb8:64b6d7e73422b3258c2dca0fc6fd57b4196c9794', 'open_browser': False, 'notebook_dir': '/root/volume', 'port': 8888, 'ip': '0.0.0.0'}}
+jupyter config..
+{'NotebookApp': {'open_browser': False, 'notebook_dir': '/root/volume', 'port': 8888, 'ip': '0.0.0.0'}}
+[W 17:49:08.055 NotebookApp] server_extensions is deprecated, use nbserver_extensions
+[I 17:49:08.059 NotebookApp] Writing notebook server cookie secret to /root/.local/share/jupyter/runtime/notebook_cookie_secret
+[I 17:49:08.088 NotebookApp] [jupyter_nbextensions_configurator] enabled 0.2.5
+[I 17:49:08.090 NotebookApp] Serving notebooks from local directory: /root/volume
+[I 17:49:08.090 NotebookApp] 0 active kernels 
+[I 17:49:08.090 NotebookApp] The Jupyter Notebook is running at: http://0.0.0.0:8888/
+[I 17:49:08.090 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[I 17:49:41.479 NotebookApp] 302 GET / (172.17.0.1) 0.78ms
+[I 17:49:41.485 NotebookApp] 302 GET /tree? (172.17.0.1) 2.61ms
+[I 17:49:43.460 NotebookApp] 302 POST /login?next=%2Ftree%3F (172.17.0.1) 1.06ms
+[I 17:49:54.974 NotebookApp] Creating new notebook in 
+[I 17:49:55.015 NotebookApp] Writing notebook-signing key to /root/.local/share/jupyter/notebook_secret
+[I 17:49:55.460 NotebookApp] Kernel started: 44e47e6d-b609-48d0-ba36-6d4ef7869b5c
+[W 17:49:55.489 NotebookApp] 404 GET /static/components/bootstrap/js/tooltip.js?v=20170607174908 (172.17.0.1) 6.70ms referer=http://localhost:8888/notebooks/Untitled.ipynb?kernel_name=python2
+[W 17:49:55.602 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20170607174908 (172.17.0.1) 1.07ms referer=http://localhost:8888/notebooks/Untitled.ipynb?kernel_name=python2
+[I 17:51:55.452 NotebookApp] Saving file at /test-python2.ipynb
+Collecting Flask<=0.12 (from -r /root/volume/requirements.txt (line 1))
+  Downloading Flask-0.12-py2.py3-none-any.whl (82kB)
+Collecting fabric<=1.13 (from -r /root/volume/requirements.txt (line 2))
+  Downloading Fabric-1.13.0-py2-none-any.whl (92kB)
+Collecting pytest<=3.0 (from -r /root/volume/requirements.txt (line 3))
+  Downloading pytest-3.0.0-py2.py3-none-any.whl (168kB)
+Collecting pytest-flask<=0.10 (from -r /root/volume/requirements.txt (line 4))
+  Downloading pytest_flask-0.10.0-py2.py3-none-any.whl
+Collecting pycrypto<=2.6 (from -r /root/volume/requirements.txt (line 5))
+  Downloading pycrypto-2.6.tar.gz (443kB)
+Collecting docker (from -r /root/volume/requirements.txt (line 6))
+  Downloading docker-2.3.0-py2.py3-none-any.whl (108kB)
+Collecting airflow (from -r /root/volume/requirements.txt (line 7))
+  Downloading airflow-1.8.0.tar.gz (8.4MB)
+Collecting tensorflow (from -r /root/volume/requirements.txt (line 8))
+  Downloading tensorflow-1.1.0-cp27-cp27mu-manylinux1_x86_64.whl (31.0MB)
+Collecting matplotlib (from -r /root/volume/requirements.txt (line 9))
+  Downloading matplotlib-2.0.2-cp27-cp27mu-manylinux1_x86_64.whl (14.5MB)
+Collecting pandas (from -r /root/volume/requirements.txt (line 10))
+  Downloading pandas-0.20.2-cp27-cp27mu-manylinux1_x86_64.whl (22.4MB)
+Collecting pandas-datareader (from -r /root/volume/requirements.txt (line 11))
+  Downloading pandas_datareader-0.4.0-py2.py3-none-any.whl (69kB)
+Collecting quandl (from -r /root/volume/requirements.txt (line 12))
+  Downloading Quandl-3.1.0-py2.py3-none-any.whl
+Collecting numpy (from -r /root/volume/requirements.txt (line 13))
+  Downloading numpy-1.12.1-cp27-cp27mu-manylinux1_x86_64.whl (16.5MB)
+Collecting scipy (from -r /root/volume/requirements.txt (line 14))
+  Downloading scipy-0.19.0-cp27-cp27mu-manylinux1_x86_64.whl (45.0MB)
+Collecting sklearn (from -r /root/volume/requirements.txt (line 15))
+  Downloading sklearn-0.0.tar.gz
+Collecting itsdangerous>=0.21 (from Flask<=0.12->-r /root/volume/requirements.txt (line 1))
+  Downloading itsdangerous-0.24.tar.gz (46kB)
+Collecting click>=2.0 (from Flask<=0.12->-r /root/volume/requirements.txt (line 1))
+  Downloading click-6.7-py2.py3-none-any.whl (71kB)
+Collecting Werkzeug>=0.7 (from Flask<=0.12->-r /root/volume/requirements.txt (line 1))
+  Downloading Werkzeug-0.12.2-py2.py3-none-any.whl (312kB)
+Collecting Jinja2>=2.4 (from Flask<=0.12->-r /root/volume/requirements.txt (line 1))
+  Using cached Jinja2-2.9.6-py2.py3-none-any.whl
+Collecting paramiko<3.0,>=1.10 (from fabric<=1.13->-r /root/volume/requirements.txt (line 2))
+  Downloading paramiko-2.1.2-py2.py3-none-any.whl (172kB)
+Collecting py>=1.4.29 (from pytest<=3.0->-r /root/volume/requirements.txt (line 3))
+  Downloading py-1.4.34-py2.py3-none-any.whl (84kB)
+Collecting backports.ssl-match-hostname>=3.5; python_version < "3.5" (from docker->-r /root/volume/requirements.txt (line 6))
+  Downloading backports.ssl_match_hostname-3.5.0.1.tar.gz
+Requirement already satisfied: six>=1.4.0 in /usr/local/lib/python2.7/dist-packages (from docker->-r /root/volume/requirements.txt (line 6))
+Collecting websocket-client>=0.32.0 (from docker->-r /root/volume/requirements.txt (line 6))
+  Downloading websocket_client-0.40.0.tar.gz (196kB)
+Collecting ipaddress>=1.0.16; python_version < "3.3" (from docker->-r /root/volume/requirements.txt (line 6))
+  Downloading ipaddress-1.0.18-py2-none-any.whl
+Collecting docker-pycreds>=0.2.1 (from docker->-r /root/volume/requirements.txt (line 6))
+  Downloading docker_pycreds-0.2.1-py2.py3-none-any.whl
+Collecting requests!=2.11.0,!=2.12.2,>=2.5.2 (from docker->-r /root/volume/requirements.txt (line 6))
+  Downloading requests-2.17.3-py2.py3-none-any.whl (87kB)
+Collecting alembic<0.9,>=0.8.3 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading alembic-0.8.10.tar.gz (976kB)
+Collecting croniter<0.4,>=0.3.8 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading croniter-0.3.17.tar.gz
+Collecting dill<0.3,>=0.2.2 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading dill-0.2.6.zip (83kB)
+Collecting flask-admin==1.4.1 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading Flask-Admin-1.4.1.tar.gz (922kB)
+Collecting flask-cache<0.14,>=0.13.1 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading Flask-Cache-0.13.1.tar.gz (45kB)
+Collecting flask-login==0.2.11 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading Flask-Login-0.2.11.tar.gz
+Collecting flask-swagger==0.2.13 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading flask-swagger-0.2.13.tar.gz
+Collecting flask-wtf==0.12 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading Flask_WTF-0.12-py2-none-any.whl
+Collecting funcsigs==1.0.0 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading funcsigs-1.0.0-py2.py3-none-any.whl
+Collecting future<0.16,>=0.15.0 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading future-0.15.2.tar.gz (1.6MB)
+Collecting gitpython>=2.0.2 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading GitPython-2.1.3-py2.py3-none-any.whl (442kB)
+Collecting gunicorn<19.4.0,>=19.3.0 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading gunicorn-19.3.0-py2.py3-none-any.whl (110kB)
+Collecting lxml<4.0,>=3.6.0 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading lxml-3.8.0-cp27-cp27mu-manylinux1_x86_64.whl (6.8MB)
+Collecting markdown<3.0,>=2.5.2 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading Markdown-2.6.8.tar.gz (307kB)
+Collecting psutil<5.0.0,>=4.2.0 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading psutil-4.4.2.tar.gz (1.8MB)
+Requirement already satisfied: pygments<3.0,>=2.0.1 in /usr/local/lib/python2.7/dist-packages (from airflow->-r /root/volume/requirements.txt (line 7))
+Collecting python-daemon<2.2,>=2.1.1 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading python_daemon-2.1.2-py2.py3-none-any.whl
+Requirement already satisfied: python-dateutil<3,>=2.3 in /usr/local/lib/python2.7/dist-packages (from airflow->-r /root/volume/requirements.txt (line 7))
+Collecting python-nvd3==0.14.2 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading python-nvd3-0.14.2.tar.gz
+Collecting setproctitle<2,>=1.1.8 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading setproctitle-1.1.10.tar.gz
+Collecting sqlalchemy>=0.9.8 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading SQLAlchemy-1.1.10.tar.gz (5.2MB)
+Collecting tabulate<0.8.0,>=0.7.5 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading tabulate-0.7.7-py2.py3-none-any.whl
+Collecting thrift<0.10,>=0.9.2 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading thrift-0.9.3.tar.gz
+Collecting zope.deprecation<5.0,>=4.0 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading zope.deprecation-4.2.0-py2.py3-none-any.whl
+Collecting mock>=2.0.0 (from tensorflow->-r /root/volume/requirements.txt (line 8))
+  Downloading mock-2.0.0-py2.py3-none-any.whl (56kB)
+Collecting wheel (from tensorflow->-r /root/volume/requirements.txt (line 8))
+  Downloading wheel-0.29.0-py2.py3-none-any.whl (66kB)
+Collecting protobuf>=3.2.0 (from tensorflow->-r /root/volume/requirements.txt (line 8))
+  Downloading protobuf-3.3.0-cp27-cp27mu-manylinux1_x86_64.whl (5.7MB)
+Collecting cycler>=0.10 (from matplotlib->-r /root/volume/requirements.txt (line 9))
+  Downloading cycler-0.10.0-py2.py3-none-any.whl
+Collecting functools32 (from matplotlib->-r /root/volume/requirements.txt (line 9))
+  Downloading functools32-3.2.3-2.zip
+Collecting pytz (from matplotlib->-r /root/volume/requirements.txt (line 9))
+  Downloading pytz-2017.2-py2.py3-none-any.whl (484kB)
+Collecting pyparsing!=2.0.4,!=2.1.2,!=2.1.6,>=1.5.6 (from matplotlib->-r /root/volume/requirements.txt (line 9))
+  Downloading pyparsing-2.2.0-py2.py3-none-any.whl (56kB)
+Collecting subprocess32 (from matplotlib->-r /root/volume/requirements.txt (line 9))
+  Downloading subprocess32-3.2.7.tar.gz (54kB)
+Collecting requests-file (from pandas-datareader->-r /root/volume/requirements.txt (line 11))
+  Downloading requests-file-1.4.2.tar.gz
+Collecting requests-ftp (from pandas-datareader->-r /root/volume/requirements.txt (line 11))
+  Downloading requests-ftp-0.3.1.tar.gz
+Collecting pyasn1 (from quandl->-r /root/volume/requirements.txt (line 12))
+  Downloading pyasn1-0.2.3-py2.py3-none-any.whl (53kB)
+Collecting inflection>=0.3.1 (from quandl->-r /root/volume/requirements.txt (line 12))
+  Downloading inflection-0.3.1.tar.gz
+Collecting ndg-httpsclient (from quandl->-r /root/volume/requirements.txt (line 12))
+  Downloading ndg_httpsclient-0.4.2.tar.gz
+Collecting pyOpenSSL (from quandl->-r /root/volume/requirements.txt (line 12))
+  Downloading pyOpenSSL-17.0.0-py2.py3-none-any.whl (51kB)
+Collecting more-itertools (from quandl->-r /root/volume/requirements.txt (line 12))
+  Downloading more_itertools-3.1.0-py2-none-any.whl
+Collecting scikit-learn (from sklearn->-r /root/volume/requirements.txt (line 15))
+  Downloading scikit_learn-0.18.1-cp27-cp27mu-manylinux1_x86_64.whl (11.6MB)
+Collecting MarkupSafe>=0.23 (from Jinja2>=2.4->Flask<=0.12->-r /root/volume/requirements.txt (line 1))
+  Using cached MarkupSafe-1.0.tar.gz
+Collecting cryptography>=1.1 (from paramiko<3.0,>=1.10->fabric<=1.13->-r /root/volume/requirements.txt (line 2))
+  Downloading cryptography-1.9.tar.gz (409kB)
+Collecting idna<2.6,>=2.5 (from requests!=2.11.0,!=2.12.2,>=2.5.2->docker->-r /root/volume/requirements.txt (line 6))
+  Downloading idna-2.5-py2.py3-none-any.whl (55kB)
+Collecting urllib3<1.22,>=1.21.1 (from requests!=2.11.0,!=2.12.2,>=2.5.2->docker->-r /root/volume/requirements.txt (line 6))
+  Downloading urllib3-1.21.1-py2.py3-none-any.whl (131kB)
+Collecting chardet<3.1.0,>=3.0.2 (from requests!=2.11.0,!=2.12.2,>=2.5.2->docker->-r /root/volume/requirements.txt (line 6))
+  Downloading chardet-3.0.3-py2.py3-none-any.whl (133kB)
+Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python2.7/dist-packages (from requests!=2.11.0,!=2.12.2,>=2.5.2->docker->-r /root/volume/requirements.txt (line 6))
+Collecting Mako (from alembic<0.9,>=0.8.3->airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading Mako-1.0.6.tar.gz (575kB)
+Collecting python-editor>=0.3 (from alembic<0.9,>=0.8.3->airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading python-editor-1.0.3.tar.gz
+Collecting wtforms (from flask-admin==1.4.1->airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading WTForms-2.1.zip (553kB)
+Collecting PyYAML>=3.0 (from flask-swagger==0.2.13->airflow->-r /root/volume/requirements.txt (line 7))
+  Using cached PyYAML-3.12.tar.gz
+Collecting ordereddict (from funcsigs==1.0.0->airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading ordereddict-1.1.tar.gz
+Collecting gitdb2>=2.0.0 (from gitpython>=2.0.2->airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading gitdb2-2.0.2-py2.py3-none-any.whl (63kB)
+Collecting lockfile>=0.10 (from python-daemon<2.2,>=2.1.1->airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading lockfile-0.12.2-py2.py3-none-any.whl
+Collecting docutils (from python-daemon<2.2,>=2.1.1->airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading docutils-0.13.1-py2-none-any.whl (537kB)
+Requirement already satisfied: setuptools in /usr/local/lib/python2.7/dist-packages (from python-daemon<2.2,>=2.1.1->airflow->-r /root/volume/requirements.txt (line 7))
+Collecting python-slugify==1.1.4 (from python-nvd3==0.14.2->airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading python-slugify-1.1.4.tar.gz
+Collecting pbr>=0.11 (from mock>=2.0.0->tensorflow->-r /root/volume/requirements.txt (line 8))
+  Downloading pbr-3.0.1-py2.py3-none-any.whl (99kB)
+Collecting asn1crypto>=0.21.0 (from cryptography>=1.1->paramiko<3.0,>=1.10->fabric<=1.13->-r /root/volume/requirements.txt (line 2))
+  Downloading asn1crypto-0.22.0-py2.py3-none-any.whl (97kB)
+Requirement already satisfied: enum34 in /usr/local/lib/python2.7/dist-packages (from cryptography>=1.1->paramiko<3.0,>=1.10->fabric<=1.13->-r /root/volume/requirements.txt (line 2))
+Collecting cffi>=1.7 (from cryptography>=1.1->paramiko<3.0,>=1.10->fabric<=1.13->-r /root/volume/requirements.txt (line 2))
+  Downloading cffi-1.10.0-cp27-cp27mu-manylinux1_x86_64.whl (392kB)
+Collecting smmap2>=2.0.0 (from gitdb2>=2.0.0->gitpython>=2.0.2->airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading smmap2-2.0.2-py2.py3-none-any.whl
+Collecting Unidecode>=0.04.16 (from python-slugify==1.1.4->python-nvd3==0.14.2->airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading Unidecode-0.04.20-py2.py3-none-any.whl (228kB)
+Collecting pycparser (from cffi>=1.7->cryptography>=1.1->paramiko<3.0,>=1.10->fabric<=1.13->-r /root/volume/requirements.txt (line 2))
+  Downloading pycparser-2.17.tar.gz (231kB)
+Installing collected packages: itsdangerous, click, Werkzeug, MarkupSafe, Jinja2, Flask, pyasn1, idna, asn1crypto, ipaddress, pycparser, cffi, cryptography, paramiko, fabric, py, pytest, pytest-flask, pycrypto, backports.ssl-match-hostname, websocket-client, docker-pycreds, urllib3, chardet, requests, docker, sqlalchemy, Mako, python-editor, alembic, croniter, dill, wtforms, flask-admin, flask-cache, flask-login, PyYAML, flask-swagger, flask-wtf, ordereddict, funcsigs, future, smmap2, gitdb2, gitpython, gunicorn, lxml, markdown, pytz, numpy, pandas, psutil, lockfile, docutils, python-daemon, Unidecode, python-slugify, python-nvd3, setproctitle, tabulate, thrift, zope.deprecation, airflow, pbr, mock, wheel, protobuf, tensorflow, cycler, functools32, pyparsing, subprocess32, matplotlib, requests-file, requests-ftp, pandas-datareader, inflection, pyOpenSSL, ndg-httpsclient, more-itertools, quandl, scipy, scikit-learn, sklearn
+  Running setup.py install for itsdangerous: started
+    Running setup.py install for itsdangerous: finished with status 'done'
+  Running setup.py install for MarkupSafe: started
+    Running setup.py install for MarkupSafe: finished with status 'done'
+  Running setup.py install for pycparser: started
+    Running setup.py install for pycparser: finished with status 'done'
+  Running setup.py install for cryptography: started
+    Running setup.py install for cryptography: finished with status 'done'
+  Running setup.py install for pycrypto: started
+    Running setup.py install for pycrypto: finished with status 'done'
+  Running setup.py install for backports.ssl-match-hostname: started
+    Running setup.py install for backports.ssl-match-hostname: finished with status 'done'
+  Running setup.py install for websocket-client: started
+    Running setup.py install for websocket-client: finished with status 'done'
+  Running setup.py install for sqlalchemy: started
+    Running setup.py install for sqlalchemy: finished with status 'done'
+  Running setup.py install for Mako: started
+    Running setup.py install for Mako: finished with status 'done'
+  Running setup.py install for python-editor: started
+    Running setup.py install for python-editor: finished with status 'done'
+  Running setup.py install for alembic: started
+    Running setup.py install for alembic: finished with status 'done'
+  Running setup.py install for croniter: started
+    Running setup.py install for croniter: finished with status 'done'
+  Running setup.py install for dill: started
+    Running setup.py install for dill: finished with status 'done'
+  Running setup.py install for wtforms: started
+    Running setup.py install for wtforms: finished with status 'done'
+  Running setup.py install for flask-admin: started
+    Running setup.py install for flask-admin: finished with status 'done'
+  Running setup.py install for flask-cache: started
+    Running setup.py install for flask-cache: finished with status 'done'
+  Running setup.py install for flask-login: started
+    Running setup.py install for flask-login: finished with status 'done'
+  Running setup.py install for PyYAML: started
+    Running setup.py install for PyYAML: finished with status 'done'
+  Running setup.py install for flask-swagger: started
+    Running setup.py install for flask-swagger: finished with status 'done'
+  Running setup.py install for ordereddict: started
+    Running setup.py install for ordereddict: finished with status 'done'
+  Running setup.py install for future: started
+    Running setup.py install for future: finished with status 'done'
+  Running setup.py install for markdown: started
+    Running setup.py install for markdown: finished with status 'done'
+  Running setup.py install for psutil: started
+    Running setup.py install for psutil: finished with status 'done'
+  Running setup.py install for python-slugify: started
+    Running setup.py install for python-slugify: finished with status 'done'
+  Running setup.py install for python-nvd3: started
+    Running setup.py install for python-nvd3: finished with status 'done'
+  Running setup.py install for setproctitle: started
+    Running setup.py install for setproctitle: finished with status 'done'
+  Running setup.py install for thrift: started
+    Running setup.py install for thrift: finished with status 'done'
+  Running setup.py install for airflow: started
+    Running setup.py install for airflow: finished with status 'done'
+  Running setup.py install for functools32: started
+    Running setup.py install for functools32: finished with status 'done'
+  Running setup.py install for subprocess32: started
+    Running setup.py install for subprocess32: finished with status 'done'
+  Running setup.py install for requests-file: started
+    Running setup.py install for requests-file: finished with status 'done'
+  Running setup.py install for requests-ftp: started
+    Running setup.py install for requests-ftp: finished with status 'done'
+  Running setup.py install for inflection: started
+    Running setup.py install for inflection: finished with status 'done'
+  Running setup.py install for ndg-httpsclient: started
+    Running setup.py install for ndg-httpsclient: finished with status 'done'
+  Running setup.py install for sklearn: started
+    Running setup.py install for sklearn: finished with status 'done'
+Successfully installed Flask-0.12 Jinja2-2.9.6 Mako-1.0.6 MarkupSafe-1.0 PyYAML-3.12 Unidecode-0.4.20 Werkzeug-0.12.2 airflow-1.8.0 alembic-0.8.10 asn1crypto-0.22.0 backports.ssl-match-hostname-3.5.0.1 cffi-1.10.0 chardet-3.0.3 click-6.7 croniter-0.3.17 cryptography-1.9 cycler-0.10.0 dill-0.2.6 docker-2.3.0 docker-pycreds-0.2.1 docutils-0.13.1 fabric-1.13.0 flask-admin-1.4.1 flask-cache-0.13.1 flask-login-0.2.11 flask-swagger-0.2.13 flask-wtf-0.12 funcsigs-1.0.0 functools32-3.2.3.post2 future-0.15.2 gitdb2-2.0.2 gitpython-2.1.3 gunicorn-19.3.0 idna-2.5 inflection-0.3.1 ipaddress-1.0.18 itsdangerous-0.24 lockfile-0.12.2 lxml-3.8.0 markdown-2.6.8 matplotlib-2.0.2 mock-2.0.0 more-itertools-3.1.0 ndg-httpsclient-0.4.2 numpy-1.12.1 ordereddict-1.1 pandas-0.20.2 pandas-datareader-0.4.0 paramiko-2.1.2 pbr-3.0.1 protobuf-3.3.0 psutil-4.4.2 py-1.4.34 pyOpenSSL-17.0.0 pyasn1-0.2.3 pycparser-2.17 pycrypto-2.6 pyparsing-2.2.0 pytest-3.0.0 pytest-flask-0.10.0 python-daemon-2.1.2 python-editor-1.0.3 python-nvd3-0.14.2 python-slugify-1.1.4 pytz-2017.2 quandl-3.1.0 requests-2.17.3 requests-file-1.4.2 requests-ftp-0.3.1 scikit-learn-0.18.1 scipy-0.19.0 setproctitle-1.1.10 sklearn-0.0 smmap2-2.0.2 sqlalchemy-1.1.10 subprocess32-3.2.7 tabulate-0.7.7 tensorflow-1.1.0 thrift-0.9.3 urllib3-1.21.1 websocket-client-0.40.0 wheel-0.29.0 wtforms-2.1 zope.deprecation-4.2.0
+Collecting Flask<=0.12 (from -r /root/volume/requirements.txt (line 1))
+  Using cached Flask-0.12-py2.py3-none-any.whl
+Collecting fabric<=1.13 (from -r /root/volume/requirements.txt (line 2))
+  Downloading Fabric-1.13.0.tar.gz (217kB)
+Collecting pytest<=3.0 (from -r /root/volume/requirements.txt (line 3))
+  Using cached pytest-3.0.0-py2.py3-none-any.whl
+Collecting pytest-flask<=0.10 (from -r /root/volume/requirements.txt (line 4))
+  Using cached pytest_flask-0.10.0-py2.py3-none-any.whl
+Collecting pycrypto<=2.6 (from -r /root/volume/requirements.txt (line 5))
+  Using cached pycrypto-2.6.tar.gz
+Collecting docker (from -r /root/volume/requirements.txt (line 6))
+  Using cached docker-2.3.0-py2.py3-none-any.whl
+Collecting airflow (from -r /root/volume/requirements.txt (line 7))
+  Using cached airflow-1.8.0.tar.gz
+Collecting tensorflow (from -r /root/volume/requirements.txt (line 8))
+  Downloading tensorflow-1.1.0-cp35-cp35m-manylinux1_x86_64.whl (31.0MB)
+Collecting matplotlib (from -r /root/volume/requirements.txt (line 9))
+  Downloading matplotlib-2.0.2-cp35-cp35m-manylinux1_x86_64.whl (14.6MB)
+Collecting pandas (from -r /root/volume/requirements.txt (line 10))
+  Downloading pandas-0.20.2-cp35-cp35m-manylinux1_x86_64.whl (24.0MB)
+Collecting pandas-datareader (from -r /root/volume/requirements.txt (line 11))
+  Using cached pandas_datareader-0.4.0-py2.py3-none-any.whl
+Collecting quandl (from -r /root/volume/requirements.txt (line 12))
+  Using cached Quandl-3.1.0-py2.py3-none-any.whl
+Collecting numpy (from -r /root/volume/requirements.txt (line 13))
+  Downloading numpy-1.12.1-cp35-cp35m-manylinux1_x86_64.whl (16.8MB)
+Collecting scipy (from -r /root/volume/requirements.txt (line 14))
+  Downloading scipy-0.19.0-cp35-cp35m-manylinux1_x86_64.whl (47.9MB)
+Collecting sklearn (from -r /root/volume/requirements.txt (line 15))
+  Using cached sklearn-0.0.tar.gz
+Collecting Werkzeug>=0.7 (from Flask<=0.12->-r /root/volume/requirements.txt (line 1))
+  Using cached Werkzeug-0.12.2-py2.py3-none-any.whl
+Requirement already satisfied: Jinja2>=2.4 in /usr/local/lib/python3.5/dist-packages (from Flask<=0.12->-r /root/volume/requirements.txt (line 1))
+Collecting click>=2.0 (from Flask<=0.12->-r /root/volume/requirements.txt (line 1))
+  Using cached click-6.7-py2.py3-none-any.whl
+Collecting itsdangerous>=0.21 (from Flask<=0.12->-r /root/volume/requirements.txt (line 1))
+  Using cached itsdangerous-0.24.tar.gz
+Collecting paramiko<3.0,>=1.10 (from fabric<=1.13->-r /root/volume/requirements.txt (line 2))
+  Using cached paramiko-2.1.2-py2.py3-none-any.whl
+Collecting py>=1.4.29 (from pytest<=3.0->-r /root/volume/requirements.txt (line 3))
+  Using cached py-1.4.34-py2.py3-none-any.whl
+Collecting docker-pycreds>=0.2.1 (from docker->-r /root/volume/requirements.txt (line 6))
+  Using cached docker_pycreds-0.2.1-py2.py3-none-any.whl
+Collecting requests!=2.11.0,!=2.12.2,>=2.5.2 (from docker->-r /root/volume/requirements.txt (line 6))
+  Using cached requests-2.17.3-py2.py3-none-any.whl
+Requirement already satisfied: six>=1.4.0 in /usr/local/lib/python3.5/dist-packages (from docker->-r /root/volume/requirements.txt (line 6))
+Collecting websocket-client>=0.32.0 (from docker->-r /root/volume/requirements.txt (line 6))
+  Using cached websocket_client-0.40.0.tar.gz
+Collecting alembic<0.9,>=0.8.3 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Using cached alembic-0.8.10.tar.gz
+Collecting croniter<0.4,>=0.3.8 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Using cached croniter-0.3.17.tar.gz
+Collecting dill<0.3,>=0.2.2 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Using cached dill-0.2.6.zip
+Collecting flask-admin==1.4.1 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Using cached Flask-Admin-1.4.1.tar.gz
+Collecting flask-cache<0.14,>=0.13.1 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Using cached Flask-Cache-0.13.1.tar.gz
+Collecting flask-login==0.2.11 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Using cached Flask-Login-0.2.11.tar.gz
+Collecting flask-swagger==0.2.13 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Using cached flask-swagger-0.2.13.tar.gz
+Collecting flask-wtf==0.12 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading Flask-WTF-0.12.tar.gz (247kB)
+Collecting funcsigs==1.0.0 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Using cached funcsigs-1.0.0-py2.py3-none-any.whl
+Collecting future<0.16,>=0.15.0 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Using cached future-0.15.2.tar.gz
+Collecting gitpython>=2.0.2 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Using cached GitPython-2.1.3-py2.py3-none-any.whl
+Collecting gunicorn<19.4.0,>=19.3.0 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Using cached gunicorn-19.3.0-py2.py3-none-any.whl
+Collecting lxml<4.0,>=3.6.0 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading lxml-3.8.0-cp35-cp35m-manylinux1_x86_64.whl (7.2MB)
+Collecting markdown<3.0,>=2.5.2 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Using cached Markdown-2.6.8.tar.gz
+Collecting psutil<5.0.0,>=4.2.0 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Using cached psutil-4.4.2.tar.gz
+Requirement already satisfied: pygments<3.0,>=2.0.1 in /usr/local/lib/python3.5/dist-packages (from airflow->-r /root/volume/requirements.txt (line 7))
+Collecting python-daemon<2.2,>=2.1.1 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Using cached python_daemon-2.1.2-py2.py3-none-any.whl
+Requirement already satisfied: python-dateutil<3,>=2.3 in /usr/local/lib/python3.5/dist-packages (from airflow->-r /root/volume/requirements.txt (line 7))
+Collecting python-nvd3==0.14.2 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Using cached python-nvd3-0.14.2.tar.gz
+Collecting setproctitle<2,>=1.1.8 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Using cached setproctitle-1.1.10.tar.gz
+Collecting sqlalchemy>=0.9.8 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Using cached SQLAlchemy-1.1.10.tar.gz
+Collecting tabulate<0.8.0,>=0.7.5 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Using cached tabulate-0.7.7-py2.py3-none-any.whl
+Collecting thrift<0.10,>=0.9.2 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Using cached thrift-0.9.3.tar.gz
+Collecting zope.deprecation<5.0,>=4.0 (from airflow->-r /root/volume/requirements.txt (line 7))
+  Using cached zope.deprecation-4.2.0-py2.py3-none-any.whl
+Collecting protobuf>=3.2.0 (from tensorflow->-r /root/volume/requirements.txt (line 8))
+  Downloading protobuf-3.3.0-cp35-cp35m-manylinux1_x86_64.whl (5.7MB)
+Collecting wheel>=0.26 (from tensorflow->-r /root/volume/requirements.txt (line 8))
+  Using cached wheel-0.29.0-py2.py3-none-any.whl
+Collecting pytz (from matplotlib->-r /root/volume/requirements.txt (line 9))
+  Using cached pytz-2017.2-py2.py3-none-any.whl
+Collecting pyparsing!=2.0.0,!=2.0.4,!=2.1.2,!=2.1.6,>=1.5.6 (from matplotlib->-r /root/volume/requirements.txt (line 9))
+  Using cached pyparsing-2.2.0-py2.py3-none-any.whl
+Collecting cycler>=0.10 (from matplotlib->-r /root/volume/requirements.txt (line 9))
+  Using cached cycler-0.10.0-py2.py3-none-any.whl
+Collecting requests-ftp (from pandas-datareader->-r /root/volume/requirements.txt (line 11))
+  Using cached requests-ftp-0.3.1.tar.gz
+Collecting requests-file (from pandas-datareader->-r /root/volume/requirements.txt (line 11))
+  Using cached requests-file-1.4.2.tar.gz
+Collecting more-itertools (from quandl->-r /root/volume/requirements.txt (line 12))
+  Downloading more_itertools-3.1.0-py3-none-any.whl
+Collecting pyasn1 (from quandl->-r /root/volume/requirements.txt (line 12))
+  Using cached pyasn1-0.2.3-py2.py3-none-any.whl
+Collecting pyOpenSSL (from quandl->-r /root/volume/requirements.txt (line 12))
+  Using cached pyOpenSSL-17.0.0-py2.py3-none-any.whl
+Collecting inflection>=0.3.1 (from quandl->-r /root/volume/requirements.txt (line 12))
+  Using cached inflection-0.3.1.tar.gz
+Collecting ndg-httpsclient (from quandl->-r /root/volume/requirements.txt (line 12))
+  Using cached ndg_httpsclient-0.4.2.tar.gz
+Collecting scikit-learn (from sklearn->-r /root/volume/requirements.txt (line 15))
+  Downloading scikit_learn-0.18.1-cp35-cp35m-manylinux1_x86_64.whl (11.7MB)
+Requirement already satisfied: MarkupSafe>=0.23 in /usr/local/lib/python3.5/dist-packages (from Jinja2>=2.4->Flask<=0.12->-r /root/volume/requirements.txt (line 1))
+Collecting cryptography>=1.1 (from paramiko<3.0,>=1.10->fabric<=1.13->-r /root/volume/requirements.txt (line 2))
+  Using cached cryptography-1.9.tar.gz
+Collecting certifi>=2017.4.17 (from requests!=2.11.0,!=2.12.2,>=2.5.2->docker->-r /root/volume/requirements.txt (line 6))
+  Using cached certifi-2017.4.17-py2.py3-none-any.whl
+Collecting urllib3<1.22,>=1.21.1 (from requests!=2.11.0,!=2.12.2,>=2.5.2->docker->-r /root/volume/requirements.txt (line 6))
+  Using cached urllib3-1.21.1-py2.py3-none-any.whl
+Collecting chardet<3.1.0,>=3.0.2 (from requests!=2.11.0,!=2.12.2,>=2.5.2->docker->-r /root/volume/requirements.txt (line 6))
+  Using cached chardet-3.0.3-py2.py3-none-any.whl
+Collecting idna<2.6,>=2.5 (from requests!=2.11.0,!=2.12.2,>=2.5.2->docker->-r /root/volume/requirements.txt (line 6))
+  Using cached idna-2.5-py2.py3-none-any.whl
+Collecting Mako (from alembic<0.9,>=0.8.3->airflow->-r /root/volume/requirements.txt (line 7))
+  Using cached Mako-1.0.6.tar.gz
+Collecting python-editor>=0.3 (from alembic<0.9,>=0.8.3->airflow->-r /root/volume/requirements.txt (line 7))
+  Using cached python-editor-1.0.3.tar.gz
+Collecting wtforms (from flask-admin==1.4.1->airflow->-r /root/volume/requirements.txt (line 7))
+  Using cached WTForms-2.1.zip
+Requirement already satisfied: PyYAML>=3.0 in /usr/local/lib/python3.5/dist-packages (from flask-swagger==0.2.13->airflow->-r /root/volume/requirements.txt (line 7))
+Collecting ordereddict (from funcsigs==1.0.0->airflow->-r /root/volume/requirements.txt (line 7))
+  Using cached ordereddict-1.1.tar.gz
+Collecting gitdb2>=2.0.0 (from gitpython>=2.0.2->airflow->-r /root/volume/requirements.txt (line 7))
+  Using cached gitdb2-2.0.2-py2.py3-none-any.whl
+Collecting lockfile>=0.10 (from python-daemon<2.2,>=2.1.1->airflow->-r /root/volume/requirements.txt (line 7))
+  Using cached lockfile-0.12.2-py2.py3-none-any.whl
+Requirement already satisfied: setuptools in /usr/local/lib/python3.5/dist-packages (from python-daemon<2.2,>=2.1.1->airflow->-r /root/volume/requirements.txt (line 7))
+Collecting docutils (from python-daemon<2.2,>=2.1.1->airflow->-r /root/volume/requirements.txt (line 7))
+  Downloading docutils-0.13.1-py3-none-any.whl (536kB)
+Collecting python-slugify==1.1.4 (from python-nvd3==0.14.2->airflow->-r /root/volume/requirements.txt (line 7))
+  Using cached python-slugify-1.1.4.tar.gz
+Collecting asn1crypto>=0.21.0 (from cryptography>=1.1->paramiko<3.0,>=1.10->fabric<=1.13->-r /root/volume/requirements.txt (line 2))
+  Using cached asn1crypto-0.22.0-py2.py3-none-any.whl
+Collecting cffi>=1.7 (from cryptography>=1.1->paramiko<3.0,>=1.10->fabric<=1.13->-r /root/volume/requirements.txt (line 2))
+  Downloading cffi-1.10.0-cp35-cp35m-manylinux1_x86_64.whl (406kB)
+Collecting smmap2>=2.0.0 (from gitdb2>=2.0.0->gitpython>=2.0.2->airflow->-r /root/volume/requirements.txt (line 7))
+  Using cached smmap2-2.0.2-py2.py3-none-any.whl
+Collecting Unidecode>=0.04.16 (from python-slugify==1.1.4->python-nvd3==0.14.2->airflow->-r /root/volume/requirements.txt (line 7))
+  Using cached Unidecode-0.04.20-py2.py3-none-any.whl
+Collecting pycparser (from cffi>=1.7->cryptography>=1.1->paramiko<3.0,>=1.10->fabric<=1.13->-r /root/volume/requirements.txt (line 2))
+  Using cached pycparser-2.17.tar.gz
+Installing collected packages: Werkzeug, click, itsdangerous, Flask, idna, asn1crypto, pycparser, cffi, cryptography, pyasn1, paramiko, fabric, py, pytest, pytest-flask, pycrypto, docker-pycreds, certifi, urllib3, chardet, requests, websocket-client, docker, sqlalchemy, Mako, python-editor, alembic, croniter, dill, wtforms, flask-admin, flask-cache, flask-login, flask-swagger, flask-wtf, ordereddict, funcsigs, future, smmap2, gitdb2, gitpython, gunicorn, lxml, markdown, pytz, numpy, pandas, psutil, lockfile, docutils, python-daemon, Unidecode, python-slugify, python-nvd3, setproctitle, tabulate, thrift, zope.deprecation, airflow, protobuf, wheel, tensorflow, pyparsing, cycler, matplotlib, requests-ftp, requests-file, pandas-datareader, more-itertools, pyOpenSSL, inflection, ndg-httpsclient, quandl, scipy, scikit-learn, sklearn
+  Running setup.py install for itsdangerous: started
+    Running setup.py install for itsdangerous: finished with status 'done'
+  Running setup.py install for pycparser: started
+    Running setup.py install for pycparser: finished with status 'done'
+  Running setup.py install for cryptography: started
+    Running setup.py install for cryptography: finished with status 'done'
+  Running setup.py install for fabric: started
+    Running setup.py install for fabric: finished with status 'done'
+  Running setup.py install for pycrypto: started
+    Running setup.py install for pycrypto: finished with status 'done'
+  Running setup.py install for websocket-client: started
+    Running setup.py install for websocket-client: finished with status 'done'
+  Running setup.py install for sqlalchemy: started
+    Running setup.py install for sqlalchemy: finished with status 'done'
+  Running setup.py install for Mako: started
+    Running setup.py install for Mako: finished with status 'done'
+  Running setup.py install for python-editor: started
+    Running setup.py install for python-editor: finished with status 'done'
+  Running setup.py install for alembic: started
+    Running setup.py install for alembic: finished with status 'done'
+  Running setup.py install for croniter: started
+    Running setup.py install for croniter: finished with status 'done'
+  Running setup.py install for dill: started
+    Running setup.py install for dill: finished with status 'done'
+  Running setup.py install for wtforms: started
+    Running setup.py install for wtforms: finished with status 'done'
+  Running setup.py install for flask-admin: started
+    Running setup.py install for flask-admin: finished with status 'done'
+  Running setup.py install for flask-cache: started
+    Running setup.py install for flask-cache: finished with status 'done'
+  Running setup.py install for flask-login: started
+    Running setup.py install for flask-login: finished with status 'done'
+  Running setup.py install for flask-swagger: started
+    Running setup.py install for flask-swagger: finished with status 'done'
+  Running setup.py install for flask-wtf: started
+    Running setup.py install for flask-wtf: finished with status 'done'
+  Running setup.py install for ordereddict: started
+    Running setup.py install for ordereddict: finished with status 'done'
+  Running setup.py install for future: started
+    Running setup.py install for future: finished with status 'done'
+  Running setup.py install for markdown: started
+    Running setup.py install for markdown: finished with status 'done'
+  Found existing installation: psutil 5.2.2
+    Uninstalling psutil-5.2.2:
+      Successfully uninstalled psutil-5.2.2
+  Running setup.py install for psutil: started
+    Running setup.py install for psutil: finished with status 'done'
+  Running setup.py install for python-slugify: started
+    Running setup.py install for python-slugify: finished with status 'done'
+  Running setup.py install for python-nvd3: started
+    Running setup.py install for python-nvd3: finished with status 'done'
+  Running setup.py install for setproctitle: started
+    Running setup.py install for setproctitle: finished with status 'done'
+  Running setup.py install for thrift: started
+    Running setup.py install for thrift: finished with status 'done'
+  Running setup.py install for airflow: started
+    Running setup.py install for airflow: finished with status 'done'
+  Running setup.py install for requests-ftp: started
+    Running setup.py install for requests-ftp: finished with status 'done'
+  Running setup.py install for requests-file: started
+    Running setup.py install for requests-file: finished with status 'done'
+  Running setup.py install for inflection: started
+    Running setup.py install for inflection: finished with status 'done'
+  Running setup.py install for ndg-httpsclient: started
+    Running setup.py install for ndg-httpsclient: finished with status 'done'
+  Running setup.py install for sklearn: started
+    Running setup.py install for sklearn: finished with status 'done'
+Successfully installed Flask-0.12 Mako-1.0.6 Unidecode-0.4.20 Werkzeug-0.12.2 airflow-1.8.0 alembic-0.8.10 asn1crypto-0.22.0 certifi-2017.4.17 cffi-1.10.0 chardet-3.0.3 click-6.7 croniter-0.3.17 cryptography-1.9 cycler-0.10.0 dill-0.2.6 docker-2.3.0 docker-pycreds-0.2.1 docutils-0.13.1 fabric-1.13.0 flask-admin-1.4.1 flask-cache-0.13.1 flask-login-0.2.11 flask-swagger-0.2.13 flask-wtf-0.12 funcsigs-1.0.0 future-0.15.2 gitdb2-2.0.2 gitpython-2.1.3 gunicorn-19.3.0 idna-2.5 inflection-0.3.1 itsdangerous-0.24 lockfile-0.12.2 lxml-3.8.0 markdown-2.6.8 matplotlib-2.0.2 more-itertools-3.1.0 ndg-httpsclient-0.4.2 numpy-1.12.1 ordereddict-1.1 pandas-0.20.2 pandas-datareader-0.4.0 paramiko-2.1.2 protobuf-3.3.0 psutil-4.4.2 py-1.4.34 pyOpenSSL-17.0.0 pyasn1-0.2.3 pycparser-2.17 pycrypto-2.6 pyparsing-2.2.0 pytest-3.0.0 pytest-flask-0.10.0 python-daemon-2.1.2 python-editor-1.0.3 python-nvd3-0.14.2 python-slugify-1.1.4 pytz-2017.2 quandl-3.1.0 requests-2.17.3 requests-file-1.4.2 requests-ftp-0.3.1 scikit-learn-0.18.1 scipy-0.19.0 setproctitle-1.1.10 sklearn-0.0 smmap2-2.0.2 sqlalchemy-1.1.10 tabulate-0.7.7 tensorflow-1.1.0 thrift-0.9.3 urllib3-1.21.1 websocket-client-0.40.0 wheel-0.29.0 wtforms-2.1 zope.deprecation-4.2.0
+Enabling notebook extension toggle_all_line_numbers/main...
+      - Validating: [32mOK[0m
+jupyter config..
+{'NotebookApp': {'port': 8888, 'notebook_dir': '/root/volume', 'open_browser': False, 'password': 'sha1:3227a87ac113:43f55263a08b5715cb6ef7b52b54eaafbda0a0be', 'ip': '0.0.0.0'}}
+jupyter config..
+{'NotebookApp': {'port': 8888, 'notebook_dir': '/root/volume', 'open_browser': False, 'ip': '0.0.0.0'}}
+Enabling notebook extension codefolding/main...
+      - Validating: [32mOK[0m
+jupyter config..
+{'NotebookApp': {'ip': '0.0.0.0', 'port': 8888, 'open_browser': False, 'notebook_dir': '/root/volume', 'password': 'sha1:4feeab6eaabb:326bec48d7e1ce46aebc799f26faf7610ded517b'}}
+jupyter config..
+{'NotebookApp': {'ip': '0.0.0.0', 'port': 8888, 'open_browser': False, 'notebook_dir': '/root/volume'}}
+Enabling notebook extension help_panel/help_panel...
+      - Validating: [32mOK[0m
+jupyter config..
+{'NotebookApp': {'ip': '0.0.0.0', 'open_browser': False, 'notebook_dir': '/root/volume', 'password': 'sha1:5b034d3a4bf5:5df8d4eba04f4f42ec22416d73ee9d0528b2c8ab', 'port': 8888}}
+jupyter config..
+{'NotebookApp': {'ip': '0.0.0.0', 'open_browser': False, 'notebook_dir': '/root/volume', 'port': 8888}}
+[W 18:25:35.539 NotebookApp] server_extensions is deprecated, use nbserver_extensions
+[I 18:25:35.542 NotebookApp] Writing notebook server cookie secret to /root/.local/share/jupyter/runtime/notebook_cookie_secret
+[I 18:25:35.572 NotebookApp] [jupyter_nbextensions_configurator] enabled 0.2.5
+[I 18:25:35.573 NotebookApp] Serving notebooks from local directory: /root/volume
+[I 18:25:35.573 NotebookApp] 0 active kernels 
+[I 18:25:35.573 NotebookApp] The Jupyter Notebook is running at: http://0.0.0.0:8888/
+[I 18:25:35.574 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[I 18:25:42.144 NotebookApp] 302 GET /api/sessions?_=1496857783536 (172.17.0.1) 4.34ms
+[I 18:25:42.148 NotebookApp] 302 GET /api/terminals?_=1496857783537 (172.17.0.1) 2.06ms
+[I 18:25:44.207 NotebookApp] 302 GET /tree (172.17.0.1) 1.30ms
+[I 18:25:45.516 NotebookApp] 302 POST /login?next=%2Ftree (172.17.0.1) 0.92ms
+[I 18:25:47.509 NotebookApp] Writing notebook-signing key to /root/.local/share/jupyter/notebook_secret
+[W 18:25:47.510 NotebookApp] Notebook test-python2.ipynb is not trusted
+[I 18:25:47.579 NotebookApp] Kernel started: 0d088003-1925-4fe9-9101-8d42a923be04
+[W 18:25:47.640 NotebookApp] 404 GET /static/components/bootstrap/js/tooltip.js?v=20170607182535 (172.17.0.1) 6.69ms referer=http://localhost:8888/notebooks/test-python2.ipynb
+[W 18:25:47.668 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20170607182535 (172.17.0.1) 1.13ms referer=http://localhost:8888/notebooks/test-python2.ipynb

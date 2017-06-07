@@ -6,3 +6,11 @@ pycrypto<=2.6
 docker
 airflow
 tensorflow
+matplotlib
+pandas
+pandas-datareader
+quandl
+numpy
+scipy
+sklearn
+
