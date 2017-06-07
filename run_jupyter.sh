@@ -1,4 +1,6 @@
 #!/bin/sh
+
+cp /root/volume/jupyter_notebook_config.py /root/.jupyter/
 jupyter nbextension enable toggle_all_line_numbers/main
 jupyter nbextension enable codefolding/main
 jupyter nbextension enable help_panel/help_panel
