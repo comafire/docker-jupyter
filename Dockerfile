@@ -14,7 +14,7 @@ apt-utils \
 # Common
 RUN apt-get update && apt-get install -y --no-install-recommends \
 build-essential vim curl wget git cmake bzip2 sudo locales unzip net-tools \
-libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev llvm \
+libffi-dev libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev llvm \
 libfreetype6-dev libxft-dev
 RUN apt-get update && apt-get install -y --no-install-recommends \
 software-properties-common libjpeg-dev libpng-dev ncurses-dev imagemagick \
