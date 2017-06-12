@@ -1,16 +1,4 @@
 Flask<=0.12
-fabric<=1.13
-pytest<=3.0
 pytest-flask<=0.10
-pycrypto<=2.6
-docker
-airflow
 tensorflow
-matplotlib
-pandas
-pandas-datareader
-quandl
-numpy
-scipy
-sklearn
 

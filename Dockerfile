@@ -35,11 +35,23 @@ python python-dev python-pip python-virtualenv python-software-properties
 RUN pip2 install --upgrade pip
 RUN pip2 install setuptools
 
+# Python2-Deps
+RUN pip2 install matplotlib pandas pandas-datareader quandl
+RUN pip2 install numpy scipy sklearn tensorflow
+RUN pip2 install docker fabric pytest pycrypto
+RUN pip2 install airflow airflow[mysql,crypto,password]
+
 # Python3
 RUN apt-get update && apt-get install -y --no-install-recommends \
 python3 python3-dev python3-pip python3-virtualenv python3-software-properties 
 RUN pip3 install --upgrade pip
 RUN pip3 install setuptools
+
+# Python3-Deps
+RUN pip3 install matplotlib pandas pandas-datareader quandl
+RUN pip3 install numpy scipy sklearn tensorflow
+RUN pip3 install docker fabric pytest pycrypto 
+RUN pip2 install airflow airflow[mysql,crypto,password]
 
 # Jupyter
 RUN pip3 install jupyter
