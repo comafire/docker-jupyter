@@ -29,6 +29,10 @@ RUN add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubunt
 RUN apt-get update && apt-get install -y --no-install-recommends \
 docker-ce
 
+# Database
+RUN apt-get update && apt-get install -y --no-install-recommends \
+libmysqlclient-dev libpq-dev
+
 # Python2
 RUN apt-get update && apt-get install -y --no-install-recommends \
 python python-dev python-pip python-virtualenv python-software-properties
@@ -39,7 +43,7 @@ RUN pip2 install setuptools
 RUN pip2 install matplotlib pandas pandas-datareader quandl
 RUN pip2 install numpy scipy sklearn tensorflow
 RUN pip2 install docker fabric pytest pycrypto 
-RUN pip2 install airflow airflow[mysql,crypto,password]
+RUN pip2 install pymysql airflow airflow[mysql,crypto,password]
 
 # Python3
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -51,7 +55,7 @@ RUN pip3 install setuptools
 RUN pip3 install matplotlib pandas pandas-datareader quandl
 RUN pip3 install numpy scipy sklearn tensorflow
 RUN pip3 install docker fabric pytest pycrypto
-RUN pip2 install airflow airflow[mysql,crypto,password]
+RUN pip2 install pymysql airflow airflow[mysql,crypto,password]
 
 # Jupyter
 RUN pip3 install jupyter
@@ -89,6 +93,12 @@ RUN curl -sL --retry 3 --insecure \
 && ln -s $JAVA_HOME /usr/local/java \
 && rm -rf $JAVA_HOME/man
 
+# Scala
+RUN apt-get update && apt-get install -y --no-install-recommends \
+scala
+RUN pip2 install py4j
+RUN pip3 install py4j
+
 # SPARK
 ENV SPARK_VERSION 2.1.0
 ENV SPARK_PACKAGE spark-${SPARK_VERSION}-bin-hadoop2.7
@@ -104,11 +114,6 @@ RUN curl -sL --retry 3 \
 && chown -R root:root $SPARK_HOME
 ENV PYTHONPATH $SPARK_HOME/python/:$PYTHONPATH
 ENV PYTHONPATH $SPARK_HOME/python/lib/py4j-0.10.4-src.zip:$PYTHONPATH
-
-# Scala
-RUN apt-get update && apt-get install -y --no-install-recommends \
-scala
-RUN pip3 install py4j
 
 # Env
 VOLUME /root/volume
