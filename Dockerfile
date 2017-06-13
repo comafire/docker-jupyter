@@ -38,7 +38,7 @@ RUN pip2 install setuptools
 # Python2-Deps
 RUN pip2 install matplotlib pandas pandas-datareader quandl
 RUN pip2 install numpy scipy sklearn tensorflow
-RUN pip2 install docker fabric pytest pycrypto
+RUN pip2 install docker fabric pytest pycrypto 
 RUN pip2 install airflow airflow[mysql,crypto,password]
 
 # Python3
@@ -50,7 +50,7 @@ RUN pip3 install setuptools
 # Python3-Deps
 RUN pip3 install matplotlib pandas pandas-datareader quandl
 RUN pip3 install numpy scipy sklearn tensorflow
-RUN pip3 install docker fabric pytest pycrypto 
+RUN pip3 install docker fabric pytest pycrypto
 RUN pip2 install airflow airflow[mysql,crypto,password]
 
 # Jupyter
@@ -115,6 +115,5 @@ VOLUME /root/volume
 
 EXPOSE 8888
 
-#COPY jupyter_notebook_config.py /root/.jupyter/
-COPY run_jupyter.sh /root/
-CMD cd $HOME && cd volume && sh /root/run_jupyter.sh
+WORKDIR /root/volume
+CMD sh run_jupyter.sh
