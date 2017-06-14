@@ -121,4 +121,5 @@ VOLUME /root/volume
 EXPOSE 8888
 
 WORKDIR /root/volume
-CMD sh run_jupyter.sh
+ENTRYPOINT ["./run_jupyter.sh"]
+
