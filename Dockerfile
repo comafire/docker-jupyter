@@ -55,7 +55,7 @@ RUN pip3 install setuptools
 RUN pip3 install matplotlib pandas pandas-datareader quandl
 RUN pip3 install numpy scipy sklearn tensorflow
 RUN pip3 install docker fabric pytest pycrypto
-RUN pip2 install pymysql airflow airflow[mysql,crypto,password]
+RUN pip3 install pymysql airflow airflow[mysql,crypto,password]
 
 # Jupyter
 RUN pip3 install jupyter
