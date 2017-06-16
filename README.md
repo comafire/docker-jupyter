@@ -16,10 +16,10 @@
 Docker 는 이미 설치되어 있다고 가정합니다.
 
 Docker 설치가 필요하시면 Docker 공식 설치 문서를 참조하세요.
+
 https://docs.docker.com/engine/installation/linux/ubuntu/
 
 Github 에서 프로젝트를 Clone 합니다.
-
 Docker Hub에서 이미지는 받으실수 있수 있기 때문에 로컬에서 docker 로 빌드하실 필요는 없습니다.
 
 docker_run_jupyter.sh 를 실행하면 docker hub 에서 이미지를 다운로드 후 컨테이너가 실행 됩니다.
