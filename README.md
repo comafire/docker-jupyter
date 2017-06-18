@@ -1,10 +1,9 @@
 # DataScientist 를 위한 Jupyter Docker 
-데이터과학자를 위한 Jupyter 및 Spark 도커
+데이터과학자를 위한 Jupyter 도커
 
 현재 지원 기능 
 * Jupyter
 * Python 2, 3
-** 기본 패키지들: numpy, pandas, sklearn ..
 * PySpark
 
 사전 요구사항
@@ -20,9 +19,8 @@ Docker 설치가 필요하시면 Docker 공식 설치 문서를 참조하세요.
 https://docs.docker.com/engine/installation/linux/ubuntu/
 
 Github 에서 프로젝트를 Clone 합니다.
-Docker Hub에서 이미지는 받으실수 있수 있기 때문에 로컬에서 docker 로 빌드하실 필요는 없습니다.
 
-docker_run_jupyter.sh 를 실행하면 docker hub 에서 이미지를 다운로드 후 컨테이너가 실행 됩니다.
+docker_run_jupyter.sh 를 실행하면 docker hub 에서 이미지가 다운로드된 후 컨테이너가 실행 됩니다.
 
 ```
 > git clone https://github.com/comafire/docker-jupyter.git
