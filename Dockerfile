@@ -19,7 +19,7 @@ libfreetype6-dev libxft-dev
 RUN apt-get update && apt-get install -y --no-install-recommends \
 software-properties-common libjpeg-dev libpng-dev ncurses-dev imagemagick \
 libgraphicsmagick1-dev libzmq-dev gfortran gnuplot gnuplot-x11 libsdl2-dev \
-apt-utils openssh-client 
+apt-utils openssh-client
 
 # Docker
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -39,43 +39,11 @@ python python-dev python-pip python-virtualenv python-software-properties
 RUN pip2 install --upgrade pip
 RUN pip2 install setuptools
 
-# Python2-Deps
-RUN pip2 install matplotlib pandas pandas-datareader quandl
-RUN pip2 install numpy scipy sklearn tensorflow
-RUN pip2 install docker fabric pytest pycrypto 
-RUN pip2 install pymysql airflow airflow[mysql,crypto,password]
-
 # Python3
 RUN apt-get update && apt-get install -y --no-install-recommends \
 python3 python3-dev python3-pip python3-virtualenv python3-software-properties 
 RUN pip3 install --upgrade pip
 RUN pip3 install setuptools
-
-# Python3-Deps
-RUN pip3 install matplotlib pandas pandas-datareader quandl
-RUN pip3 install numpy scipy sklearn tensorflow
-RUN pip3 install docker fabric pytest pycrypto
-RUN pip3 install pymysql airflow airflow[mysql,crypto,password]
-
-# Jupyter
-RUN pip3 install jupyter
-# Jupyter extensions
-RUN pip3 install jupyter_contrib_nbextensions
-RUN jupyter contrib nbextension install --user
-RUN pip3 install yapf
-
-# Jupyter python2 kernel
-RUN python2 -m pip install ipykernel
-RUN python2 -m ipykernel install --user
-
-# Julia: disable until v0.x
-#RUN add-apt-repository ppa:staticfloat/juliareleases
-#RUN add-apt-repository ppa:staticfloat/julia-deps
-#RUN apt-get update && apt-get install -y --no-install-recommends \
-#julia
-
-#RUN julia -e 'Pkg.add("IJulia")'
-
 
 # JAVA http://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/server-jre-8u131-linux-x64.tar.gz
 ENV JAVA_MAJOR_VERSION 8
@@ -99,8 +67,21 @@ scala
 RUN pip2 install py4j
 RUN pip3 install py4j
 
+# Julia: disable until v0.x
+#RUN add-apt-repository ppa:staticfloat/juliareleases
+#RUN add-apt-repository ppa:staticfloat/julia-deps
+#RUN apt-get update && apt-get install -y --no-install-recommends \
+#julia
+
+# R
+#RUN gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys E084DAB9
+#RUN add-apt-repository 'deb [arch=amd64,i386] https://cran.rstudio.com/bin/linux/ubuntu xenial/'
+RUN apt-get update && apt-get --allow-unauthenticated install -y --no-install-recommends \
+r-base r-base-dev
+
+
 # SPARK
-ENV SPARK_VERSION 2.1.0
+ENV SPARK_VERSION 2.1.1
 ENV SPARK_PACKAGE spark-${SPARK_VERSION}-bin-hadoop2.7
 ENV SPARK_HOME /usr/local/spark-${SPARK_VERSION}
 
@@ -115,11 +96,54 @@ RUN curl -sL --retry 3 \
 ENV PYTHONPATH $SPARK_HOME/python/:$PYTHONPATH
 ENV PYTHONPATH $SPARK_HOME/python/lib/py4j-0.10.4-src.zip:$PYTHONPATH
 
+# Python2-Deps
+RUN pip2 install matplotlib pandas pandas-datareader quandl
+RUN pip2 install numpy scipy sklearn 
+RUN pip2 install docker fabric pytest pycrypto 
+RUN pip2 install pymysql airflow airflow[mysql,crypto,password]
+RUN pip2 install theano tensorflow keras
+RUN pip2 install http://download.pytorch.org/whl/cu75/torch-0.1.12.post2-cp27-none-linux_x86_64.whl
+RUN pip2 install torchvision
+
+# Python3-Deps
+RUN pip3 install matplotlib pandas pandas-datareader quandl
+RUN pip3 install numpy scipy sklearn
+RUN pip3 install docker fabric pytest pycrypto
+RUN pip3 install pymysql airflow airflow[mysql,crypto,password]
+RUN pip3 install theano tensorflow keras
+RUN pip3 install http://download.pytorch.org/whl/cu75/torch-0.1.12.post2-cp35-cp35m-linux_x86_64.whl
+RUN pip3 install torchvision
+
+# Jupyter
+RUN pip3 install jupyter
+# Jupyter extensions
+RUN pip3 install jupyter_contrib_nbextensions
+RUN jupyter contrib nbextension install --user
+RUN pip3 install yapf
+RUN pip3 install https://dist.apache.org/repos/dist/dev/incubator/toree/0.2.0/snapshots/dev1/toree-pip/toree-0.2.0.dev1.tar.gz 
+RUN jupyter toree install --interpreters=Scala,PySpark,SparkR,SQL --spark_home=$SPARK_HOME --user
+
+# Jupyter python2 kernel
+RUN python2 -m pip install ipykernel
+RUN python2 -m ipykernel install --user
+
+# Jupyter Julia Kernel
+#RUN julia -e 'Pkg.add("IJulia")'
+
+# Jupyter R kernel
+RUN apt-get update && apt-get install -y --no-install-recommends \
+libcurl4-gnutls-dev libxml2-dev libssl-dev
+RUN R -e "install.packages(c('curl', 'repr', 'httr'), repos='http://cran.rstudio.com/')"
+RUN R -e "install.packages(c('pbdZMQ', 'devtools', 'IRdisplay', 'evaluate', 'crayon', 'uuid', 'digest'), repos='http://cran.rstudio.com/')"
+RUN R -e "install.packages(c('SparkR'), repos='http://cran.rstudio.com/')"
+RUN R -e "devtools::install_github('IRkernel/IRkernel')"
+RUN R -e "IRkernel::installspec()"
+
 # Env
 VOLUME /root/volume
 
 EXPOSE 8888
 
 WORKDIR /root/volume
-ENTRYPOINT ["./run_jupyter.sh"]
+CMD ["./run_jupyter.sh"]
 
