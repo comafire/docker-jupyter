@@ -19,7 +19,7 @@ libfreetype6-dev libxft-dev
 RUN apt-get update && apt-get install -y --no-install-recommends \
 software-properties-common libjpeg-dev libpng-dev ncurses-dev imagemagick \
 libgraphicsmagick1-dev libzmq-dev gfortran gnuplot gnuplot-x11 libsdl2-dev \
-apt-utils openssh-client
+apt-utils openssh-client htop
 
 # Docker
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -95,8 +95,7 @@ ENV PYTHONPATH $SPARK_HOME/python/:$PYTHONPATH
 ENV PYTHONPATH $SPARK_HOME/python/lib/py4j-0.10.4-src.zip:$PYTHONPATH
 
 # Python2-Deps
-RUN pip2 install matplotlib pandas pandas-datareader quandl
-RUN pip2 install numpy scipy sklearn 
+RUN pip2 install numpy scipy sklearn matplotlib pandas pandas-datareader quandl h5py
 RUN pip2 install docker fabric pytest pycrypto 
 RUN pip2 install pymysql airflow airflow[mysql,crypto,password]
 RUN pip2 install theano tensorflow keras
@@ -104,8 +103,7 @@ RUN pip2 install http://download.pytorch.org/whl/cu75/torch-0.1.12.post2-cp27-no
 RUN pip2 install torchvision
 
 # Python3-Deps
-RUN pip3 install matplotlib pandas pandas-datareader quandl
-RUN pip3 install numpy scipy sklearn
+RUN pip3 install numpy scipy sklearn matplotlib pandas pandas-datareader quandl h5py
 RUN pip3 install docker fabric pytest pycrypto
 RUN pip3 install pymysql airflow airflow[mysql,crypto,password]
 RUN pip3 install theano tensorflow keras
