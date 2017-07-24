@@ -68,10 +68,10 @@ RUN pip2 install py4j
 RUN pip3 install py4j
 
 # Julia: disable until v0.x
-RUN add-apt-repository ppa:staticfloat/juliareleases
-RUN add-apt-repository ppa:staticfloat/julia-deps
-RUN apt-get update && apt-get install -y --no-install-recommends \
-julia
+#RUN add-apt-repository ppa:staticfloat/juliareleases
+#RUN add-apt-repository ppa:staticfloat/julia-deps
+#RUN apt-get update && apt-get install -y --no-install-recommends \
+#julia
 
 # R
 RUN apt-get update && apt-get --allow-unauthenticated install -y --no-install-recommends \
@@ -118,7 +118,8 @@ RUN pip3 install jupyter
 RUN pip3 install jupyter_contrib_nbextensions
 RUN jupyter contrib nbextension install --user
 RUN pip3 install yapf
-RUN pip3 install https://dist.apache.org/repos/dist/dev/incubator/toree/0.2.0/snapshots/dev1/toree-pip/toree-0.2.0.dev1.tar.gz 
+#RUN pip3 install https://dist.apache.org/repos/dist/dev/incubator/toree/0.2.0/snapshots/dev1/toree-pip/toree-0.2.0.dev1.tar.gz 
+RUN pip3 install toree
 # TOREE python, R is not stable
 #RUN jupyter toree install --interpreters=Scala,PySpark,SparkR,SQL --spark_home=$SPARK_HOME --user
 RUN jupyter toree install --interpreters=Scala --spark_home=$SPARK_HOME --user
@@ -128,7 +129,7 @@ RUN python2 -m pip install ipykernel
 RUN python2 -m ipykernel install --user
 
 # Jupyter Julia Kernel
-RUN julia -e 'Pkg.add("IJulia")'
+#RUN julia -e 'Pkg.add("IJulia")'
 
 # Jupyter R kernel
 RUN apt-get update && apt-get install -y --no-install-recommends \
