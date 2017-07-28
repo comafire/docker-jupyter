@@ -79,7 +79,7 @@ r-base r-base-dev
 
 
 # SPARK
-ENV SPARK_VERSION 2.1.1
+ENV SPARK_VERSION 2.2.0
 ENV SPARK_PACKAGE spark-${SPARK_VERSION}-bin-hadoop2.7
 ENV SPARK_HOME /usr/local/spark-${SPARK_VERSION}
 
