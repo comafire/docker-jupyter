@@ -97,7 +97,7 @@ COPY spark-defaults.conf /usr/local/spark/conf/spark-defaults.conf
 
 # Python2-Deps
 RUN pip2 install numpy scipy sklearn matplotlib pandas pandas_ml pandas-datareader quandl h5py
-RUN pip2 install imblearn awscli seaborn
+RUN pip2 install imblearn awscli seaborn xgboost
 RUN pip2 install docker fabric pytest pycrypto 
 RUN pip2 install pymysql airflow airflow[mysql,crypto,password]
 RUN pip2 install theano tensorflow keras
@@ -106,7 +106,7 @@ RUN pip2 install torchvision
 
 # Python3-Deps
 RUN pip3 install numpy scipy sklearn matplotlib pandas pandas_ml pandas-datareader quandl h5py
-RUN pip3 install imblearn awscli seaborn
+RUN pip3 install imblearn awscli seaborn xgboost
 RUN pip3 install docker fabric pytest pycrypto
 RUN pip3 install pymysql airflow airflow[mysql,crypto,password]
 RUN pip3 install theano tensorflow keras
