@@ -96,21 +96,21 @@ ENV PYTHONPATH $SPARK_HOME/python/lib/py4j-0.10.4-src.zip:$PYTHONPATH
 COPY spark-defaults.conf /usr/local/spark/conf/spark-defaults.conf
 
 # Python2-Deps
-RUN pip2 install numpy scipy sklearn matplotlib pandas pandas_ml pandas-datareader quandl h5py
-RUN pip2 install imblearn awscli seaborn xgboost
+RUN pip2 install numpy scipy scikit-learn matplotlib pandas pandas_ml pandas-datareader quandl h5py
+RUN pip2 install imblearn awscli seaborn xgboost nbformat
 RUN pip2 install docker fabric pytest pycrypto 
 RUN pip2 install pymysql airflow airflow[mysql,crypto,password]
 RUN pip2 install theano tensorflow keras
-RUN pip2 install http://download.pytorch.org/whl/cu75/torch-0.1.12.post2-cp27-none-linux_x86_64.whl
-RUN pip2 install torchvision
+RUN pip2 install http://download.pytorch.org/whl/cu75/torch-0.2.0.post3-cp27-cp27mu-manylinux1_x86_64.whl
+RUN pip2 install torchvision 
 
 # Python3-Deps
 RUN pip3 install numpy scipy sklearn matplotlib pandas pandas_ml pandas-datareader quandl h5py
-RUN pip3 install imblearn awscli seaborn xgboost
+RUN pip3 install imblearn awscli seaborn xgboost nbformat
 RUN pip3 install docker fabric pytest pycrypto
 RUN pip3 install pymysql airflow airflow[mysql,crypto,password]
 RUN pip3 install theano tensorflow keras
-RUN pip3 install http://download.pytorch.org/whl/cu75/torch-0.1.12.post2-cp35-cp35m-linux_x86_64.whl
+RUN pip3 install http://download.pytorch.org/whl/cu75/torch-0.2.0.post3-cp35-cp35m-manylinux1_x86_64.whl
 RUN pip3 install torchvision
 
 # Jupyter
