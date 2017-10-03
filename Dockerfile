@@ -117,9 +117,7 @@ RUN pip3 install torchvision
 RUN pip3 install jupyter
 # Jupyter extensions
 RUN pip3 install jupyter_contrib_nbextensions
-RUN jupyter contrib nbextension install --user
 RUN pip3 install jupyter_nbextensions_configurator
-RUN jupyter nbextensions_configurator enable --user
 RUN pip3 install yapf
 #RUN pip3 install https://dist.apache.org/repos/dist/dev/incubator/toree/0.2.0/snapshots/dev1/toree-pip/toree-0.2.0.dev1.tar.gz 
 RUN pip3 install toree
