@@ -97,19 +97,19 @@ COPY spark-defaults.conf /usr/local/spark/conf/spark-defaults.conf
 
 # Python2-Deps
 RUN pip2 install numpy scipy scikit-learn matplotlib pandas pandas_ml pandas-datareader quandl h5py
-RUN pip2 install imblearn awscli seaborn xgboost nbformat
+RUN pip2 install imblearn awscli seaborn xgboost nbformat boto3
 RUN pip2 install docker fabric pytest pycrypto 
 RUN pip2 install pymysql airflow airflow[mysql,crypto,password]
-RUN pip2 install theano tensorflow keras
+RUN pip2 install tensorflow keras
 RUN pip2 install http://download.pytorch.org/whl/cu75/torch-0.2.0.post3-cp27-cp27mu-manylinux1_x86_64.whl
 RUN pip2 install torchvision 
 
 # Python3-Deps
 RUN pip3 install numpy scipy sklearn matplotlib pandas pandas_ml pandas-datareader quandl h5py
-RUN pip3 install imblearn awscli seaborn xgboost nbformat
+RUN pip3 install imblearn awscli seaborn xgboost nbformat boto3
 RUN pip3 install docker fabric pytest pycrypto
 RUN pip3 install pymysql airflow airflow[mysql,crypto,password]
-RUN pip3 install theano tensorflow keras
+RUN pip3 install tensorflow keras
 RUN pip3 install http://download.pytorch.org/whl/cu75/torch-0.2.0.post3-cp35-cp35m-manylinux1_x86_64.whl
 RUN pip3 install torchvision
 
@@ -124,10 +124,12 @@ RUN pip3 install toree
 # TOREE python, R is not stable
 #RUN jupyter toree install --interpreters=Scala,PySpark,SparkR,SQL --spark_home=$SPARK_HOME --user
 RUN jupyter toree install --interpreters=Scala --spark_home=$SPARK_HOME --user
+RUN pip3 install jupyter_kernel_gateway
 
 # Jupyter python2 kernel
 RUN python2 -m pip install ipykernel
 RUN python2 -m ipykernel install --user
+RUN pip2 install jupyter_kernel_gateway
 
 # Jupyter Julia Kernel
 #RUN julia -e 'Pkg.add("IJulia")'
@@ -144,7 +146,7 @@ RUN R -e "IRkernel::installspec()"
 # Env
 VOLUME /root/volume
 
-EXPOSE 8888
+EXPOSE 8888 8088
 
 WORKDIR /root/volume
 CMD ["./run_jupyter.sh"]
