@@ -98,7 +98,7 @@ COPY spark-defaults.conf /usr/local/spark/conf/spark-defaults.conf
 # Python2-Deps
 RUN pip2 install numpy scipy scikit-learn matplotlib pandas pandas_ml pandas-datareader quandl h5py
 RUN pip2 install imblearn awscli seaborn xgboost nbformat boto3
-RUN pip2 install docker fabric pytest pycrypto 
+RUN pip2 install docker fabric pytest pycrypto Flask
 RUN pip2 install pymysql airflow airflow[mysql,crypto,password]
 RUN pip2 install tensorflow keras
 RUN pip2 install http://download.pytorch.org/whl/cu75/torch-0.2.0.post3-cp27-cp27mu-manylinux1_x86_64.whl
@@ -107,7 +107,7 @@ RUN pip2 install torchvision
 # Python3-Deps
 RUN pip3 install numpy scipy sklearn matplotlib pandas pandas_ml pandas-datareader quandl h5py
 RUN pip3 install imblearn awscli seaborn xgboost nbformat boto3
-RUN pip3 install docker fabric pytest pycrypto
+RUN pip3 install docker fabric pytest pycrypto Flask
 RUN pip3 install pymysql airflow airflow[mysql,crypto,password]
 RUN pip3 install tensorflow keras
 RUN pip3 install http://download.pytorch.org/whl/cu75/torch-0.2.0.post3-cp35-cp35m-manylinux1_x86_64.whl
@@ -118,6 +118,8 @@ RUN pip3 install jupyter
 # Jupyter extensions
 RUN pip3 install jupyter_contrib_nbextensions
 RUN jupyter contrib nbextension install --user
+RUN pip3 install jupyter_nbextensions_configurator
+RUN jupyter nbextensions_configurator enable --user
 RUN pip3 install yapf
 #RUN pip3 install https://dist.apache.org/repos/dist/dev/incubator/toree/0.2.0/snapshots/dev1/toree-pip/toree-0.2.0.dev1.tar.gz 
 RUN pip3 install toree
