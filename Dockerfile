@@ -124,12 +124,12 @@ RUN pip3 install toree
 # TOREE python, R is not stable
 #RUN jupyter toree install --interpreters=Scala,PySpark,SparkR,SQL --spark_home=$SPARK_HOME --user
 RUN jupyter toree install --interpreters=Scala --spark_home=$SPARK_HOME --user
-RUN pip3 install jupyter_kernel_gateway
+RUN pip3 install nbimporter jdc jupyter_kernel_gateway
 
 # Jupyter python2 kernel
 RUN python2 -m pip install ipykernel
 RUN python2 -m ipykernel install --user
-RUN pip2 install jupyter_kernel_gateway
+RUN pip2 install nbimporter jdc jupyter_kernel_gateway
 
 # Jupyter Julia Kernel
 #RUN julia -e 'Pkg.add("IJulia")'
