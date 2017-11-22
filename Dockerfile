@@ -95,6 +95,10 @@ ENV PYTHONPATH $SPARK_HOME/python/:$PYTHONPATH
 ENV PYTHONPATH $SPARK_HOME/python/lib/py4j-0.10.4-src.zip:$PYTHONPATH
 COPY spark-defaults.conf /usr/local/spark/conf/spark-defaults.conf
 
+# Jupyter Deps
+RUN apt-get update && apt-get install -y --no-install-recommends \
+texlive-xetex
+
 # Python2-Deps
 RUN pip2 install numpy scipy scikit-learn matplotlib pandas pandas_ml pandas-datareader quandl h5py
 RUN pip2 install statsmodels imblearn awscli seaborn xgboost nbformat boto3 xlrd
