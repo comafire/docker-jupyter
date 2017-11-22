@@ -99,7 +99,7 @@ COPY spark-defaults.conf /usr/local/spark/conf/spark-defaults.conf
 RUN pip2 install numpy scipy scikit-learn matplotlib pandas pandas_ml pandas-datareader quandl h5py
 RUN pip2 install statsmodels imblearn awscli seaborn xgboost nbformat boto3 xlrd
 RUN pip2 install docker fabric pytest pycrypto Flask
-RUN pip2 install pymysql airflow airflow[s3,postgres,mysql,crypto,password]
+RUN pip2 install pymssql pymysql airflow airflow[s3,postgres,mysql,crypto,password]
 RUN pip2 install tensorflow keras
 RUN pip2 install http://download.pytorch.org/whl/cu75/torch-0.2.0.post3-cp27-cp27mu-manylinux1_x86_64.whl
 RUN pip2 install torchvision 
@@ -108,7 +108,7 @@ RUN pip2 install torchvision
 RUN pip3 install numpy scipy sklearn matplotlib pandas pandas_ml pandas-datareader quandl h5py
 RUN pip3 install statsmodels imblearn awscli seaborn xgboost nbformat boto3 xlrd
 RUN pip3 install docker fabric pytest pycrypto Flask
-RUN pip3 install pymysql airflow airflow[s3,postgres,mysql,crypto,password]
+RUN pip3 install pymssql pymysql airflow airflow[s3,postgres,mysql,crypto,password]
 RUN pip3 install tensorflow keras
 RUN pip3 install http://download.pytorch.org/whl/cu75/torch-0.2.0.post3-cp35-cp35m-manylinux1_x86_64.whl
 RUN pip3 install torchvision
