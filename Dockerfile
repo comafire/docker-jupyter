@@ -19,7 +19,7 @@ libfreetype6-dev libxft-dev
 RUN apt-get update && apt-get install -y --no-install-recommends \
 software-properties-common libjpeg-dev libpng-dev ncurses-dev imagemagick \
 libgraphicsmagick1-dev libzmq-dev gfortran gnuplot gnuplot-x11 libsdl2-dev \
-apt-utils openssh-client htop
+openssh-client htop
 
 # Docker
 RUN apt-get update && apt-get install -y --no-install-recommends \
