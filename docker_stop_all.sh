@@ -1,7 +1,6 @@
 #!/bin/bash
 
-NAME="jupyter"
-docker rm -f $NAME 
+source ./config.sh
 
-NAME="tensorboard"
-docker rm -f $NAME
+$DOCKER rm -f $NAME 
+

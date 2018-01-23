@@ -1,16 +1,26 @@
-# DataScientist 를 위한 Jupyter Docker 
+# DataScientist 를 위한 Jupyter Docker  for CPU
 데이터과학자를 위한 Jupyter 도커
 
 현재 지원 기능 
 * Jupyter
+* Jupyter Kernel Gateway
 * Python 2, 3
+* R
 * PySpark
+* Tensorflow, Keras, PyTorch, numpy, pandas, scipy, scikit-learn, etc
 
 사전 요구사항
 * Docker
 
+## 설치
 
-## 설치 및 실행 
+### Git Clone
+
+```
+> git clone https://github.com/comafire/docker-jupyter.git
+```
+
+### Docker Install
 
 Docker 는 이미 설치되어 있다고 가정합니다.
 
@@ -18,50 +28,43 @@ Docker 설치가 필요하시면 Docker 공식 설치 문서를 참조하세요.
 
 https://docs.docker.com/engine/installation/linux/ubuntu/
 
-Github 에서 프로젝트를 Clone 합니다.
+### Build Docker Image
 
-docker_run_jupyter.sh 를 실행하면 docker hub 에서 이미지가 다운로드된 후 컨테이너가 실행 됩니다.
+Docker Image 는 따로 빌드하지 않으셔도 Docker Hub 를 통해 제공됩니다.
+직접 빌드를 원하실 경우 ./docker_build.sh 명령을 이용하세요.
+Dockerfile 을 제공하므로 커스텀 이미지 빌드도 가능합니다.
 
-```
-> git clone https://github.com/comafire/docker-jupyter.git
-> cd docker-jupyter
-> ./docker_run_jupyter.sh
-``` 
+### Setup
 
-docker ps 명령으로 컨테이너가 띄워져있는 것을 확인 하신 후
-http://localhost:8888 에 접속 가능하시다면 설치가 완료된 것입니다.
-
-기본 접속 암호는 notebook 입니다. 
-
-## Jupyter 설정 변경 
-
-Jupyter 암호/포트/작업디렉토리 변경은 docker_run_jupyter.sh 파일의 PASSWORD/PORT/VOLUME을 수정하시면 됩니다.
+config.sh 파일을 수정하여 Password 및 Jupyter Port 를 변경할 수 있습니다.
 
 ```
-> vi docker_run_jupyter.sh
+NAME="jupyter" # Container Name
+PORT="8010" # Jupyter Port
+VOLUME=$(pwd) # Jupyter Volume Path
+PASSWORD="notebooks" # Jupyter Password
 
-NAME="jupyter"
-PORT="8888"
-VOLUME=$(pwd)
-PASSWORD="notebook"
-...
+BASEURL="jupyter" # Jupyter BaseURL, ex) http://localhost:8010/jupyter
+DOCKER="docker" # Docker Command
+IMAGE="comafire/docker-jupyter" # Docker Image Name
+TAG="latest" # Docker Image Tag
 
-``` 
-
-## 추가 Python 패키지 설치
-
-Python에 추가적으로 필요한 패키지는 requirements.txt 파일에 추가하시면 
-Docker 기동시 해당 패키지를 설치하고 실행되기 때문에 Dockerfile 에 추가하고 이미지를
-다시 필드하실 필요가 없습니다.
-
-```
-> vi requirements.txt
-
-Flask<=0.12
-pytest-flask<=0.10
-
-...
-
+RESTAPIPORT="8020" # Jupyter Kernel Gateway Port
 ```
 
+### Run
+
+./docker_run_jupyter.sh 명령으로 Jupyter Docker 이미지를 실행할 수 있습니다.
+
+```
+> ./docker_run_jupyter.sh 
+> docker ps
+CONTAINER ID        IMAGE                                COMMAND              CREATED             STATUS              PORTS                                            NAMES
+c63e1132d207        comafire/docker-jupyter:latest       "./run_jupyter.sh"   2 seconds ago       Up 1 second         0.0.0.0:8020->8088/tcp, 0.0.0.0:8010->8888/tcp   jupyter
+```
+
+### Install Extra Library
+
+Jupyter 사용중 추가 외부 라이브러리가 필요하시면 Jupyter 상에서 Terminal 창을 띄우신 후에 pip2, pip3 명령을 사용하시면 됩니다.
+Docker 실행시 자동 설치를 원하시면 requirements.txt 파일에 패키지를 추가하시면 됩니다.
 

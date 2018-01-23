@@ -1,2 +1,2 @@
-pytest-flask<=0.10
+jupyter_contrib_nbextensions
 

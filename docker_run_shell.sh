@@ -1,8 +1,18 @@
-#!/bin/sh
+#!/bin/bash
+
+source ./config.sh
 
 NAME="jupyter-shell"
-IMAGE="comafire/docker-jupyter"
-TAG="latest"
 
-docker rm -f $NAME
-docker run -i -t --name $NAME $IMAGE:$TAG /bin/bash
+LOGS="./logs"
+if [ -d $LOGS ]
+then 
+  rm -rf $LOGS
+fi
+
+mkdir $LOGS 
+touch $LOGS/jupyter.log 
+
+$DOCKER rm -f $NAME
+$DOCKER run -i -t --name $NAME -v $VOLUME:/root/volume $IMAGE:$TAG /bin/bash
+

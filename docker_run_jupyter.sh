@@ -1,14 +1,17 @@
 #!/bin/bash
 
-NAME="jupyter"
-PORT="8888"
-VOLUME=$(pwd)
-PASSWORD="notebook"
-IMAGE="comafire/docker-jupyter"
-TAG="latest"
+source ./config.sh
 
-docker rm -f $NAME
+LOGS="./logs"
+if [ -d $LOGS ]
+then 
+  rm -rf $LOGS
+fi
 
-#docker run -i -t --name $NAME -p $PORT:8888 -v $VOLUME:/root/volume -e JUPYTER_PASSWORD=$PASSWORD $IMAGE:$TAG
-docker run -i -t --name $NAME -d --restart=always -p $PORT:8888 -v $VOLUME:/root/volume -e JUPYTER_PASSWORD=$PASSWORD $IMAGE:$TAG
+mkdir $LOGS 
+touch $LOGS/jupyter.log 
+
+$DOCKER rm -f $NAME 
+#$DOCKER run -i -t --name $NAME -p $PORT:8888 -v $VOLUME:/root/volume -e JUPYTER_PASSWORD=$PASSWORD $IMAGE:$TAG
+$DOCKER run -i -t --name $NAME -d --restart=always -p $PORT:8888 -p $RESTAPIPORT:8088 -v $VOLUME:/root/volume -e JUPYTER_BASEURL=$BASEURL -e JUPYTER_PASSWORD=$PASSWORD $IMAGE:$TAG
 
