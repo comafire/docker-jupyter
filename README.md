@@ -14,6 +14,8 @@
 
 ## 설치
 
+OS: Ubuntu 16.04 LTS
+
 ### Git Clone
 
 ```
