@@ -31,7 +31,9 @@ https://docs.docker.com/engine/installation/linux/ubuntu/
 ### Build Docker Image
 
 Docker Image 는 따로 빌드하지 않으셔도 Docker Hub 를 통해 제공됩니다.
+
 직접 빌드를 원하실 경우 ./docker_build.sh 명령을 이용하세요.
+
 Dockerfile 을 제공하므로 커스텀 이미지 빌드도 가능합니다.
 
 ### Setup
@@ -66,5 +68,6 @@ c63e1132d207        comafire/docker-jupyter:latest       "./run_jupyter.sh"   2 
 ### Install Extra Library
 
 Jupyter 사용중 추가 외부 라이브러리가 필요하시면 Jupyter 상에서 Terminal 창을 띄우신 후에 pip2, pip3 명령을 사용하시면 됩니다.
+
 Docker 실행시 자동 설치를 원하시면 requirements.txt 파일에 패키지를 추가하시면 됩니다.
 
