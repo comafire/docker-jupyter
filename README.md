@@ -30,6 +30,8 @@ Docker 설치가 필요하시면 Docker 공식 설치 문서를 참조하세요.
 
 https://docs.docker.com/engine/installation/linux/ubuntu/
 
+https://docs.docker.com/engine/installation/linux/linux-postinstall/
+
 ### Build Docker Image
 
 Docker Image 는 따로 빌드하지 않으셔도 Docker Hub 를 통해 제공됩니다.
