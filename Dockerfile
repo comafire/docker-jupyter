@@ -11,9 +11,17 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 apt-utils \
 && apt-get clean && rm -rf /var/lib/apt/lists/*
 
+# Lang
+RUN apt-get update && apt-get install -y --no-install-recommends \
+locales language-pack-ko
+RUN echo "ko_KR.UTF-8 UTF-8" > /etc/locale.gen && locale-gen
+ENV LC_ALL ko_KR.UTF-8
+ENV LANG ko_KR.UTF-8
+ENV LANGUAGE ko_KR.UTF-8
+
 # Common
 RUN apt-get update && apt-get install -y --no-install-recommends \
-build-essential vim curl wget git cmake bzip2 sudo locales unzip net-tools \
+build-essential vim curl wget git cmake bzip2 sudo unzip net-tools \
 libffi-dev libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev llvm \
 libfreetype6-dev libxft-dev
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -47,70 +55,94 @@ RUN pip3 install setuptools
 
 # JAVA http://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/server-jre-8u131-linux-x64.tar.gz
 ENV JAVA_MAJOR_VERSION 8
-ENV JAVA_UPDATE_VERSION 131 
+ENV JAVA_UPDATE_VERSION 172
 ENV JAVA_BUILD_NUMBER 11
-ENV JAVA_TOKEN d54c1d3a095b4ff2b6607d096fa80163 
+ENV JAVA_TOKEN a58eab1ec242421181065cdc37240b08
 ENV JAVA_HOME /usr/local/jdk1.${JAVA_MAJOR_VERSION}.0_${JAVA_UPDATE_VERSION}
 
 ENV PATH $PATH:$JAVA_HOME/bin
 RUN curl -sL --retry 3 --insecure \
 --header "Cookie: oraclelicense=accept-securebackup-cookie;" \
 "http://download.oracle.com/otn-pub/java/jdk/${JAVA_MAJOR_VERSION}u${JAVA_UPDATE_VERSION}-b${JAVA_BUILD_NUMBER}/${JAVA_TOKEN}/server-jre-${JAVA_MAJOR_VERSION}u${JAVA_UPDATE_VERSION}-linux-x64.tar.gz" \
-| gunzip \
-| tar x -C /usr/local/ \
+| gunzip | tar x -C /usr/local/ \
 && ln -s $JAVA_HOME /usr/local/java \
 && rm -rf $JAVA_HOME/man
 
-# Scala
 RUN apt-get update && apt-get install -y --no-install-recommends \
-scala
-RUN pip2 install py4j
-RUN pip3 install py4j
+maven
 
-# Julia: disable until v0.x
-#RUN add-apt-repository ppa:staticfloat/juliareleases
-#RUN add-apt-repository ppa:staticfloat/julia-deps
-#RUN apt-get update && apt-get install -y --no-install-recommends \
-#julia
+# Scala
+ENV SCALA_VERSION 2.11.11
+ENV SCALA_HOME /usr/local/scala-${SCALA_VERSION}
+
+ENV PATH $PATH:$SCALA_HOME/bin
+RUN curl -sL --retry 3 --insecure \
+"https://downloads.lightbend.com/scala/$SCALA_VERSION/scala-$SCALA_VERSION.tgz" \
+| gunzip | tar x -C /usr/local/ \
+&& ln -s $SCALA_HOME /usr/local/scala 
+
+# Julia
+# install Julia packages in /opt/julia instead of $HOME
+ENV JULIA_PKGDIR=/opt/julia
+ENV JULIA_VERSION=0.6.2
+
+RUN mkdir /opt/julia-${JULIA_VERSION} && \
+    cd /tmp && \
+    wget -q https://julialang-s3.julialang.org/bin/linux/x64/`echo ${JULIA_VERSION} | cut -d. -f 1,2`/julia-${JULIA_VERSION}-linux-x86_64.tar.gz && \
+    echo "dc6ec0b13551ce78083a5849268b20684421d46a7ec46b17ec1fab88a5078580 *julia-${JULIA_VERSION}-linux-x86_64.tar.gz" | sha256sum -c - && \
+    tar xzf julia-${JULIA_VERSION}-linux-x86_64.tar.gz -C /opt/julia-${JULIA_VERSION} --strip-components=1 && \
+    rm /tmp/julia-${JULIA_VERSION}-linux-x86_64.tar.gz
+RUN ln -fs /opt/julia-*/bin/julia /usr/local/bin/julia
 
 # R
 RUN apt-get update && apt-get --allow-unauthenticated install -y --no-install-recommends \
 r-base r-base-dev
 
+# Go
+ENV GO_VERSION 1.9.5
+ENV GO_OS linux
+ENV GO_ARCH amd64
+RUN wget https://dl.google.com/go/go$GO_VERSION.$GO_OS-$GO_ARCH.tar.gz
+RUN tar -C /usr/local/ -xzf go$GO_VERSION.$GO_OS-$GO_ARCH.tar.gz
+RUN mv /usr/local/go /usr/local/go-$GO_VERSION
+RUN ln -s /usr/local/go-$GO_VERSION /usr/local/go
+ENV PATH $PATH:/usr/local/go/bin
 
 # SPARK
-ENV SPARK_VERSION 2.2.0
+ENV SPARK_VERSION 2.3.0
 ENV SPARK_PACKAGE spark-${SPARK_VERSION}-bin-hadoop2.7
 ENV SPARK_HOME /usr/local/spark-${SPARK_VERSION}
+ENV PY4J_VERSION 0.10.6
 
 ENV PATH $PATH:${SPARK_HOME}/bin
 RUN curl -sL --retry 3 \
-"http://d3kbcqa49mib13.cloudfront.net/${SPARK_PACKAGE}.tgz" \
-| gunzip \
-| tar x -C /usr/local \
+"http://apache.mirror.cdnetworks.com/spark/spark-${SPARK_VERSION}/${SPARK_PACKAGE}.tgz" \
+| gunzip | tar x -C /usr/local \
 && mv /usr/local/$SPARK_PACKAGE $SPARK_HOME \
 && ln -s $SPARK_HOME /usr/local/spark \
 && chown -R root:root $SPARK_HOME
 ENV PYTHONPATH $SPARK_HOME/python/:$PYTHONPATH
-ENV PYTHONPATH $SPARK_HOME/python/lib/py4j-0.10.4-src.zip:$PYTHONPATH
-COPY spark-defaults.conf /usr/local/spark/conf/spark-defaults.conf
+ENV PYTHONPATH $SPARK_HOME/python/lib/py4j-$PY4J_VERSION-src.zip:$PYTHONPATH
+
+RUN pip2 install py4j==$PY4J_VERSION
+RUN pip3 install py4j==$PY4J_VERSION
 
 # Jupyter Deps
 RUN apt-get update && apt-get install -y --no-install-recommends \
 texlive-xetex
 
-# Python2-Deps
+# Python2 Deps
 RUN pip2 install numpy scipy scikit-learn matplotlib pandas pandas_ml pandas-datareader quandl h5py
-RUN pip2 install statsmodels imblearn awscli seaborn xgboost nbformat boto3 xlrd
+RUN pip2 install statsmodels imblearn awscli seaborn xgboost nbformat boto3 xlrd pyarrow
 RUN pip2 install docker fabric pytest pycrypto Flask
 RUN pip2 install pymssql pymysql airflow airflow[s3,postgres,mysql,crypto,password]
 RUN pip2 install tensorflow keras
 RUN pip2 install http://download.pytorch.org/whl/cu75/torch-0.2.0.post3-cp27-cp27mu-manylinux1_x86_64.whl
 RUN pip2 install torchvision 
 
-# Python3-Deps
+# Python3 Deps
 RUN pip3 install numpy scipy sklearn matplotlib pandas pandas_ml pandas-datareader quandl h5py
-RUN pip3 install statsmodels imblearn awscli seaborn xgboost nbformat boto3 xlrd
+RUN pip3 install statsmodels imblearn awscli seaborn xgboost nbformat boto3 xlrd pyarrow
 RUN pip3 install docker fabric pytest pycrypto Flask
 RUN pip3 install pymssql pymysql airflow airflow[s3,postgres,mysql,crypto,password]
 RUN pip3 install tensorflow keras
@@ -123,20 +155,28 @@ RUN pip3 install jupyter
 RUN pip3 install jupyter_contrib_nbextensions
 RUN pip3 install jupyter_nbextensions_configurator
 RUN pip3 install yapf
-#RUN pip3 install https://dist.apache.org/repos/dist/dev/incubator/toree/0.2.0/snapshots/dev1/toree-pip/toree-0.2.0.dev1.tar.gz 
-RUN pip3 install toree
-# TOREE python, R is not stable
-#RUN jupyter toree install --interpreters=Scala,PySpark,SparkR,SQL --spark_home=$SPARK_HOME --user
-RUN jupyter toree install --interpreters=Scala --spark_home=$SPARK_HOME --user
 RUN pip3 install nbimporter jdc jupyter_kernel_gateway
 
-# Jupyter python2 kernel
+# Jupyter Python2 kernel
 RUN python2 -m pip install ipykernel
 RUN python2 -m ipykernel install --user
-RUN pip2 install nbimporter jdc jupyter_kernel_gateway
+
+# Jupyter Python3 kernel
+RUN python3 -m pip install ipykernel
+RUN python3 -m ipykernel install --user
+
+# Jupyter Scala
+RUN git clone https://github.com/alexarchambault/jupyter-scala.git;cd jupyter-scala;./jupyter-scala
 
 # Jupyter Julia Kernel
-#RUN julia -e 'Pkg.add("IJulia")'
+RUN julia -e 'Pkg.init()' && \
+julia -e 'Pkg.update()' && \
+julia -e 'Pkg.add("Gadfly")' && \
+julia -e 'Pkg.add("RDatasets")' && \
+julia -e 'Pkg.add("Spark.jl")' && \
+julia -e 'Pkg.add("IJulia")' && \
+# Precompile Julia packages 
+julia -e 'using IJulia' 
 
 # Jupyter R kernel
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -146,6 +186,16 @@ RUN R -e "install.packages(c('pbdZMQ', 'devtools', 'IRdisplay', 'evaluate', 'cra
 RUN R -e "install.packages(c('SparkR'), repos='http://cran.rstudio.com/')"
 RUN R -e "devtools::install_github('IRkernel/IRkernel')"
 RUN R -e "IRkernel::installspec()"
+
+# Go Kernel
+ENV GOPATH $HOME/go
+ENV LGOPATH $HOME/lgo
+ENV PATH $PATH:$GOPATH/bin:$LGOPATH/bin
+RUN apt-get update && apt-get install -y --no-install-recommends \
+libzmq3-dev
+RUN go get github.com/yunabe/lgo/cmd/lgo && go get -d github.com/yunabe/lgo/cmd/lgo-internal
+RUN lgo install
+RUN python3 $(go env GOPATH)/src/github.com/yunabe/lgo/bin/install_kernel
 
 # Env
 VOLUME /root/volume

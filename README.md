@@ -5,9 +5,15 @@
 * Jupyter
 * Jupyter Kernel Gateway
 * Python 2, 3
+ * Spark
+ * Tensorflow, Keras, PyTorch, numpy, pandas, scipy, scikit-learn, etc
+* Scala
+ * Spark
 * R
-* PySpark
-* Tensorflow, Keras, PyTorch, numpy, pandas, scipy, scikit-learn, etc
+ * Spark
+* Julia
+ * Spark
+* Go
 
 사전 요구사항
 * Docker
@@ -70,6 +76,8 @@ c63e1132d207        comafire/docker-jupyter:latest       "./run_jupyter.sh"   2 
 ```
 
 ### Install Extra Library
+
+#### Python
 
 Jupyter 사용중 추가 외부 라이브러리가 필요하시면 Jupyter 상에서 Terminal 창을 띄우신 후에 pip2, pip3 명령을 사용하시면 됩니다.
 
