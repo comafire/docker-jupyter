@@ -8,11 +8,11 @@
   * Spark
   * Tensorflow, Keras, PyTorch, numpy, pandas, scipy, scikit-learn, etc
 * Scala
- * Spark
+  * Spark
 * R
- * Spark
+  * Spark
 * Julia
- * Spark
+  * Spark
 * Go
 
 사전 요구사항
