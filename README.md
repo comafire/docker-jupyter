@@ -5,8 +5,8 @@
 * Jupyter
 * Jupyter Kernel Gateway
 * Python 2, 3
- * Spark
- * Tensorflow, Keras, PyTorch, numpy, pandas, scipy, scikit-learn, etc
+  * Spark
+  * Tensorflow, Keras, PyTorch, numpy, pandas, scipy, scikit-learn, etc
 * Scala
  * Spark
 * R
