@@ -96,3 +96,6 @@ ENV/
 **/models/
 **/logs/
 **/tmp/
+**/metastore_db/
+**/spark-warehouse/
+
