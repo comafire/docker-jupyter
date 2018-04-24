@@ -137,7 +137,7 @@ RUN pip2 install statsmodels imblearn awscli seaborn xgboost nbformat boto3 xlrd
 RUN pip2 install docker fabric pytest pycrypto Flask
 RUN pip2 install pymssql pymysql airflow airflow[s3,postgres,mysql,crypto,password]
 RUN pip2 install tensorflow keras
-RUN pip2 install http://download.pytorch.org/whl/cu75/torch-0.2.0.post3-cp27-cp27mu-manylinux1_x86_64.whl
+RUN pip2 install http://download.pytorch.org/whl/cpu/torch-0.3.1-cp27-cp27mu-linux_x86_64.whl 
 RUN pip2 install torchvision 
 
 # Python3 Deps
@@ -146,7 +146,7 @@ RUN pip3 install statsmodels imblearn awscli seaborn xgboost nbformat boto3 xlrd
 RUN pip3 install docker fabric pytest pycrypto Flask
 RUN pip3 install pymssql pymysql airflow airflow[s3,postgres,mysql,crypto,password]
 RUN pip3 install tensorflow keras
-RUN pip3 install http://download.pytorch.org/whl/cu75/torch-0.2.0.post3-cp35-cp35m-manylinux1_x86_64.whl
+RUN pip3 install http://download.pytorch.org/whl/cpu/torch-0.3.1-cp35-cp35m-linux_x86_64.whl 
 RUN pip3 install torchvision
 
 # Jupyter
