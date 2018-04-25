@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ./config.sh
+source ./env.sh
 
 NAME="jupyter-shell"
 

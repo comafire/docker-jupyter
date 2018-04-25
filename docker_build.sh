@@ -1,5 +1,6 @@
-#!/bin/sh
+#!/bin/bash
 
+source ./env.sh
 IMAGE="comafire/docker-jupyter"
 TAG="latest"
 
