@@ -1,22 +1,19 @@
-# DataScientist 를 위한 Jupyter Docker  for CPU
-데이터과학자를 위한 Jupyter 도커
+# DataScientist 를 위한 Jupyter Docker 
+
+Data Science 에 자주 사용되는 Jupyter 와 Spark, CPU/GPU DeepLearning 및 주요 Library 를 Docker Image 로 제공합니다.
 
 현재 지원 기능 
 * Jupyter
 * Jupyter Kernel Gateway
-* Python 2, 3
-  * Spark
+* Jupyter Kernel
+  * Python 2/3, R, Scala, Julia, Go
+* Spark   
+* Python 2/3 Library
   * Tensorflow, Keras, PyTorch, numpy, pandas, scipy, scikit-learn, etc
-* Scala
-  * Spark
-* R
-  * Spark
-* Julia
-  * Spark
-* Go
 
 사전 요구사항
 * Docker
+* Nvidia-Docker (for GPU)
 
 ## 설치
 
@@ -28,7 +25,7 @@ OS: Ubuntu 16.04 LTS
 > git clone https://github.com/comafire/docker-jupyter.git
 ```
 
-### Docker Install
+### Install Docker
 
 Docker 는 이미 설치되어 있다고 가정합니다.
 
@@ -38,30 +35,55 @@ https://docs.docker.com/engine/installation/linux/ubuntu/
 
 https://docs.docker.com/engine/installation/linux/linux-postinstall/
 
+### for Nvidia GPU
+
+Nvidia GPU 가 장착된 머신이라면 아래 Nvidia GPU Driver 와 Nvidia-Docker 설치를 통해서 GPU DeepLarning 라이브러리를 사용하실 수 있습니다.
+
+#### Install Nvidia GPU Driver 
+
+Cuda 및 툴킷 라이브러니는 Nvidia-Docker 를 사용할 것이기에 Driver 만 설치하면 됩니다.
+
+설치 방법은 아래 링크를 참조하세요.
+
+http://tipsonubuntu.com/2017/05/09/install-nvidia-375-66-ubuntu-16-04-14-04-17-04/
+
+#### Install Nvidia-Docker
+
+Docker 상에서 Nvidia GPU 를 이용하기 위해 Nvidia-Docker 를 사용합니다.
+
+설치 방법은 아래 공식 설치 문서를 참조하세요.
+
+https://github.com/NVIDIA/nvidia-docker
+
 ### Build Docker Image
 
-Docker Image 는 따로 빌드하지 않으셔도 Docker Hub 를 통해 제공됩니다.
+CPU용 Docker Image 는 따로 빌드하지 않으셔도 Docker Hub 를 통해 제공됩니다.
 
-직접 빌드를 원하실 경우 ./docker_build.sh 명령을 이용하세요.
+GPU용 Docker Image 또는 직접 빌드를 원하실 경우 ./docker_build.sh 명령을 이용하세요.
 
 Dockerfile 을 제공하므로 커스텀 이미지 빌드도 가능합니다.
 
 ### Setup
 
-config.sh 파일을 수정하여 Password 및 Jupyter Port 를 변경할 수 있습니다.
+env.sh.template 파일을 env.sh 로 복사하여 설정 변경이 가능합니다.
 
 ```
-NAME="jupyter" # Container Name
-PORT="8010" # Jupyter Port
-VOLUME=$(pwd) # Jupyter Volume Path
-PASSWORD="notebooks" # Jupyter Password
+#!/bin/bash
 
-BASEURL="jupyter" # Jupyter BaseURL, ex) http://localhost:8010/jupyter
-DOCKER="docker" # Docker Command
-IMAGE="comafire/docker-jupyter" # Docker Image Name
-TAG="latest" # Docker Image Tag
+export LOCALE="ko_KR.UTF-8"
 
-RESTAPIPORT="8020" # Jupyter Kernel Gateway Port
+# Jupyter
+export JUPYTER_NAME="jupyter"
+export JUPYTER_PORT="8010" # Your Jupyter Port
+export JUPYTER_VOLUME=$(pwd)
+export JUPYTER_PASSWORD="notebooks" # Your Jupyter Password
+export JUPYTER_BASEURL="jupyter" # Your Jupyter BaseURL, ex) http://localhost:8010/jupyter
+export JUPYTER_RESTAPIPORT="8020" # Your Jupyter Kernel Gateway Port
+export JUPYTER_IMAGE="comafire/docker-jupyter"
+export JUPYTER_TAG="latest"
+export JUPYTER_GPU_IMAGE="comafire/docker-jupyter-gpu"
+export JUPYTER_GPU_TAG="latest"
+export JUPYTER_GPU="FALSE" # if you have Nvidia GPU, set TRUE
 ```
 
 ### Run
