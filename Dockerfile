@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM nvidia/cuda:9.0-cudnn7-devel-ubuntu16.04
 MAINTAINER comafire <comafire@gmail.com>
 
 # Bash
@@ -12,12 +12,22 @@ apt-utils \
 && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Lang
-RUN apt-get update && apt-get install -y --no-install-recommends \
-locales language-pack-ko
-RUN echo "ko_KR.UTF-8 UTF-8" > /etc/locale.gen && locale-gen
-ENV LC_ALL ko_KR.UTF-8
-ENV LANG ko_KR.UTF-8
-ENV LANGUAGE ko_KR.UTF-8
+ARG locale="ko_KR.UTF-8"
+ENV LOCALE=${locale}
+RUN echo "LOCALE: $LOCALE"
+RUN if [[ $LOCALE = *ko* ]] \
+; then \
+apt-get update && apt-get install -y --no-install-recommends \
+locales language-pack-ko \
+; else \
+apt-get update && apt-get install -y --no-install-recommends \
+locales language-pack-en \
+; fi
+RUN echo "$LOCALE UTF-8" > /etc/locale.gen && locale-gen
+ENV LC_ALL=${LOCALE}
+ENV LANG=${LOCALE}
+ENV LANGUAGE=${LOCALE}
+ENV LC_MESSAGES POSIX
 
 # Common
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -27,7 +37,7 @@ libfreetype6-dev libxft-dev
 RUN apt-get update && apt-get install -y --no-install-recommends \
 software-properties-common libjpeg-dev libpng-dev ncurses-dev imagemagick \
 libgraphicsmagick1-dev libzmq-dev gfortran gnuplot gnuplot-x11 libsdl2-dev \
-openssh-client htop
+openssh-client htop iputils-ping
 
 # Docker
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -37,21 +47,17 @@ RUN add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubunt
 RUN apt-get update && apt-get install -y --no-install-recommends \
 docker-ce
 
-# Database
-RUN apt-get update && apt-get install -y --no-install-recommends \
-libmysqlclient-dev libpq-dev postgresql-client 
-
 # Python2
 RUN apt-get update && apt-get install -y --no-install-recommends \
 python python-dev python-pip python-virtualenv python-software-properties
 RUN pip2 install --upgrade pip
-RUN pip2 install setuptools
+RUN pip2 install --cache-dir /tmp/pip2 --upgrade setuptools wheel
 
 # Python3
 RUN apt-get update && apt-get install -y --no-install-recommends \
-python3 python3-dev python3-pip python3-virtualenv python3-software-properties 
+python3 python3-dev python3-pip python3-virtualenv python3-software-properties
 RUN pip3 install --upgrade pip
-RUN pip3 install setuptools
+RUN pip3 install --cache-dir /tmp/pip3 --upgrade setuptools wheel
 
 # JAVA http://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/server-jre-8u131-linux-x64.tar.gz
 ENV JAVA_MAJOR_VERSION 8
@@ -79,7 +85,7 @@ ENV PATH $PATH:$SCALA_HOME/bin
 RUN curl -sL --retry 3 --insecure \
 "https://downloads.lightbend.com/scala/$SCALA_VERSION/scala-$SCALA_VERSION.tgz" \
 | gunzip | tar x -C /usr/local/ \
-&& ln -s $SCALA_HOME /usr/local/scala 
+&& ln -s $SCALA_HOME /usr/local/scala
 
 # Julia
 # install Julia packages in /opt/julia instead of $HOME
@@ -99,7 +105,7 @@ RUN apt-get update && apt-get --allow-unauthenticated install -y --no-install-re
 r-base r-base-dev
 
 # Go
-ENV GO_VERSION 1.9.5
+ENV GO_VERSION 1.9.6
 ENV GO_OS linux
 ENV GO_ARCH amd64
 RUN wget https://dl.google.com/go/go$GO_VERSION.$GO_OS-$GO_ARCH.tar.gz
@@ -107,6 +113,29 @@ RUN tar -C /usr/local/ -xzf go$GO_VERSION.$GO_OS-$GO_ARCH.tar.gz
 RUN mv /usr/local/go /usr/local/go-$GO_VERSION
 RUN ln -s /usr/local/go-$GO_VERSION /usr/local/go
 ENV PATH $PATH:/usr/local/go/bin
+
+# Database
+RUN apt-get update && apt-get install -y --no-install-recommends \
+libmysqlclient-dev libpq-dev postgresql-client
+
+# FUSE
+RUN apt-get update && apt-get install -y --no-install-recommends \
+automake autotools-dev g++ git libcurl4-gnutls-dev libssl-dev libxml2-dev make pkg-config \
+fuse libfuse-dev
+
+# FUSE-SSHFS
+RUN apt-get update && apt-get install -y --no-install-recommends \
+sshfs
+
+# FUSE-S3
+RUN git clone https://github.com/s3fs-fuse/s3fs-fuse.git;cd s3fs-fuse;./autogen.sh;./configure;make;make install
+
+# FUSE-BLOB
+RUN wget https://packages.microsoft.com/config/ubuntu/16.04/packages-microsoft-prod.deb
+RUN dpkg -i packages-microsoft-prod.deb
+RUN apt-get update
+RUN apt-get update && apt-get install -y --no-install-recommends \
+blobfuse
 
 # SPARK
 ENV SPARK_VERSION 2.3.0
@@ -116,7 +145,7 @@ ENV PY4J_VERSION 0.10.6
 
 ENV PATH $PATH:${SPARK_HOME}/bin
 RUN curl -sL --retry 3 \
-"http://apache.mirror.cdnetworks.com/spark/spark-${SPARK_VERSION}/${SPARK_PACKAGE}.tgz" \
+"http://www-us.apache.org/dist/spark/spark-${SPARK_VERSION}/${SPARK_PACKAGE}.tgz" \
 | gunzip | tar x -C /usr/local \
 && mv /usr/local/$SPARK_PACKAGE $SPARK_HOME \
 && ln -s $SPARK_HOME /usr/local/spark \
@@ -124,38 +153,63 @@ RUN curl -sL --retry 3 \
 ENV PYTHONPATH $SPARK_HOME/python/:$PYTHONPATH
 ENV PYTHONPATH $SPARK_HOME/python/lib/py4j-$PY4J_VERSION-src.zip:$PYTHONPATH
 
-RUN pip2 install py4j==$PY4J_VERSION
-RUN pip3 install py4j==$PY4J_VERSION
+RUN pip2 install --cache-dir /tmp/pip2 --timeout 600 py4j==$PY4J_VERSION
+RUN pip3 install --cache-dir /tmp/pip3 --timeout 600 py4j==$PY4J_VERSION
+
+# Python2 Deps
+RUN pip2 install --cache-dir /tmp/pip2 --timeout 600 numpy scipy scikit-learn matplotlib pandas pandas_ml pandas-datareader quandl h5py
+RUN pip2 install --cache-dir /tmp/pip2 --timeout 600 statsmodels imblearn awscli seaborn xgboost nbformat boto3 xlrd pyarrow
+RUN pip2 install --cache-dir /tmp/pip2 --timeout 600 docker fabric pytest pycrypto Flask flask_bcrypt
+RUN pip2 install --cache-dir /tmp/pip2 --timeout 600 mysql-python mysql-connector-python-rf
+RUN pip2 install --cache-dir /tmp/pip2 --timeout 600 pymysql psycopg2 sqlalchemy
+RUN pip2 install --cache-dir /tmp/pip2 --timeout 600 apache-airflow apache-airflow[s3,postgres,mysql,crypto,password]
+
+# Python3 Deps
+RUN pip3 install --cache-dir /tmp/pip3 --timeout 600 numpy scipy sklearn matplotlib pandas pandas_ml pandas-datareader quandl h5py
+RUN pip3 install --cache-dir /tmp/pip3 --timeout 600 statsmodels imblearn awscli seaborn xgboost nbformat boto3 xlrd pyarrow
+RUN pip3 install --cache-dir /tmp/pip3 --timeout 600 docker fabric pytest pycrypto Flask flask_bcrypt
+RUN pip3 install --cache-dir /tmp/pip3 --timeout 600 mysqlclient mysql-connector-python-rf
+RUN pip3 install --cache-dir /tmp/pip3 --timeout 600 pymysql psycopg2 sqlalchemy
+RUN pip3 install --cache-dir /tmp/pip3 --timeout 600 apache-airflow apache-airflow[s3,postgres,mysql,crypto,password]
+RUN pip3 install --cache-dir /tmp/pip3 --timeout 600 ghp-import2 nikola[extras]
+
+# DeepLearning
+ARG gpu="FALSE"
+ENV GPU=${gpu}
+ENV TENSORFLOW_VER 1.9.0rc0
+ENV PYTORCH_VER 0.4.0
+RUN echo "GPU: $GPU"
+RUN if [[ $GPU = *TRUE* ]] \
+; then \
+# For Tensorflow GPU
+apt-get update && apt-get install -y --no-install-recommends \
+libcupti-dev nvidia-modprobe \
+&& pip2 install --cache-dir /tmp/pip2 --timeout 600 tensorflow-gpu==$TENSORFLOW_VER keras \
+http://download.pytorch.org/whl/cu90/torch-$PYTORCH_VER-cp27-cp27mu-linux_x86_64.whl \
+torchvision \
+&& pip3 install --cache-dir /tmp/pip3 --timeout 600 tensorflow-gpu==$TENSORFLOW_VER keras \
+http://download.pytorch.org/whl/cu90/torch-$PYTORCH_VER-cp35-cp35m-linux_x86_64.whl \
+torchvision \
+; else \
+pip2 install --cache-dir /tmp/pip2 --timeout 600 tensorflow==$TENSORFLOW_VER keras \
+http://download.pytorch.org/whl/cpu/torch-$PYTORCH_VER-cp27-cp27mu-linux_x86_64.whl \
+torchvision \
+&& pip3 install --cache-dir /tmp/pip3 --timeout 600 tensorflow==$TENSORFLOW_VER keras \
+http://download.pytorch.org/whl/cpu/torch-$PYTORCH_VER-cp35-cp35m-linux_x86_64.whl \
+torchvision \
+; fi
 
 # Jupyter Deps
 RUN apt-get update && apt-get install -y --no-install-recommends \
 texlive-xetex
 
-# Python2 Deps
-RUN pip2 install numpy scipy scikit-learn matplotlib pandas pandas_ml pandas-datareader quandl h5py
-RUN pip2 install statsmodels imblearn awscli seaborn xgboost nbformat boto3 xlrd pyarrow
-RUN pip2 install docker fabric pytest pycrypto Flask
-RUN pip2 install pymssql pymysql airflow airflow[s3,postgres,mysql,crypto,password]
-RUN pip2 install tensorflow keras
-RUN pip2 install http://download.pytorch.org/whl/cpu/torch-0.4.0-cp27-cp27mu-linux_x86_64.whl  
-RUN pip2 install torchvision 
-
-# Python3 Deps
-RUN pip3 install numpy scipy sklearn matplotlib pandas pandas_ml pandas-datareader quandl h5py
-RUN pip3 install statsmodels imblearn awscli seaborn xgboost nbformat boto3 xlrd pyarrow
-RUN pip3 install docker fabric pytest pycrypto Flask
-RUN pip3 install pymssql pymysql airflow airflow[s3,postgres,mysql,crypto,password]
-RUN pip3 install tensorflow keras
-RUN pip3 install http://download.pytorch.org/whl/cpu/torch-0.4.0-cp35-cp35m-linux_x86_64.whl 
-RUN pip3 install torchvision
-
 # Jupyter
-RUN pip3 install jupyter
+RUN pip3 install -v --no-cache-dir --timeout 600 jupyter
 # Jupyter extensions
-RUN pip3 install jupyter_contrib_nbextensions
-RUN pip3 install jupyter_nbextensions_configurator
-RUN pip3 install yapf
-RUN pip3 install nbimporter jdc jupyter_kernel_gateway
+RUN pip3 install -v --no-cache-dir --timeout 600 jupyter_contrib_nbextensions
+RUN pip3 install -v --no-cache-dir --timeout 600 jupyter_nbextensions_configurator
+RUN pip3 install -v --no-cache-dir --timeout 600 yapf
+RUN pip3 install -v --no-cache-dir --timeout 600 nbimporter jdc jupyter_kernel_gateway
 
 # Jupyter Python2 kernel
 RUN python2 -m pip install ipykernel
@@ -173,10 +227,10 @@ RUN julia -e 'Pkg.init()' && \
 julia -e 'Pkg.update()' && \
 julia -e 'Pkg.add("Gadfly")' && \
 julia -e 'Pkg.add("RDatasets")' && \
-julia -e 'Pkg.add("Spark.jl")' && \
+#julia -e 'Pkg.add("Spark.jl")' && \
 julia -e 'Pkg.add("IJulia")' && \
-# Precompile Julia packages 
-julia -e 'using IJulia' 
+# Precompile Julia packages
+julia -e 'using IJulia'
 
 # Jupyter R kernel
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -188,8 +242,8 @@ RUN R -e "devtools::install_github('IRkernel/IRkernel')"
 RUN R -e "IRkernel::installspec()"
 
 # Go Kernel
-ENV GOPATH $HOME/go
 ENV LGOPATH $HOME/lgo
+ENV GOPATH $HOME/go
 ENV PATH $PATH:$GOPATH/bin:$LGOPATH/bin
 RUN apt-get update && apt-get install -y --no-install-recommends \
 libzmq3-dev
@@ -199,9 +253,7 @@ RUN python3 $(go env GOPATH)/src/github.com/yunabe/lgo/bin/install_kernel
 
 # Env
 VOLUME /root/volume
+WORKDIR /root/volume
 
 EXPOSE 8888 8088
-
-WORKDIR /root/volume
-CMD ["./run_jupyter.sh"]
 

@@ -98,4 +98,4 @@ ENV/
 **/tmp/
 **/metastore_db/
 **/spark-warehouse/
-
+**/env.sh
