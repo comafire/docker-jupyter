@@ -4,12 +4,11 @@ Data Science 에 자주 사용되는 Jupyter 와 Spark, CPU/GPU DeepLearning 및
 
 현재 지원 기능 
 * Jupyter
-* Jupyter Kernel Gateway
-* Jupyter Kernel
-  * Python 2/3, R, Scala, Julia, Go
-* Spark   
-* Python 2/3 Library
-  * Tensorflow, Keras, PyTorch, numpy, pandas, scipy, scikit-learn, etc
+  * Jupyter Kernel: Python2/3, Scala, R, Julia, Go
+  * Jupyter Kernel Gateway
+  * Machine Learning
+    * Python2/3 Lib: tensorflow CPU/GPU, pytorch CPU/GPU, keras, pandas, scikit-learn, .. etc
+* Spark
 
 사전 요구사항
 * Docker
