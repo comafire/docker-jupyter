@@ -13,7 +13,7 @@ apt-utils \
 
 # Lang
 ARG locale="ko_KR.UTF-8"
-ENV LOCALE=${locale}
+ENV LOCALE ${locale}
 RUN echo "LOCALE: $LOCALE"
 RUN if [[ $LOCALE = *ko* ]] \
 ; then \
@@ -24,9 +24,9 @@ apt-get update && apt-get install -y --no-install-recommends \
 locales language-pack-en \
 ; fi
 RUN echo "$LOCALE UTF-8" > /etc/locale.gen && locale-gen
-ENV LC_ALL=${LOCALE}
-ENV LANG=${LOCALE}
-ENV LANGUAGE=${LOCALE}
+ENV LC_ALL ${LOCALE}
+ENV LANG ${LOCALE}
+ENV LANGUAGE ${LOCALE}
 ENV LC_MESSAGES POSIX
 
 # Common
@@ -61,9 +61,9 @@ RUN pip3 install --cache-dir /tmp/pip3 --upgrade setuptools wheel
 
 # JAVA http://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/server-jre-8u131-linux-x64.tar.gz
 ENV JAVA_MAJOR_VERSION 8
-ENV JAVA_UPDATE_VERSION 172
-ENV JAVA_BUILD_NUMBER 11
-ENV JAVA_TOKEN a58eab1ec242421181065cdc37240b08
+ENV JAVA_UPDATE_VERSION 181 
+ENV JAVA_BUILD_NUMBER 13
+ENV JAVA_TOKEN 96a7b8442fe848ef90c96a2fad6ed6d1
 ENV JAVA_HOME /usr/local/jdk1.${JAVA_MAJOR_VERSION}.0_${JAVA_UPDATE_VERSION}
 
 ENV PATH $PATH:$JAVA_HOME/bin
@@ -89,13 +89,13 @@ RUN curl -sL --retry 3 --insecure \
 
 # Julia
 # install Julia packages in /opt/julia instead of $HOME
-ENV JULIA_PKGDIR=/opt/julia
-ENV JULIA_VERSION=0.6.2
+ENV JULIA_PKGDIR /opt/julia
+ENV JULIA_VERSION 1.0.0
 
 RUN mkdir /opt/julia-${JULIA_VERSION} && \
     cd /tmp && \
     wget -q https://julialang-s3.julialang.org/bin/linux/x64/`echo ${JULIA_VERSION} | cut -d. -f 1,2`/julia-${JULIA_VERSION}-linux-x86_64.tar.gz && \
-    echo "dc6ec0b13551ce78083a5849268b20684421d46a7ec46b17ec1fab88a5078580 *julia-${JULIA_VERSION}-linux-x86_64.tar.gz" | sha256sum -c - && \
+    echo "bea4570d7358016d8ed29d2c15787dbefaea3e746c570763e7ad6040f17831f3 *julia-${JULIA_VERSION}-linux-x86_64.tar.gz" | sha256sum -c - && \
     tar xzf julia-${JULIA_VERSION}-linux-x86_64.tar.gz -C /opt/julia-${JULIA_VERSION} --strip-components=1 && \
     rm /tmp/julia-${JULIA_VERSION}-linux-x86_64.tar.gz
 RUN ln -fs /opt/julia-*/bin/julia /usr/local/bin/julia
@@ -138,10 +138,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 blobfuse
 
 # SPARK
-ENV SPARK_VERSION 2.3.0
+ENV SPARK_VERSION 2.3.1
 ENV SPARK_PACKAGE spark-${SPARK_VERSION}-bin-hadoop2.7
 ENV SPARK_HOME /usr/local/spark-${SPARK_VERSION}
-ENV PY4J_VERSION 0.10.6
+ENV PY4J_VERSION 0.10.7
 
 ENV PATH $PATH:${SPARK_HOME}/bin
 RUN curl -sL --retry 3 \
@@ -155,6 +155,9 @@ ENV PYTHONPATH $SPARK_HOME/python/lib/py4j-$PY4J_VERSION-src.zip:$PYTHONPATH
 
 RUN pip2 install --cache-dir /tmp/pip2 --timeout 600 py4j==$PY4J_VERSION
 RUN pip3 install --cache-dir /tmp/pip3 --timeout 600 py4j==$PY4J_VERSION
+
+# for Airflow (don't use GPL dependency library)
+ENV SLUGIFY_USES_TEXT_UNIDECODE yes
 
 # Python2 Deps
 RUN pip2 install --cache-dir /tmp/pip2 --timeout 600 numpy scipy scikit-learn matplotlib pandas pandas_ml pandas-datareader quandl h5py
@@ -175,7 +178,7 @@ RUN pip3 install --cache-dir /tmp/pip3 --timeout 600 ghp-import2 nikola[extras]
 
 # DeepLearning
 ARG gpu="FALSE"
-ENV GPU=${gpu}
+ENV GPU ${gpu}
 ENV TENSORFLOW_VER 1.9.0rc0
 ENV PYTORCH_VER 0.4.0
 RUN echo "GPU: $GPU"
@@ -223,12 +226,12 @@ RUN python3 -m ipykernel install --user
 RUN git clone https://github.com/alexarchambault/jupyter-scala.git;cd jupyter-scala;./jupyter-scala
 
 # Jupyter Julia Kernel
-RUN julia -e 'Pkg.init()' && \
-julia -e 'Pkg.update()' && \
-julia -e 'Pkg.add("Gadfly")' && \
-julia -e 'Pkg.add("RDatasets")' && \
+#RUN julia -e 'import Pkg;Pkg.init()' && \
+RUN julia -e 'import Pkg;Pkg.update()' && \
+julia -e 'import Pkg;Pkg.add("Gadfly")' && \
+julia -e 'import Pkg;Pkg.add("RDatasets")' && \
 #julia -e 'Pkg.add("Spark.jl")' && \
-julia -e 'Pkg.add("IJulia")' && \
+julia -e 'import Pkg;Pkg.add("IJulia")' && \
 # Precompile Julia packages
 julia -e 'using IJulia'
 

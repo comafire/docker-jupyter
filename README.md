@@ -1,14 +1,14 @@
-# DataScientist 를 위한 Jupyter Docker 
+# DataScientist 를 위한 Jupyter Docker
 
 Data Science 에 자주 사용되는 Jupyter 와 Spark, CPU/GPU DeepLearning 및 주요 Library 를 Docker Image 로 제공합니다.
 
-현재 지원 기능 
+현재 지원 기능
 * Jupyter
   * Jupyter Kernel: Python2/3, Scala, R, Julia, Go
   * Jupyter Kernel Gateway
   * Machine Learning
     * Python2/3 Lib: tensorflow CPU/GPU, pytorch CPU/GPU, keras, pandas, scikit-learn, .. etc
-* Spark
+* Apache Spark
 
 사전 요구사항
 * Docker
@@ -38,7 +38,7 @@ https://docs.docker.com/engine/installation/linux/linux-postinstall/
 
 Nvidia GPU 가 장착된 머신이라면 아래 Nvidia GPU Driver 와 Nvidia-Docker 설치를 통해서 GPU DeepLarning 라이브러리를 사용하실 수 있습니다.
 
-#### Install Nvidia GPU Driver 
+#### Install Nvidia GPU Driver
 
 Cuda 및 툴킷 라이브러니는 Nvidia-Docker 를 사용할 것이기에 Driver 만 설치하면 됩니다.
 
@@ -90,7 +90,7 @@ export JUPYTER_GPU="FALSE" # if you have Nvidia GPU, set TRUE
 ./docker_run_jupyter.sh 명령으로 Jupyter Docker 이미지를 실행할 수 있습니다.
 
 ```
-> ./docker_run_jupyter.sh 
+> ./docker_run_jupyter.sh
 > docker ps
 CONTAINER ID        IMAGE                                COMMAND              CREATED             STATUS              PORTS                                            NAMES
 c63e1132d207        comafire/docker-jupyter:latest       "./run_jupyter.sh"   2 seconds ago       Up 1 second         0.0.0.0:8020->8088/tcp, 0.0.0.0:8010->8888/tcp   jupyter
@@ -103,4 +103,3 @@ c63e1132d207        comafire/docker-jupyter:latest       "./run_jupyter.sh"   2 
 Jupyter 사용중 추가 외부 라이브러리가 필요하시면 Jupyter 상에서 Terminal 창을 띄우신 후에 pip2, pip3 명령을 사용하시면 됩니다.
 
 Docker 실행시 자동 설치를 원하시면 requirements.txt 파일에 패키지를 추가하시면 됩니다.
-
