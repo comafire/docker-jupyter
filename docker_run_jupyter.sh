@@ -26,6 +26,7 @@ $DOCKER rm -f $JUPYTER_NAME
 $DOCKER run -i -t -d --name $JUPYTER_NAME \
 --privileged --restart=always \
 -p $JUPYTER_PORT:8888 -p $JUPYTER_RESTAPIPORT:8088 \
+-v $JUPYTER_MNT:/root/mnt \
 -v $JUPYTER_VOLUME:/root/volume \
 -e JUPYTER_BASEURL=$JUPYTER_BASEURL -e JUPYTER_PASSWORD=$JUPYTER_PASSWORD \
 $IMAGE:$TAG /root/volume/run_jupyter.sh
