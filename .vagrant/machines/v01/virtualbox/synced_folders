@@ -1,1 +1,0 @@
-{"virtualbox":{"/home/vagrant/docker-jupyter":{"owner":"vagrant","group":"vagrant","guestpath":"/home/vagrant/docker-jupyter","hostpath":"/home/comafire/docker-jupyter","disabled":false,"__vagrantfile":true},"/vagrant":{"guestpath":"/vagrant","hostpath":"/home/comafire/docker-jupyter","disabled":false,"__vagrantfile":true}}}
