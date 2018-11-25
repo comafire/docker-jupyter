@@ -99,3 +99,7 @@ ENV/
 **/metastore_db/
 **/spark-warehouse/
 **/env.sh
+
+# vagrant
+.vagrant
+
