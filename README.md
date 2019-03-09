@@ -4,10 +4,10 @@ Data Science 에 자주 사용되는 Jupyter 와 Spark, CPU/GPU DeepLearning 및
 
 현재 지원 기능
 * Jupyter
-  * Jupyter Kernel: Python2/3, Scala, R, Julia, Go
+  * Jupyter Kernel: Python3, Scala, R, Julia, Go
   * Jupyter Kernel Gateway
   * Machine Learning
-    * Python2/3 Lib: tensorflow CPU/GPU, pytorch CPU/GPU, keras, pandas, scikit-learn, .. etc
+    * Python3 Lib: tensorflow CPU/GPU, pytorch CPU/GPU, keras, pandas, scikit-learn, .. etc
 * Apache Spark
 
 시스템 요구사항
@@ -50,14 +50,6 @@ Docker 상에서 Nvidia GPU 를 이용하기 위해 Nvidia-Docker 를 사용합�
 
 https://github.com/NVIDIA/nvidia-docker
 
-## Build Docker Image
-
-CPU용 Docker Image 는 따로 빌드하지 않으셔도 Docker Hub 를 통해 제공됩니다.
-
-GPU용 Docker Image 또는 직접 빌드를 원하실 경우 ./docker_build.sh 명령을 이용하세요.
-
-Dockerfile 을 제공하므로 커스텀 이미지 빌드도 가능합니다.
-
 ## Setup
 
 env.sh.template 파일을 env.sh 로 복사하여 설정 변경이 가능합니다.
@@ -82,6 +74,12 @@ export JUPYTER_GPU_TAG="latest"
 export JUPYTER_GPU="FALSE" # if you have Nvidia GPU, set TRUE
 ```
 
+## Build Docker Image
+
+./docker_build.sh 명령을 통해 env.sh 에서 설정한 이미지를 빌드합니다.
+
+Dockerfile 을 제공하므로 커스텀 이미지 빌드도 가능합니다.
+
 ## Run
 
 ./docker_run_jupyter.sh 명령으로 Jupyter Docker 이미지를 실행할 수 있습니다.
@@ -97,7 +95,7 @@ c63e1132d207        comafire/docker-jupyter:latest       "./run_jupyter.sh"   2 
 
 ### Python
 
-Jupyter 사용중 추가 외부 라이브러리가 필요하시면 Jupyter 상에서 Terminal 창을 띄우신 후에 pip2, pip3 명령을 사용하시면 됩니다.
+Jupyter 사용중 추가 외부 라이브러리가 필요하시면 Jupyter 상에서 Terminal 창을 띄우신 후에 pip3 명령을 사용하시면 됩니다.
 
 Docker 실행시 자동 설치를 원하시면 requirements.txt 파일에 패키지를 추가하시면 됩니다.
 
