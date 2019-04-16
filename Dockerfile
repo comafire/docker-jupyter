@@ -1,4 +1,4 @@
-FROM nvidia/cuda:9.0-cudnn7-devel-ubuntu16.04
+FROM nvidia/cuda:10.1-cudnn7-devel-ubuntu16.04
 MAINTAINER comafire <comafire@gmail.com>
 
 # Bash
@@ -36,7 +36,7 @@ libffi-dev libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev llvm 
 libfreetype6-dev libxft-dev
 RUN apt-get update && apt-get install -y --no-install-recommends \
 software-properties-common libjpeg-dev libpng-dev ncurses-dev imagemagick \
-libgraphicsmagick1-dev libzmq-dev gfortran gnuplot gnuplot-x11 libsdl2-dev \
+libgraphicsmagick1-dev libzmq3-dev gfortran gnuplot gnuplot-x11 libsdl2-dev \
 openssh-client htop iputils-ping
 
 # Docker
@@ -121,7 +121,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 nginx
 
 # SPARK
-ENV SPARK_VERSION 2.4.0
+ENV SPARK_VERSION 2.4.1
 ENV SPARK_PACKAGE spark-${SPARK_VERSION}-bin-hadoop2.7
 ENV SPARK_HOME /usr/local/spark-${SPARK_VERSION}
 ENV PYSPARK_PYTHON /usr/bin/python3
