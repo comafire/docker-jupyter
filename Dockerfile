@@ -49,7 +49,7 @@ docker-ce
 
 # Python3
 RUN apt-get update && apt-get install -y --no-install-recommends \
-python3 python3-dev python3-pip python3-virtualenv python3-software-properties
+python3 python3-dev python3-pip python3-virtualenv python3-software-properties python3-gdbm 
 RUN pip3 install --upgrade pip
 RUN pip3 install --cache-dir /tmp/pip3 --upgrade setuptools wheel
 
