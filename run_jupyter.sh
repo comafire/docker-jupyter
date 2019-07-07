@@ -10,7 +10,7 @@ cp $SPARKENV_PATH /usr/local/spark/conf/spark-env.sh
 pip2 install -r $REQUIREMENTS_PATH
 pip3 install -r $REQUIREMENTS_PATH
 
-mkdir /root/.jupyter 
+mkdir /root/.jupyter
 cp /root/volume/jupyter_notebook_config.py /root/.jupyter/
 jupyter contrib nbextension install --user
 jupyter nbextensions_configurator enable --user
@@ -20,4 +20,7 @@ jupyter nbextension enable toc2/main
 #jupyter nbextension enable code_prettify/code_prettify
 jupyter nbextension enable codefolding/edit
 #jupyter notebook --allow-root
+
+
+jupyter labextension install jupyterlab_nbmetadata
 jupyter lab --allow-root

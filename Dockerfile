@@ -1,4 +1,4 @@
-FROM nvidia/cuda:10.1-cudnn7-devel-ubuntu16.04
+FROM nvidia/cuda:10.1-cudnn7-devel-ubuntu18.04
 MAINTAINER comafire <comafire@gmail.com>
 
 # Bash
@@ -49,7 +49,7 @@ docker-ce
 
 # Python3
 RUN apt-get update && apt-get install -y --no-install-recommends \
-python3 python3-dev python3-pip python3-virtualenv python3-software-properties python3-gdbm 
+python3 python3-dev python3-pip python3-virtualenv python3-software-properties python3-gdbm
 RUN pip3 install --upgrade pip
 RUN pip3 install --cache-dir /tmp/pip3 --upgrade setuptools wheel
 
@@ -58,7 +58,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 default-jdk maven
 
 # Scala
-ENV SCALA_VERSION 2.11.11
+ENV SCALA_VERSION 2.12.0
 ENV SCALA_HOME /usr/local/scala-${SCALA_VERSION}
 
 ENV PATH $PATH:$SCALA_HOME/bin
@@ -68,7 +68,7 @@ RUN curl -sL --retry 3 --insecure \
 && ln -s $SCALA_HOME /usr/local/scala
 
 # Julia
-ENV JULIA_VERSION 1.0.2
+ENV JULIA_VERSION 1.1.1
 
 RUN apt-get update && apt-get install -y build-essential libatomic1 python gfortran perl wget m4 cmake pkg-config
 RUN cd /usr/local && git clone git://github.com/JuliaLang/julia.git && cd julia && git checkout v${JULIA_VERSION}
@@ -82,16 +82,6 @@ RUN julia -e 'using Pkg;Pkg.update()'
 # R
 RUN apt-get update && apt-get --allow-unauthenticated install -y --no-install-recommends \
 r-base r-base-dev
-
-# Go
-ENV GO_VERSION 1.9.6
-ENV GO_OS linux
-ENV GO_ARCH amd64
-RUN wget https://dl.google.com/go/go$GO_VERSION.$GO_OS-$GO_ARCH.tar.gz
-RUN tar -C /usr/local/ -xzf go$GO_VERSION.$GO_OS-$GO_ARCH.tar.gz
-RUN mv /usr/local/go /usr/local/go-$GO_VERSION
-RUN ln -s /usr/local/go-$GO_VERSION /usr/local/go
-ENV PATH $PATH:/usr/local/go/bin
 
 # Database
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -121,7 +111,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 nginx
 
 # SPARK
-ENV SPARK_VERSION 2.4.1
+ENV SPARK_VERSION 2.4.3
 ENV SPARK_PACKAGE spark-${SPARK_VERSION}-bin-hadoop2.7
 ENV SPARK_HOME /usr/local/spark-${SPARK_VERSION}
 ENV PYSPARK_PYTHON /usr/bin/python3
@@ -145,8 +135,11 @@ ENV SLUGIFY_USES_TEXT_UNIDECODE yes
 
 # Python3 Deps
 RUN pip3 install --cache-dir /tmp/pip3 --timeout 600 docker fabric pytest pycrypto
-RUN pip3 install --cache-dir /tmp/pip3 --timeout 600 numpy scipy scikit-learn matplotlib pandas pandas_ml pandas-datareader quandl h5py
-RUN pip3 install --cache-dir /tmp/pip3 --timeout 600 statsmodels imblearn awscli seaborn xgboost nbformat boto3 xlrd pyarrow
+RUN pip3 install --cache-dir /tmp/pip3 --timeout 600 numpy>=1.11.2
+RUN pip3 install --cache-dir /tmp/pip3 --timeout 600 scipy scikit-learn scikit-surprise xgboost statsmodels
+RUN pip3 install --cache-dir /tmp/pip3 --timeout 600 pandas pandas_ml pandas-datareader quandl h5py pyarrow imbalanced-learn
+RUN pip3 install --cache-dir /tmp/pip3 --timeout 600 matplotlib seaborn
+RUN pip3 install --cache-dir /tmp/pip3 --timeout 600 awscli nbformat boto3 xlrd
 RUN pip3 install --cache-dir /tmp/pip3 --timeout 600 mysqlclient mysql-connector-python-rf pymysql psycopg2 sqlalchemy
 RUN pip3 install --cache-dir /tmp/pip3 --timeout 600 flask flask-restful flask-jwt-extended flask_bcrypt flask-sqlalchemy flask-testing
 RUN pip3 install --cache-dir /tmp/pip3 --timeout 600 nose passlib pybase62 uuid0 imageio
@@ -155,8 +148,9 @@ RUN pip3 install --cache-dir /tmp/pip3 --timeout 600 ghp-import2 nikola[extras]
 # DeepLearning
 ARG gpu="FALSE"
 ENV GPU ${gpu}
-ENV TENSORFLOW_VER 1.12.0
-ENV PYTORCH_VER 1.0.1.post2
+ENV TENSORFLOW_VER 1.14.0
+ENV PYTORCH_VER 1.1.0
+ENV PYTORCH_VISION_VER 0.3.0
 RUN echo "GPU: $GPU"
 RUN if [[ $GPU = *TRUE* ]] \
 ; then \
@@ -164,11 +158,11 @@ RUN if [[ $GPU = *TRUE* ]] \
 apt-get update && apt-get install -y --no-install-recommends \
 libcupti-dev nvidia-modprobe \
 && pip3 install --cache-dir /tmp/pip3 --timeout 600 tensorflow-gpu==$TENSORFLOW_VER keras \
-torch \
-torchvision \
+https://download.pytorch.org/whl/cu100/torch-$PYTORCH_VER-cp35-cp35m-linux_x86_64.whl \
+https://download.pytorch.org/whl/cu100/torchvision-$PYTORCH_VISION_VER-cp35-cp35m-linux_x86_64.whl \
 ; else \
 pip3 install --cache-dir /tmp/pip3 --timeout 600 tensorflow==$TENSORFLOW_VER keras \
-http://download.pytorch.org/whl/cpu/torch-$PYTORCH_VER-cp35-cp35m-linux_x86_64.whl \
+torch \
 torchvision \
 ; fi
 
@@ -212,16 +206,6 @@ RUN R -e "install.packages(c('pbdZMQ', 'devtools', 'IRdisplay', 'evaluate', 'cra
 RUN R -e "install.packages(c('SparkR'), repos='http://cran.rstudio.com/')"
 RUN R -e "devtools::install_github('IRkernel/IRkernel')"
 RUN R -e "IRkernel::installspec()"
-
-# Go Kernel
-ENV LGOPATH $HOME/lgo
-ENV GOPATH $HOME/go
-ENV PATH $PATH:$GOPATH/bin:$LGOPATH/bin
-RUN apt-get update && apt-get install -y --no-install-recommends \
-libzmq3-dev
-RUN go get github.com/yunabe/lgo/cmd/lgo && go get -d github.com/yunabe/lgo/cmd/lgo-internal
-RUN lgo install
-RUN python3 $(go env GOPATH)/src/github.com/yunabe/lgo/bin/install_kernel
 
 # for Airflow
 ENV AIRFLOW_HOME /root/volume/var/airflow
