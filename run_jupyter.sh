@@ -22,5 +22,4 @@ jupyter nbextension enable codefolding/edit
 #jupyter notebook --allow-root
 
 
-jupyter labextension install jupyterlab_nbmetadata
 jupyter lab --allow-root
