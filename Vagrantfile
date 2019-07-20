@@ -17,10 +17,10 @@ Vagrant.configure("2") do |config|
     #host.vm.network "private_network", ip: "10.0.1.1"
     host.vm.provider "virtualbox" do |vb|
       vb.gui = false
-      vb.cpus = 4
-      vb.memory = "8192"
+      vb.cpus = 2
+      vb.memory = "4096"
     end
-    host.disksize.size = '128GB'
+    host.disksize.size = '16GB'
     host.vm.synced_folder "./", "/home/vagrant/docker-jupyter", owner: "vagrant", group: "vagrant"
   end
 

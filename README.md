@@ -4,14 +4,13 @@ Data Science 에 자주 사용되는 Jupyter 와 Spark, CPU/GPU DeepLearning 및
 
 현재 지원 기능
 * Jupyter
-  * Jupyter Kernel: Python3, Scala, R, Julia, Go
-  * Jupyter Kernel Gateway
+  * Jupyter Kernel: Python3, Scala, R, Julia
   * Machine Learning
     * Python3 Lib: tensorflow CPU/GPU, pytorch CPU/GPU, keras, pandas, scikit-learn, .. etc
 * Apache Spark
 
 시스템 요구사항
-* Ubuntu 16.04 LTS
+* Ubuntu 18.04 LTS
 * Docker
 * Nvidia-Docker (for GPU)
 
@@ -40,7 +39,8 @@ Cuda 및 툴킷 라이브러니는 Nvidia-Docker 를 사용할 것이기에 Driv
 
 설치 방법은 아래 링크를 참조하세요.
 
-http://tipsonubuntu.com/2017/05/09/install-nvidia-375-66-ubuntu-16-04-14-04-17-04/
+https://linuxconfig.org/how-to-install-the-nvidia-drivers-on-ubuntu-18-04-bionic-beaver-linux
+
 
 ### Install Nvidia-Docker
 
@@ -91,6 +91,8 @@ CONTAINER ID        IMAGE                                COMMAND              CR
 c63e1132d207        comafire/docker-jupyter:latest       "./run_jupyter.sh"   2 seconds ago       Up 1 second         0.0.0.0:8020->8088/tcp, 0.0.0.0:8010->8888/tcp   jupyter
 ```
 
+이제, 설정한 Jupyter URL 인 http://localhost:8010/jupyter 로 접속하여 Jupyter를 사용할 수 있습니다.
+
 ## Install Extra Library
 
 ### Python
@@ -101,9 +103,9 @@ Docker 실행시 자동 설치를 원하시면 requirements.txt 파일에 패키
 
 ## Option - Vagrant
 
-docker-jupyter 를 로컬 머신상이 아닌 Virtual Machine 상에 설치하기 위해 사용합니다.
-
 Linux 에서 Virtual Box Virtual Machine 을 편리하게 관리하기 위한 툴로 Vagrant를 이용합니다.
+
+docker-jupyter 를 로컬 머신상이 아닌 Virtual Machine 상에서 설치 테스트를 하기 위해 사용합니다.
 
 ### Install Vagrant
 
@@ -139,9 +141,9 @@ Vagrant.configure("2") do |config|
     host.vm.provider "virtualbox" do |vb|
       vb.gui = false
       vb.cpus = 2
-      vb.memory = "8192"
+      vb.memory = "4096"
     end
-    host.disksize.size = '128GB'
+    host.disksize.size = '16GB'
     host.vm.synced_folder "./", "/home/vagrant/docker-jupyter", owner: "vagrant", group: "vagrant"
   end
 

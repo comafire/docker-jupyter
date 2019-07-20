@@ -31,7 +31,7 @@ ENV LC_MESSAGES POSIX
 
 # Common
 RUN apt-get update && apt-get install -y --no-install-recommends \
-build-essential vim curl wget git cmake bzip2 sudo unzip net-tools \
+build-essential vim curl wget git git-flow cmake bzip2 sudo unzip net-tools \
 libffi-dev libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev llvm \
 libfreetype6-dev libxft-dev
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -55,7 +55,7 @@ RUN pip3 install --cache-dir /tmp/pip3 --upgrade setuptools wheel
 
 # Java
 RUN apt-get update && apt-get install -y --no-install-recommends \
-default-jdk maven
+openjdk-8-jdk maven
 
 # Scala
 ENV SCALA_VERSION 2.12.0
@@ -175,12 +175,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 texlive-xetex
 
 # Jupyter
-RUN pip3 install -v --no-cache-dir --timeout 600 jupyter jupyterlab
-# Jupyter extensions
-RUN pip3 install -v --no-cache-dir --timeout 600 jupyter_contrib_nbextensions
-RUN pip3 install -v --no-cache-dir --timeout 600 jupyter_nbextensions_configurator
-RUN pip3 install -v --no-cache-dir --timeout 600 yapf
-RUN pip3 install -v --no-cache-dir --timeout 600 nbimporter jdc jupyter_kernel_gateway
+RUN pip3 install -v --no-cache-dir --timeout 600 jupyterlab
 
 # Jupyter Python3 kernel
 RUN python3 -m pip install ipykernel
