@@ -1,5 +1,5 @@
 FROM nvidia/cuda:10.1-cudnn7-devel-ubuntu18.04
-MAINTAINER comafire <comafire@gmail.com>
+LABEL maintainer="comafire@gmail.com"
 
 # Bash
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
