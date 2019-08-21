@@ -58,7 +58,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 openjdk-8-jdk maven
 
 # Scala
-ENV SCALA_VERSION 2.12.0
+ENV SCALA_VERSION 2.11.0
 ENV SCALA_HOME /usr/local/scala-${SCALA_VERSION}
 
 ENV PATH $PATH:$SCALA_HOME/bin
