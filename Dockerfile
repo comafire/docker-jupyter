@@ -68,14 +68,15 @@ RUN curl -sL --retry 3 --insecure \
 && ln -s $SCALA_HOME /usr/local/scala
 
 # Julia
-ENV JULIA_VERSION 1.1.1
+ENV JULIA_VERSION=1.2.0
+ENV JULIA_HOME /usr/local/julia-${JULIA_VERSION}
 
-RUN apt-get update && apt-get install -y build-essential libatomic1 python gfortran perl wget m4 cmake pkg-config
-RUN cd /usr/local && git clone git://github.com/JuliaLang/julia.git && cd julia && git checkout v${JULIA_VERSION}
-RUN cd /usr/local/julia && make -j 4
-RUN sudo ln -s /usr/local/julia/usr/bin/julia /usr/local/bin/julia
-RUN /usr/local/julia/usr/bin/julia -v
-RUN ls -al /usr/local/bin
+ENV PATH $PATH:$JULIA_HOME/bin
+RUN mkdir ${JULIA_HOME} && cd /tmp && \
+    wget -q https://julialang-s3.julialang.org/bin/linux/x64/`echo ${JULIA_VERSION} | cut -d. -f 1,2`/julia-${JULIA_VERSION}-linux-x86_64.tar.gz && \
+    tar xzf julia-${JULIA_VERSION}-linux-x86_64.tar.gz -C ${JULIA_HOME} --strip-components=1 && \
+    rm /tmp/julia-${JULIA_VERSION}-linux-x86_64.tar.gz
+RUN ln -fs /usr/local/julia-*/bin/julia /usr/local/bin/julia
 RUN julia -v
 RUN julia -e 'using Pkg;Pkg.update()'
 
