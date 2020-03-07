@@ -10,13 +10,14 @@ Data Science 에 자주 사용되는 Jupyter 와 Spark, CPU/GPU DeepLearning 및
 * Apache Spark
 
 시스템 요구사항
+
 * Ubuntu 18.04 LTS
 * Docker
 * Nvidia-Docker (for GPU)
 
 ## Git Clone
 
-```
+```bash
 > git clone https://github.com/comafire/docker-jupyter.git
 ```
 
@@ -52,17 +53,20 @@ https://github.com/NVIDIA/nvidia-docker
 
 ## Setup
 
-env.sh.template 파일을 env.sh 로 복사하여 설정 변경이 가능합니다.
+env.sh.template 파일을 env.sh 로 복사하여 설정 변경이 가능합니다. 
 
-```
+```bash
 #!/bin/bash
 
+export HOSTNAME="docker-jupyter" 
+export USERNAME=$(id -un) 
+export USERID=$(id -u $USERNAME)
 export LOCALE="ko_KR.UTF-8"
 
 # Jupyter
 export JUPYTER_NAME="jupyter"
 export JUPYTER_PORT="8010" # Your Jupyter Port
-export JUPYTER_VOLUME=$(pwd)
+export JUPYTER_HOME="$(pwd)"
 export JUPYTER_MNT="/data" # Your External Mount
 export JUPYTER_PASSWORD="notebooks" # Your Jupyter Password
 export JUPYTER_BASEURL="jupyter" # Your Jupyter BaseURL, ex) http://localhost:8010/jupyter
@@ -71,7 +75,7 @@ export JUPYTER_IMAGE="comafire/docker-jupyter"
 export JUPYTER_TAG="latest"
 export JUPYTER_GPU_IMAGE="comafire/docker-jupyter-gpu"
 export JUPYTER_GPU_TAG="latest"
-export JUPYTER_GPU="FALSE" # if you have Nvidia GPU, set TRUE
+export JUPYTER_GPU="FALSE"
 ```
 
 ## Build Docker Image
@@ -84,7 +88,7 @@ Dockerfile 을 제공하므로 커스텀 이미지 빌드도 가능합니다.
 
 ./docker_run_jupyter.sh 명령으로 Jupyter Docker 이미지를 실행할 수 있습니다.
 
-```
+```bash
 > ./docker_run_jupyter.sh
 > docker ps
 CONTAINER ID        IMAGE                                COMMAND              CREATED             STATUS              PORTS                                            NAMES
@@ -111,7 +115,7 @@ docker-jupyter 를 로컬 머신상이 아닌 Virtual Machine 상에서 설치 �
 
 Vagrant를 아래 명령으로 설치 합니다. vagrant 의 virtual box disk 사이즈 설정 플러그인 기능을 사용하기 위해 특정 버전의 vagrant 를 설치합니다.
 
-```
+```bash
 wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
 wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -
 sudo add-apt-repository "deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib"
@@ -128,7 +132,7 @@ Virtual Machine 에서 사용할 네트워크/메모리/디스크 설정은 Vagr
 
 docker-jupyter 디렉토리는 Virtual box 내에 /home/vagrant/docker-jupyter 와 마운트되게 됩니다.
 
-```
+```bash
 ENV["LC_ALL"] = "en_US.UTF-8"
 
 Vagrant.configure("2") do |config|

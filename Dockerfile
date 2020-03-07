@@ -1,15 +1,25 @@
 FROM nvidia/cuda:10.1-cudnn7-devel-ubuntu18.04
 LABEL maintainer="comafire@gmail.com"
 
+USER root
+
 # Bash
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
-USER root
-
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && apt-get install -y --no-install-recommends \
-apt-utils \
+apt-utils sudo \
 && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# User
+ARG username
+ARG userid
+ARG home=/home/${username}
+RUN echo "username=${username}, userid=${userid}"
+RUN adduser ${username} --uid ${userid} --gecos '' --disabled-password \
+&& echo "${username} ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/${username} \
+&& chmod 0440 /etc/sudoers.d/${username}
+
 
 # Lang
 ARG locale="ko_KR.UTF-8"
@@ -58,7 +68,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 openjdk-8-jdk maven
 
 # Scala
-ENV SCALA_VERSION 2.11.0
+ENV SCALA_VERSION 2.12.10
 ENV SCALA_HOME /usr/local/scala-${SCALA_VERSION}
 
 ENV PATH $PATH:$SCALA_HOME/bin
@@ -68,14 +78,15 @@ RUN curl -sL --retry 3 --insecure \
 && ln -s $SCALA_HOME /usr/local/scala
 
 # Julia
-ENV JULIA_VERSION 1.1.1
+ENV JULIA_VERSION=1.3.1
+ENV JULIA_HOME /usr/local/julia-${JULIA_VERSION}
 
-RUN apt-get update && apt-get install -y build-essential libatomic1 python gfortran perl wget m4 cmake pkg-config
-RUN cd /usr/local && git clone git://github.com/JuliaLang/julia.git && cd julia && git checkout v${JULIA_VERSION}
-RUN cd /usr/local/julia && make -j 4
-RUN sudo ln -s /usr/local/julia/usr/bin/julia /usr/local/bin/julia
-RUN /usr/local/julia/usr/bin/julia -v
-RUN ls -al /usr/local/bin
+ENV PATH $PATH:$JULIA_HOME/bin
+RUN mkdir ${JULIA_HOME} && cd /tmp && \
+    wget -q https://julialang-s3.julialang.org/bin/linux/x64/`echo ${JULIA_VERSION} | cut -d. -f 1,2`/julia-${JULIA_VERSION}-linux-x86_64.tar.gz && \
+    tar xzf julia-${JULIA_VERSION}-linux-x86_64.tar.gz -C ${JULIA_HOME} --strip-components=1 && \
+    rm /tmp/julia-${JULIA_VERSION}-linux-x86_64.tar.gz
+RUN ln -fs /usr/local/julia-*/bin/julia /usr/local/bin/julia
 RUN julia -v
 RUN julia -e 'using Pkg;Pkg.update()'
 
@@ -111,7 +122,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 nginx
 
 # SPARK
-ENV SPARK_VERSION 2.4.3
+ENV SPARK_VERSION 2.4.5
 ENV SPARK_PACKAGE spark-${SPARK_VERSION}-bin-hadoop2.7
 ENV SPARK_HOME /usr/local/spark-${SPARK_VERSION}
 ENV PYSPARK_PYTHON /usr/bin/python3
@@ -136,10 +147,14 @@ ENV SLUGIFY_USES_TEXT_UNIDECODE yes
 # Python3 Deps
 RUN pip3 install --cache-dir /tmp/pip3 --timeout 600 docker fabric pytest pycrypto
 RUN pip3 install --cache-dir /tmp/pip3 --timeout 600 numpy>=1.11.2
-RUN pip3 install --cache-dir /tmp/pip3 --timeout 600 scipy scikit-learn scikit-surprise xgboost statsmodels
-RUN pip3 install --cache-dir /tmp/pip3 --timeout 600 pandas pandas_ml pandas-datareader quandl h5py pyarrow imbalanced-learn
+RUN pip3 install --cache-dir /tmp/pip3 --timeout 600 scipy>=1.4.1 
+RUN pip3 install --cache-dir /tmp/pip3 --timeout 600 scikit-learn>=0.22.2 scikit-surprise>=1.1.0
+RUN pip3 install --cache-dir /tmp/pip3 --timeout 600 xgboost>=1.0.1
+RUN pip3 install --cache-dir /tmp/pip3 --timeout 600 statsmodels>=0.11.1
+RUN pip3 install --cache-dir /tmp/pip3 --timeout 600 imbalanced-learn>=0.6.2
+RUN pip3 install --cache-dir /tmp/pip3 --timeout 600 pandas>==1.0.1 pandas_ml pandas-datareader 
+RUN pip3 install --cache-dir /tmp/pip3 --timeout 600 quandl h5py pyarrow xlrd
 RUN pip3 install --cache-dir /tmp/pip3 --timeout 600 matplotlib seaborn
-RUN pip3 install --cache-dir /tmp/pip3 --timeout 600 awscli nbformat boto3 xlrd
 RUN pip3 install --cache-dir /tmp/pip3 --timeout 600 mysqlclient mysql-connector-python-rf pymysql psycopg2 sqlalchemy
 RUN pip3 install --cache-dir /tmp/pip3 --timeout 600 flask flask-restful flask-jwt-extended flask_bcrypt flask-sqlalchemy flask-testing
 RUN pip3 install --cache-dir /tmp/pip3 --timeout 600 nose passlib pybase62 uuid0 imageio
@@ -148,27 +163,28 @@ RUN pip3 install --cache-dir /tmp/pip3 --timeout 600 ghp-import2 nikola[extras]
 # DeepLearning
 ARG gpu="FALSE"
 ENV GPU ${gpu}
-ENV TENSORFLOW_VER 1.14.0
-ENV PYTORCH_VER 1.1.0
-ENV PYTORCH_VISION_VER 0.3.0
+ENV TENSORFLOW_VER 2.1.0
+ENV PYTORCH_VER 1.4.0
+ENV PYTORCH_VISION_VER 0.5.0
+ENV KERAS_VER 2.3.1
 RUN echo "GPU: $GPU"
+# Tensorflow
 RUN if [[ $GPU = *TRUE* ]] \
 ; then \
-# For Tensorflow GPU
-apt-get update && apt-get install -y --no-install-recommends \
-libcupti-dev nvidia-modprobe \
-&& pip3 install --cache-dir /tmp/pip3 --timeout 600 tensorflow-gpu==$TENSORFLOW_VER keras \
-https://download.pytorch.org/whl/cu100/torch-$PYTORCH_VER-cp35-cp35m-linux_x86_64.whl \
-https://download.pytorch.org/whl/cu100/torchvision-$PYTORCH_VISION_VER-cp35-cp35m-linux_x86_64.whl \
+apt-get update && apt-get install -y --no-install-recommends libcupti-dev nvidia-modprobe \
+&& pip3 install --cache-dir /tmp/pip3 --timeout 600 tensorflow-gpu==$TENSORFLOW_VER \
 ; else \
-pip3 install --cache-dir /tmp/pip3 --timeout 600 tensorflow==$TENSORFLOW_VER keras \
-torch \
-torchvision \
+pip3 install --cache-dir /tmp/pip3 --timeout 600 tensorflow==$TENSORFLOW_VER \
 ; fi
-
-# Airflow
-RUN pip3 install --cache-dir /tmp/pip3 --timeout 600 bleach>=2.1.2
-RUN pip3 install --cache-dir /tmp/pip3 --timeout 600 apache-airflow apache-airflow[s3,postgres,mysql,crypto,password]
+# PyTorch 
+RUN if [[ $GPU = *TRUE* ]] \
+; then \
+pip3 install --cache-dir /tmp/pip3 --timeout 600 torch==$PYTORCH_VER torchvision==$PYTORCH_VISION_VER \
+; else \
+pip3 install --cache-dir /tmp/pip3 --timeout 600 torch==$PYTORCH_VER+cpu torchvision==$PYTORCH_VISION_VER+cpu -f https://download.pytorch.org/whl/torch_stable.html \
+; fi
+# Keras
+RUN pip3 install --cache-dir /tmp/pip3 --timeout 600 keras>=$KERAS_VER
 
 # Jupyter Deps
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -177,21 +193,17 @@ texlive-xetex
 # Jupyter
 RUN pip3 install -v --no-cache-dir --timeout 600 jupyterlab
 
+# Airflow (wait apache-airflow 2.0)
+# RUN pip3 install --cache-dir /tmp/pip3 --timeout 600 apache-airflow
+# ENV AIRFLOW_HOME /home/${username}/mnt/airflow
+
 # Jupyter Python3 kernel
 RUN python3 -m pip install ipykernel
-RUN python3 -m ipykernel install --user
+RUN python3 -m ipykernel install 
 
 # Jupyter Scala
 RUN python3 -m pip install spylon-kernel
-RUN python3 -m spylon_kernel install --user
-
-# Jupyter Julia Kernel
-RUN julia -e 'import Pkg;Pkg.update()' && \
-julia -e 'import Pkg;Pkg.add("Gadfly")' && \
-julia -e 'import Pkg;Pkg.add("RDatasets")' && \
-julia -e 'import Pkg;Pkg.add("IJulia")' && \
-# Precompile Julia packages
-julia -e 'using IJulia'
+RUN python3 -m spylon_kernel install
 
 # Jupyter R kernel
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -200,14 +212,20 @@ RUN R -e "install.packages(c('curl', 'repr', 'httr'), repos='http://cran.rstudio
 RUN R -e "install.packages(c('pbdZMQ', 'devtools', 'IRdisplay', 'evaluate', 'crayon', 'uuid', 'digest'), repos='http://cran.rstudio.com/')"
 RUN R -e "install.packages(c('SparkR'), repos='http://cran.rstudio.com/')"
 RUN R -e "devtools::install_github('IRkernel/IRkernel')"
-RUN R -e "IRkernel::installspec()"
+RUN R -e "IRkernel::installspec(user = FALSE)"
 
-# for Airflow
-ENV AIRFLOW_HOME /root/volume/var/airflow
+# Change USER
+USER ${username}
+WORKDIR ${home}
+
+# Jupyter Julia Kernel
+RUN julia -e 'using Pkg;Pkg.update()' && \
+julia -e 'using Pkg;Pkg.add("IJulia")' && \
+# Precompile Julia packages
+julia -e 'using IJulia'
 
 # Env
-VOLUME /root/volume
-WORKDIR /root
+VOLUME /home/${username}/docker-jupyter
 
 # for Spark
 EXPOSE 4040 6066 7077 8080

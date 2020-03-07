@@ -25,4 +25,4 @@ TAG="$JUPYTER_TAG"
 fi
 
 $DOCKER rm -f $NAME
-$DOCKER run -i -t --name $NAME -v $JUPYTER_VOLUME:/root/volume $IMAGE:$TAG /bin/bash
+$DOCKER run -i -t --name $NAME --hostname $HOSTNAME -v $JUPYTER_HOME:/home/$USERNAME/docker-jupyter $IMAGE:$TAG /bin/bash
